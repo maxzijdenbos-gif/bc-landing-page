@@ -38,12 +38,16 @@ jobs:
       - name: Remove server-side pages
         run: |
           rm -rf src/pages/\[locale\]
-          rm -rf src/pages/amplience
+          rm -f src/pages/amplience/visualization/pages/content-page.tsx
           rm -rf src/pages/api
           rm -rf src/pages/debug
           rm -f src/pages/sitemap.xml.ts
-          rm -f src/pages/404.tsx
-          rm -f src/pages/_error.tsx
+          node -e "
+            const fs = require('fs');
+            let c = fs.readFileSync('src/pages/404.tsx', 'utf8');
+            c = c.replace(/export const getStaticProps[\s\S]*?^};/m, 'export const getStaticProps = async () => ({ props: {} });');
+            fs.writeFileSync('src/pages/404.tsx', c);
+          "
           cat > src/pages/index.tsx << 'EOF'
           import { useEffect } from 'react';
           import { useRouter } from 'next/router';
