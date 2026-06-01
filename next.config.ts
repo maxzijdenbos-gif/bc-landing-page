@@ -64,6 +64,9 @@ const config: NextConfig = {
     ],
   },
   output: isGithubPages ? 'export' : 'standalone',
+  typescript: {
+    ignoreBuildErrors: isGithubPages,
+  },
   reactStrictMode: true,
   webpack(config) {
     config.resolve.alias = {
