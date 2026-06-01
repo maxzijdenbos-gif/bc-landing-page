@@ -42,6 +42,8 @@ jobs:
           rm -rf src/pages/api
           rm -rf src/pages/debug
           rm -f src/pages/sitemap.xml.ts
+          rm -f src/pages/404.tsx
+          rm -f src/pages/_error.tsx
           cat > src/pages/index.tsx << 'EOF'
           import { useEffect } from 'react';
           import { useRouter } from 'next/router';
