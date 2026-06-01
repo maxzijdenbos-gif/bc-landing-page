@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 import Typography from 'components/atoms/typography/typography';
 import Button from 'components/molecules/button/button';
 import AnchorMenu, {
@@ -12,6 +13,7 @@ export interface BCHeroProps {
 }
 
 const BCHero = ({ anchorList }: BCHeroProps) => {
+  const { basePath } = useRouter();
   const videoRef = useRef<HTMLVideoElement>(null);
   const componentRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -45,7 +47,7 @@ const BCHero = ({ anchorList }: BCHeroProps) => {
             loop
             muted
             playsInline
-            src="/videos/BC_Video.mp4"
+            src={`${basePath}/videos/BC_Video.mp4`}
           />
           <div className={styles.overlay} />
         </div>
@@ -87,7 +89,7 @@ const BCHero = ({ anchorList }: BCHeroProps) => {
                 <img
                   alt=""
                   className={styles.colorSwatchImage}
-                  src="/images/Customize_color_swatch.png"
+                  src={`${basePath}/images/Customize_color_swatch.png`}
                 />
               </span>
               <Typography
