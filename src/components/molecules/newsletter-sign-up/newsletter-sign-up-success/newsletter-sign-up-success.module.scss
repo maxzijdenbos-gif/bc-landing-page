@@ -1,0 +1,13 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-xl 0;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    padding: $spacing-xxl;
+  }
+}

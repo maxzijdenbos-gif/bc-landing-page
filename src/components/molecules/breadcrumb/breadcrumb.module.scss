@@ -1,0 +1,119 @@
+@use 'styles/setup' as *;
+
+.component {
+  position: relative;
+  width: 100%;
+
+  .breadcrumbLinksWrapper {
+    display: flex;
+    flex-direction: row;
+    margin: rem(-10); // added negative margin to compensate for padding
+    max-width: calc(100% + rem(20)); // compensate for horizontal padding
+    overflow-x: auto;
+    padding: rem(10); // added padding to make focus ring visible (10px gap)
+
+    &:not(.centerItems) {
+      width: fit-content;
+    }
+
+    &.centerItems {
+      justify-content: center;
+    }
+  }
+
+  .breadcrumbText {
+    @include typography-bodySmall();
+
+    font-weight: $fontWeight-semiBold;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      @include typography-bodyMedium();
+
+      font-weight: $fontWeight-semiBold;
+    }
+  }
+
+  .gradientOverlay {
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    transition: opacity $speed-fast $easing-base;
+    width: $spacing-ml;
+    z-index: -1;
+
+    &.doDisplay {
+      opacity: 1;
+      z-index: 1;
+    }
+  }
+
+  .gradientOverlayLeft {
+    background: $gradient-linearColorRight;
+    left: -$spacing-sm;
+  }
+
+  .gradientOverlayRight {
+    background: $gradient-linearColorRight;
+    left: unset;
+    right: -$spacing-sm;
+    transform: rotate(180deg);
+  }
+
+  .breadcrumbListItem {
+    .breadcrumbLink {
+      display: flex;
+      gap: 1rem;
+      padding-right: 1rem;
+      white-space: nowrap;
+    }
+
+    // remove padding from last visual item
+    &:last-of-type {
+      .breadcrumbLink {
+        gap: 0;
+        padding-right: 0;
+      }
+    }
+
+    .breadcrumbText,
+    .divider {
+      transition: opacity $speed-medium $easing-base;
+    }
+  }
+
+  // Style hover and click for primary context
+  [data-color='primary'] & {
+    color: $context-contrastVariant;
+
+    .breadcrumbText:hover {
+      color: $context-accent;
+    }
+
+    .breadcrumbText:active {
+      color: $context-accentVariant;
+    }
+  }
+
+  // Style hover and click for secondary context
+  [data-color='secondary'] &,
+  [data-color='quaternary'] & {
+    color: $context-contrast;
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    .breadcrumbText,
+    .divider {
+      opacity: 0.83;
+    }
+
+    .breadcrumbText:active {
+      opacity: 1;
+    }
+
+    .breadcrumbLinksWrapper:hover {
+      .breadcrumbText:not(:hover),
+      .divider {
+        opacity: 0.6;
+      }
+    }
+  }
+}

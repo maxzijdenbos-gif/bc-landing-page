@@ -1,0 +1,65 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: targetBranch
+    value: $[variables['System.PullRequest.TargetBranch']]
+  - name: sourceBranch
+    value: $[variables['System.PullRequest.SourceBranch']]
+
+jobs:
+  - job: BranchValidation
+    displayName: Branch Protection Validation
+    steps:
+      - checkout: none
+
+      - task: PowerShell@2
+        displayName: Validate Merge Rules
+        inputs:
+          targetType: 'inline'
+          script: |
+            $targetBranch = "$(targetBranch)"
+            $sourceBranch = "$(sourceBranch)"
+
+            Write-Host "Target Branch: $targetBranch"
+            Write-Host "Source Branch: $sourceBranch"
+
+            $isValidMerge = $false
+            $errorMessage = ""
+
+            # Remove refs/heads/ prefix if present
+            $targetBranch = $targetBranch -replace '^refs/heads/', ''
+            $sourceBranch = $sourceBranch -replace '^refs/heads/', ''
+
+            # Check merge rules
+            if ($targetBranch -eq "main") {
+                # Merging to main: only allow from release/* or hotfix/*
+                if ($sourceBranch -match '^release/' -or $sourceBranch -match '^hotfix/') {
+                    $isValidMerge = $true
+                    Write-Host "✅ Valid merge: $sourceBranch → $targetBranch"
+                } else {
+                    $errorMessage = "❌ Invalid merge to main. Only release/* or hotfix/* branches can merge to main. Source: $sourceBranch"
+                }
+            } elseif ($targetBranch -match '^release/') {
+                # Merging to release/*: only allow from develop or bugfix/*
+                if ($sourceBranch -eq "develop" -or $sourceBranch -match '^bugfix/') {
+                    $isValidMerge = $true
+                    Write-Host "✅ Valid merge: $sourceBranch → $targetBranch"
+                } else {
+                    $errorMessage = "❌ Invalid merge to release branch. Only develop or bugfix/* branches can merge to release/*. Source: $sourceBranch"
+                }
+            } else {
+                $errorMessage = "❌ Unexpected target branch: $targetBranch"
+            }
+
+            if (-not $isValidMerge) {
+                Write-Host $errorMessage
+                Write-Host ""
+                Write-Host "Allowed merge patterns:"
+                Write-Host "  • release/* or hotfix/* → main"
+                Write-Host "  • develop or bugfix/* → release/*"
+                exit 1
+            }
+          failOnStderr: true

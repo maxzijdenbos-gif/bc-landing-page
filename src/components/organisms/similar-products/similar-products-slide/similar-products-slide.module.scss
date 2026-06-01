@@ -1,0 +1,73 @@
+@use 'styles/setup' as *;
+
+.component {
+  background: $gradient-tintColorTintLow;
+  height: 100%;
+
+  .cardLink {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &:focus-visible {
+      position: relative;
+      z-index: 1000;
+    }
+  }
+
+  .cardHeader {
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-m;
+    row-gap: $spacing-xs;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      row-gap: $spacing-s;
+    }
+  }
+
+  .title {
+    display: flex;
+    gap: $spacing-xxs;
+    overflow: hidden;
+  }
+
+  .ellipsis {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:first-child {
+      flex: 2;
+      max-width: fit-content;
+    }
+  }
+
+  .productImageContainer {
+    flex-grow: 1;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+  }
+
+  .productImage {
+    object-fit: contain;
+    padding: 0 0 $spacing-m;
+    padding: 0 $spacing-m $spacing-m;
+    transition: scale $speed-medium $easing-easeOut;
+  }
+
+  .tagsContainer {
+    display: flex;
+    gap: $spacing-xs;
+    height: $spacing-m;
+  }
+
+  &:hover {
+    .productImage {
+      scale: 1.055;
+    }
+  }
+}

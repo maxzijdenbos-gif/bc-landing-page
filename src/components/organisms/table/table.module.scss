@@ -1,0 +1,112 @@
+@use 'styles/setup' as *;
+
+.component {
+  .contentContainer {
+    display: grid;
+    row-gap: rem(24);
+  }
+
+  .scrollContainer {
+    margin: rem(-4); // to compensate for table outer border
+    overflow-x: auto;
+  }
+
+  .tableContainer {
+    min-width: 100%;
+    width: fit-content;
+  }
+
+  .tableContainer tbody {
+    vertical-align: top;
+  }
+
+  &.hasScroll {
+    .scrollContainer {
+      padding-bottom: rem(24);
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: $context-tint;
+      border-radius: rem(100);
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: $context-contrastVariant;
+      border-radius: rem(100);
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: $context-cta;
+      cursor: pointer;
+    }
+
+    ::-webkit-scrollbar {
+      cursor: pointer;
+      height: $spacing-xxs;
+    }
+  }
+
+  /* stylelint-disable-next-line selector-disallowed-list */
+  table {
+    border-spacing: rem(4);
+    width: 100%;
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    .fixTabelLayoutDesktop table {
+      table-layout: fixed;
+
+      /* stylelint-disable-next-line selector-disallowed-list */
+      th {
+        text-wrap: wrap; // need this as fixed table layout doesn't respect min-width and nowrap will lead to overflow
+      }
+    }
+  }
+
+  /* stylelint-disable-next-line selector-disallowed-list */
+  th,
+  td {
+    background-color: $context-tone;
+    padding: $spacing-sm $spacing-m;
+
+    @include typography-bodyLarge();
+  }
+  /* stylelint-disable-next-line selector-disallowed-list */
+  th {
+    font-weight: $fontWeight-bold;
+    text-align: left;
+    text-wrap: nowrap;
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      min-width: rem(220);
+    }
+
+    &:first-of-type {
+      min-width: rem(275);
+
+      @include breakpoint-up($breakpoint-tablet) {
+        min-width: rem(220);
+      }
+
+      @include breakpoint-up($breakpoint-smallLaptop) {
+        min-width: rem(260);
+      }
+
+      @include breakpoint-up($breakpoint-laptop) {
+        min-width: rem(400);
+      }
+    }
+  }
+  /* stylelint-disable-next-line selector-disallowed-list */
+  .doBrandColor th {
+    background-color: $context-accentVariant;
+    color: $context-tone;
+  }
+
+  .description {
+    color: $context-contrastVariant;
+  }
+}

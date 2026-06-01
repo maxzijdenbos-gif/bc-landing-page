@@ -1,0 +1,66 @@
+@use 'styles/setup' as *;
+
+.softLoader {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  justify-content: center;
+}
+
+.iconWrapper {
+  animation-duration: $speed-verySlow;
+  animation-iteration-count: infinite;
+  animation-name: pulseAnimation;
+  animation-timing-function: $easing-easeOut;
+  color: $context-tint;
+
+  &.reducedMotion {
+    animation: none;
+  }
+}
+
+.hardLoader {
+  align-items: center;
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  position: fixed;
+  z-index: $zIndex-navigation + 10; // Above navigation and modals
+}
+
+.backdrop {
+  background-color: rgb(0, 0, 0, 70%);
+  inset: 0;
+  position: absolute;
+
+  .reducedMotion & {
+    background-color: rgb(0, 0, 0, 85%);
+  }
+}
+
+.content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    opacity: 0.5;
+    scale: 1;
+  }
+
+  50% {
+    opacity: 1;
+    scale: 1.05;
+  }
+
+  100% {
+    opacity: 0.5;
+    scale: 1;
+  }
+}

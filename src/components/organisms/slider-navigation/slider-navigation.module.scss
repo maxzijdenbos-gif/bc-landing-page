@@ -1,0 +1,71 @@
+@use 'styles/setup' as *;
+
+.component {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  user-select: none;
+  z-index: 2;
+
+  .sliderSlot {
+    inset: 0;
+    pointer-events: auto;
+    position: absolute;
+    z-index: 0;
+  }
+
+  &.wrapContent {
+    inset: unset;
+    position: relative;
+
+    .sliderSlot {
+      inset: unset;
+      position: relative;
+    }
+  }
+
+  .arrowLeft,
+  .arrowRight {
+    pointer-events: all;
+    position: absolute;
+    top: calc(50% - (var(--slider-bottom-padding, 0px) / 2));
+    transform: translateY(-50%);
+  }
+
+  .arrowLeft {
+    left: $spacing-s;
+    z-index: 1;
+  }
+
+  .arrowRight {
+    right: $spacing-s;
+    z-index: 1;
+  }
+
+  .pagination {
+    bottom: 0;
+    pointer-events: all;
+    z-index: 1;
+  }
+
+  .close {
+    border-radius: $borderRadius-round;
+    cursor: pointer;
+    display: block;
+    padding: rem(5);
+    pointer-events: all;
+    position: absolute;
+    right: $spacing-xs;
+    top: $spacing-xs;
+
+    &:focus-visible::after {
+      border-radius: inherit; // Inherit rounded shape for focus ring
+    }
+
+    .icon {
+      height: rem(24);
+      margin: $spacing-s;
+      width: rem(24);
+    }
+  }
+}

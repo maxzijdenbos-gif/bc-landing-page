@@ -1,0 +1,57 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  min-height: 50vh;
+
+  .select {
+    appearance: auto;
+    border: rem(2) solid $context-contrast;
+  }
+
+  .noContent {
+    margin-block: $spacing-xxs;
+    padding: $spacing-s;
+  }
+
+  .dialog[open] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    inset: 0;
+    justify-content: center;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    &::backdrop {
+      @include background-blur-strong($context-contrast);
+    }
+  }
+
+  .dialogContent {
+    align-items: center;
+    background-color: $context-color;
+    border-radius: $borderRadius-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-ml;
+    justify-content: center;
+    padding: $spacing-m;
+    text-align: center;
+    width: 50%;
+  }
+
+  .dialogHeader {
+    margin-bottom: $spacing-s;
+  }
+
+  .dialogButtons {
+    display: flex;
+    gap: $spacing-sm;
+  }
+}

@@ -1,0 +1,94 @@
+@use 'styles/setup' as *;
+@use 'styles/fonts' as *;
+@use 'styles/elements' as *;
+@use 'styles/themes/root' as *;
+@use 'styles/themes/liv' as *;
+
+/* stylelint-disable selector-disallowed-list */
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &,
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  color-scheme: light;
+  font-size: vw($scale);
+  height: 100%;
+  margin: 0;
+  -ms-overflow-style: scrollbar;
+
+  @include breakpoint-up($breakpoint-mobile) {
+    font-size: 50%;
+  }
+}
+
+body {
+  @include typography-bodyMedium();
+
+  background-color: $context-color;
+  color: $context-contrast;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+#app {
+  @each $key, $context in $contexts {
+    &[data-page-color='#{$key}'] {
+      @include context($key);
+    }
+  }
+
+  background-color: $context-color;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* stylelint-disable-next-line selector-id-pattern */
+#main-content {
+  flex-grow: 1;
+  padding-top: $height-mainNavigationMobile;
+  position: relative;
+  z-index: 1;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    padding-top: $height-mainNavigationDesktop;
+  }
+}
+
+.screenReaderOnly {
+  border: 0;
+  /* stylelint-disable-next-line property-no-deprecated */
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  * {
+    /* stylelint-disable-next-line declaration-no-important */
+    animation: none !important;
+    /* stylelint-disable-next-line declaration-no-important */
+    scroll-behavior: auto !important;
+    /* stylelint-disable-next-line declaration-no-important */
+    transition: none !important;
+  }
+}

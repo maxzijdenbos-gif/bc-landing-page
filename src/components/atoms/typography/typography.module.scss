@@ -1,0 +1,167 @@
+@use 'styles/setup' as *;
+
+.component.actionSmall {
+  @include typography-actionSmall();
+
+  &.isHeavy {
+    font-weight: $fontWeight-heavy;
+    text-transform: $textTransform-actionBold;
+  }
+}
+
+.component.actionMedium {
+  @include typography-actionMedium();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+    text-transform: $textTransform-actionBold;
+  }
+
+  &.isHeavy {
+    font-weight: $fontWeight-heavy;
+  }
+
+  &.isSemibold {
+    font-weight: $fontWeight-semiBold;
+  }
+}
+
+.component.actionLarge {
+  @include typography-actionLarge();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.bodyXSmall {
+  @include typography-bodyXSmall();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.bodySmall {
+  @include typography-bodySmall();
+
+  &.isSemibold {
+    font-weight: $fontWeight-semiBold;
+  }
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+
+  &.isItalic {
+    font-style: italic;
+  }
+}
+
+.component.bodyMedium {
+  @include typography-bodyMedium();
+
+  &.isSemibold {
+    font-weight: $fontWeight-semiBold;
+  }
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.bodyLarge {
+  @include typography-bodyLarge();
+
+  &.isSemibold {
+    font-weight: $fontWeight-semiBold;
+  }
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+
+  &.isItalic {
+    font-style: italic;
+  }
+}
+
+.component.bodyXLarge {
+  @include typography-bodyXLarge();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.headlineSmall {
+  @include typography-headlineSmall();
+
+  &.isSemibold {
+    font-weight: $fontWeight-semiBold;
+  }
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.headlineMedium {
+  @include typography-headlineMedium();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.headlineLarge {
+  @include typography-headlineLarge();
+
+  &.isBold {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.component.displayXSmall {
+  @include typography-displayXSmall();
+
+  &.isHeavy {
+    font-weight: $fontWeight-heavy;
+  }
+}
+
+.component.displaySmall {
+  @include typography-displaySmall();
+}
+
+.component.displayMedium {
+  @include typography-displayMedium();
+}
+
+.component.displayLarge {
+  @include typography-displayLarge();
+}
+
+.component.displayXLarge {
+  @include typography-displayXLarge();
+}
+
+.component.displayXXLarge {
+  @include typography-displayXXLarge();
+}
+
+.component.recutContainer {
+  display: inline;
+}
+
+.doRecut {
+  .component.displayLarge &,
+  .component.displayMedium &,
+  .component.displaySmall &,
+  .component.displayXLarge &,
+  .component.displayXXLarge &,
+  .component.component.displayXSmall & {
+    font-family: $fontFamily-displayRecut;
+    font-weight: 400; // adding font weight even though it is defined in the font face to handle firefox and safari bold render
+  }
+}

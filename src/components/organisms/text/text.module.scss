@@ -1,0 +1,13 @@
+@use 'styles/setup' as *;
+
+.component {
+  .buttonList {
+    margin-top: $spacing-ml;
+  }
+
+  @include breakpoint-up($breakpoint-laptop) {
+    .buttonList {
+      margin-top: $spacing-m;
+    }
+  }
+}

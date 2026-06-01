@@ -1,0 +1,68 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - echo "ACCESS_AMPLIENCE_CONFIG_DELIVERY_KEY=$ACCESS_AMPLIENCE_CONFIG_DELIVERY_KEY" >> .env.production
+        - echo "ACCESS_AMPLIENCE_SECRET_KEY_AMPLIENCE=$ACCESS_AMPLIENCE_SECRET_KEY_AMPLIENCE" >> .env.production
+        - echo "ACCESS_AMPLIENCE_SECRET_KEY_INTERNAL=$ACCESS_AMPLIENCE_SECRET_KEY_INTERNAL" >> .env.production
+        - echo "ACCESS_RESTRICTED_LOCALE_PASSWORD_HASH=$ACCESS_RESTRICTED_LOCALE_PASSWORD_HASH" >> .env.production
+        - echo "ACCESS_RESTRICTED_LOCALE_USERNAME_HASH=$ACCESS_RESTRICTED_LOCALE_USERNAME_HASH" >> .env.production
+        - echo "AMPLIENCE_GLOBAL_REPOSITORY_ID=$AMPLIENCE_GLOBAL_REPOSITORY_ID" >> .env.production
+        - echo "AMPLIENCE_PAT=$AMPLIENCE_PAT" >> .env.production
+        - echo "AMPLIENCE_NEXT_API_ROUTE_KEY=$AMPLIENCE_NEXT_API_ROUTE_KEY" >> .env.production
+        - echo "ECOMMERCE_API_URL=$ECOMMERCE_API_URL" >> .env.production
+        - echo "ECOMMERCE_OCP_APIM_SUBSCRIPTION_KEY=$ECOMMERCE_OCP_APIM_SUBSCRIPTION_KEY" >> .env.production
+        - echo "KLAVIYO_API_KEY=$KLAVIYO_API_KEY" >> .env.production
+        - echo "KLAVIYO_NEWSLETTER_LIST_ID=$KLAVIYO_NEWSLETTER_LIST_ID" >> .env.production
+        - echo "NEXT_PUBLIC_ALLOWED_LOCALES=$NEXT_PUBLIC_ALLOWED_LOCALES" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_BASE_PATH=$NEXT_PUBLIC_AMPLIENCE_BASE_PATH" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_GLOBAL_LOCALE=$NEXT_PUBLIC_AMPLIENCE_GLOBAL_LOCALE" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_HUB_ID=$NEXT_PUBLIC_AMPLIENCE_HUB_ID" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_MAIN_SITE_URL=$NEXT_PUBLIC_AMPLIENCE_MAIN_SITE_URL" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_STAGING_ENV=$NEXT_PUBLIC_AMPLIENCE_STAGING_ENV" >> .env.production
+        - echo "NEXT_PUBLIC_AMPLIENCE_VISUALISATION_DOMAIN=$NEXT_PUBLIC_AMPLIENCE_VISUALISATION_DOMAIN" >> .env.production
+        - echo "NEXT_PUBLIC_AVAILABLE_COUNTRIES=$NEXT_PUBLIC_AVAILABLE_COUNTRIES" >> .env.production
+        - echo "NEXT_PUBLIC_DEFAULT_LOCALE=$NEXT_PUBLIC_DEFAULT_LOCALE" >> .env.production
+        - echo "NEXT_PUBLIC_DOMAIN_NAME=$NEXT_PUBLIC_DOMAIN_NAME" >> .env.production
+        - echo "NEXT_PUBLIC_GOOGLE_ANALYTICS=$NEXT_PUBLIC_GOOGLE_ANALYTICS" >> .env.production
+        - echo "NEXT_PUBLIC_THEME_NAME=$NEXT_PUBLIC_THEME_NAME" >> .env.production
+        - echo "NEXT_PUBLIC_VWO_ACCOUNT_ID=$NEXT_PUBLIC_VWO_ACCOUNT_ID" >> .env.production
+        - echo "NEXT_PUBLIC_VWO_SETTINGS_TOLERANCE=$NEXT_PUBLIC_VWO_SETTINGS_TOLERANCE" >> .env.production
+        - echo "NODE_ENV=$NODE_ENV" >> .env.production
+        - echo "REVALIDATE_TIME=$REVALIDATE_TIME" >> .env.production
+        - echo "NEXT_TELEMETRY_DISABLED=1" >> .env.production
+        - nvm install
+        - npm ci --include=dev --audit=false
+    build:
+      commands:
+        # Run Storybook build
+        - |
+          if [ "$BUILD_TARGET" = "storybook" ]; then
+            npm run build-storybook
+          fi
+
+        # Run Next.js build
+        - |
+          if [ "$BUILD_TARGET" = "nextjs" ]; then
+            npm run build
+          fi
+
+        # Select artifact output
+        - rm -rf dist
+        - mkdir dist
+
+        - |
+          if [ "$BUILD_TARGET" = "storybook" ]; then
+            cp -r storybook-static/* dist/
+          else
+            cp -r .next/* dist/
+          fi
+  artifacts:
+    baseDirectory: dist
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - ".next/cache/**/*"
+      - ".npm/**/*"

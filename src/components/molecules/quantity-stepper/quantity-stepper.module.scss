@@ -1,0 +1,54 @@
+@use 'styles/setup' as *;
+
+$size: rem(38);
+
+.component {
+  border: rem(1) solid $context-tint;
+  border-radius: $borderRadius-round;
+  display: flex;
+}
+
+.quantity {
+  @include typography-headlineSmall();
+
+  align-items: center;
+  display: flex;
+  font-weight: $fontWeight-bold;
+  height: $size;
+  justify-content: center;
+  min-width: $size;
+  padding: rem(4);
+}
+
+.button {
+  align-items: center;
+  border: none;
+  border-radius: $borderRadius-round;
+  cursor: pointer;
+  display: flex;
+  height: $size;
+  justify-content: center;
+  transition: $speed-medium $easing-base;
+  width: $size;
+
+  &:focus-visible {
+    &::after {
+      border-radius: inherit;
+    }
+  }
+
+  &:disabled {
+    color: $context-tint;
+    cursor: not-allowed;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover:not(:disabled) {
+      background: $context-tint;
+    }
+  }
+
+  &Decrement {
+    order: -1;
+  }
+}

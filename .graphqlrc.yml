@@ -1,0 +1,2 @@
+schema: 'https://giantdev.cdn.content.amplience.net/graphql'
+documents: ['**/*.{graphql,js,ts,jsx,tsx}']

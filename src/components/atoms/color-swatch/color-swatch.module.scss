@@ -1,0 +1,12 @@
+@use 'styles/setup' as *;
+
+.component {
+  border-radius: 100%;
+  height: rem(24);
+  width: rem(24);
+
+  &.medium {
+    height: rem(32);
+    width: rem(32);
+  }
+}

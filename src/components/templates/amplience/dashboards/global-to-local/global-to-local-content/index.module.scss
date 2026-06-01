@@ -1,0 +1,19 @@
+@use 'styles/setup' as *;
+
+.component {
+  box-sizing: border-box;
+  max-width: rem(1440);
+  padding: $spacing-ml;
+  width: 100%;
+
+  .title {
+    margin-bottom: $spacing-ml;
+  }
+
+  .loader {
+    align-items: center;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+  }
+}

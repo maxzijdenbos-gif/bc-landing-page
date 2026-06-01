@@ -1,0 +1,53 @@
+@use 'styles/setup' as *;
+
+.component {
+  color: $context-contrast;
+  overflow: hidden;
+  position: relative;
+  transition: fill $speed-medium $easing-base;
+
+  [data-color='secondary'] &,
+  [data-nav-color='secondary'] &,
+  [data-page-color='secondary']:not([data-nav-color='primary']) & {
+    @include context('secondary');
+  }
+
+  .svg {
+    left: -50%;
+    position: absolute;
+  }
+
+  .mainLine {
+    --start-position: 0%;
+    --end-position: 50%;
+  }
+
+  .pseudoLine {
+    --start-position: -50%;
+    --end-position: 0%;
+  }
+
+  .mainLine,
+  .pseudoLine {
+    transform: translate3d(var(--start-position), 0, 0);
+  }
+
+  &.doAnimation {
+    .mainLine,
+    .pseudoLine {
+      animation-duration: $speed-medium;
+      animation-name: pushRight;
+      animation-timing-function: $easing-easeOut;
+    }
+  }
+}
+
+@keyframes pushRight {
+  0% {
+    transform: translate3d(var(--start-position), 0, 0);
+  }
+
+  100% {
+    transform: translate3d(var(--end-position), 0, 0);
+  }
+}

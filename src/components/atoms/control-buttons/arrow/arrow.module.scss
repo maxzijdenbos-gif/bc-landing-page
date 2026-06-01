@@ -1,0 +1,29 @@
+@use 'styles/setup' as *;
+
+.component {
+  @include background-blur-strong($context-tint);
+
+  aspect-ratio: 1;
+  border-radius: $borderRadius-round;
+  cursor: pointer;
+  min-height: rem(40);
+  min-width: rem(40);
+
+  &:focus-visible::after {
+    border-radius: inherit; // Inherit rounded shape for focus ring
+  }
+
+  .icon {
+    padding-top: rem(4);
+
+    &.isMobile {
+      padding-top: rem(5);
+    }
+  }
+
+  &[disabled] {
+    background-color: $context-tintVariant;
+    color: $context-tint;
+    cursor: initial;
+  }
+}

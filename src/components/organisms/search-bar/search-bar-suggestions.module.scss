@@ -1,0 +1,150 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+.component {
+  background: $palette-white;
+  color: $palette-black;
+  padding: $spacing-m 0;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: $spacing-s;
+    overflow-block: auto;
+    overscroll-behavior-block: contain;
+  }
+
+  @include breakpoint-up($breakpoint-tablet) {
+    border-radius: $borderRadius-xl;
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    margin-top: $spacing-xs;
+    position: absolute;
+    right: 0;
+    transform-origin: top right;
+    transition:
+      opacity $speed-medium $easing-base,
+      transform $speed-medium $easing-base;
+    width: max-content;
+
+    @starting-style {
+      opacity: 0;
+      scale: 0.2;
+    }
+
+    &.multipleSections {
+      position: fixed;
+      right: $spacing-m;
+    }
+  }
+}
+
+.section {
+  padding-inline: $spacing-s;
+  width: 100%;
+
+  &:last-child {
+    .suggestionsMobileSectionReverse & {
+      order: -1;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-tablet) {
+    width: rem(335);
+
+    &:not(:last-child) {
+      border-right: 1px solid $context-tint;
+    }
+
+    &:last-child {
+      .suggestionsMobileSectionReverse & {
+        order: initial;
+      }
+    }
+  }
+}
+
+.heading {
+  padding: 0 $spacing-s $spacing-xs;
+}
+
+.link {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: $borderRadius-md;
+  display: flex;
+  gap: $spacing-s;
+  padding: $spacing-s;
+  transition: $speed-medium $easing-base;
+  transition-property: border-color background-color;
+
+  @media (hover: hover) {
+    &:hover {
+      border-color: $context-contrastVariant;
+    }
+  }
+}
+
+.icon {
+  color: $context-contrastVariant;
+}
+
+.brandLogo {
+  display: block;
+  height: rem(16);
+  margin-top: $spacing-xxs;
+
+  &[aria-label*='liv' i] {
+    color: $palette-purple90;
+    width: rem(42);
+  }
+
+  &[aria-label*='giant' i] {
+    color: $palette-blue90;
+    width: rem(85);
+  }
+
+  &[aria-label*='momentum' i] {
+    color: $palette-red100;
+    width: rem(101);
+  }
+}
+
+.image {
+  align-self: flex-start;
+  flex: 0 0 48px;
+}
+
+.title {
+  flex-grow: 1;
+
+  /* stylelint-disable-next-line selector-disallowed-list */
+  mark {
+    font-weight: $fontWeight-bold;
+  }
+}
+
+.subtitle {
+  color: $context-contrastVariant;
+}
+
+.highlight {
+  font-weight: $fontWeight-bold;
+}
+
+.bottomLink {
+  @include typography-bodyMedium();
+
+  align-items: center;
+  display: flex;
+  font-weight: $fontWeight-bold;
+  gap: $spacing-xs;
+  padding: $spacing-s;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}

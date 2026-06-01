@@ -1,0 +1,23 @@
+@use 'styles/setup' as *;
+
+.component {
+  background-color: $context-color;
+  height: rem(4);
+  left: 0;
+  position: fixed;
+  top: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  width: 100%;
+  z-index: $zIndex-navigation + 2;
+}
+
+.component.isVisible {
+  transform: scaleX(0.75);
+  transition: transform 2s $easing-base;
+}
+
+.component.isDone {
+  transform: scaleX(1);
+  transition: transform $speed-medium $easing-base;
+}

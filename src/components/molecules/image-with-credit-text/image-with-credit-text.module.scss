@@ -1,0 +1,28 @@
+@use 'styles/setup' as *;
+
+$maskingRatio: 0.1;
+$maskingPercentage: calc($maskingRatio * 100%);
+
+.component {
+  .imageWrapper {
+    aspect-ratio: 16 / 9; // fallback aspect ratio if no height and width is provided from CMS
+    display: block;
+    height: auto;
+    position: relative;
+    width: 100%;
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .creditText {
+    color: $context-contrastVariant;
+    font-style: italic;
+    padding-top: $spacing-sm;
+  }
+}
+
+:export {
+  maskingRatio: $maskingRatio;
+}

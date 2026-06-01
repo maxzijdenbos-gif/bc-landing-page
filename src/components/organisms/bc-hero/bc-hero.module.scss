@@ -1,0 +1,185 @@
+@use 'styles/setup' as *;
+
+// Remove the top padding of whatever content module immediately follows BCHero
+.wrapper + :global([data-color]) {
+  padding-top: 0;
+}
+
+.component {
+  @include context('secondary');
+
+  margin-top: -$height-mainNavigationMobile;
+  min-height: 100svh;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: -$height-mainNavigationDesktop;
+  }
+}
+
+// Clips the video and overlay without trapping the sticky anchor menu
+.mediaLayer {
+  inset: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+.video {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+.overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // Reduced by one navHeight so the anchor menu (net height = navHeight) fills
+  // the remainder and the hero section totals exactly 100svh.
+  min-height: calc(100svh - #{$height-mainNavigationMobile});
+  padding-bottom: calc(#{$height-mainNavigationMobile} + #{$spacing-xl});
+  padding-left: $spacing-sm;
+  padding-right: $spacing-sm;
+  padding-top: calc(#{$height-mainNavigationMobile} + #{$spacing-xl});
+  position: relative;
+  z-index: 2;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    min-height: calc(100svh - #{$height-mainNavigationDesktop});
+    padding-bottom: calc(#{$height-mainNavigationDesktop} + #{$spacing-xxl});
+    padding-left: $spacing-m;
+    padding-right: $spacing-m;
+    padding-top: calc(#{$height-mainNavigationDesktop} + #{$spacing-xl});
+  }
+}
+
+.headlineArea {
+  // sits at the top of the flex column
+}
+
+.title {
+  color: $context-contrast;
+  max-width: 100%;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    max-width: 73%; // matches Figma: ~1055 / 1440
+  }
+}
+
+.titleLine {
+  display: block;
+}
+
+.contentArea {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    max-width: rem(478); // Figma value
+    // leave room for pause button on the right
+    margin-right: rem(88);
+  }
+}
+
+.heroText {
+  color: $context-contrast;
+}
+
+// CTA button: pill shape with white border, color swatch + label
+.ctaButton {
+  align-items: center;
+  background: transparent;
+  border: rem(2) solid $context-contrast;
+  border-radius: rem(1000);
+  cursor: pointer;
+  display: flex;
+  gap: rem(12);
+  padding: rem(8) rem(16) rem(8) rem(8);
+  transition: background $speed-medium $easing-base, border-color $speed-medium $easing-base;
+  width: fit-content;
+
+  &:hover {
+    background: #0050fc;
+    border-color: #0050fc;
+  }
+
+  &:focus-visible {
+    outline: rem(2) solid $color-focusOutline;
+    outline-offset: rem(4);
+  }
+}
+
+// Circular color swatch from Figma image fill
+.colorSwatch {
+  border: rem(1) solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  display: block;
+  flex-shrink: 0;
+  height: rem(34);
+  overflow: hidden;
+  position: relative;
+  width: rem(34);
+}
+
+.colorSwatchImage {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.ctaLabel {
+  color: $context-contrast;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+// Pause / play button — absolute bottom-right
+.pauseArea {
+  bottom: $spacing-xl;
+  position: absolute;
+  right: $spacing-sm;
+  z-index: 3;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    bottom: $spacing-xxl;
+  }
+}
+
+.pauseButtonInner {
+  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  height: rem(64);
+  width: rem(64);
+}
+
+.anchorMenuHero {
+  --context-color: rgba(24, 22, 22, 0.3) !important;
+  backdrop-filter: blur(4px);
+  // Cancel the negative pull that exists to overlap the nav when sticking;
+  // inside the hero we want it flush at the bottom of the section instead.
+  margin-top: 0 !important;
+
+  // Collapse the nav-height spacer (backdrop div) — not needed inside a hero
+  > :first-child {
+    height: 0;
+  }
+}

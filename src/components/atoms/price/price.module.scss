@@ -1,0 +1,25 @@
+@use 'styles/setup' as *;
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+.small {
+  @include typography-headlineSmall();
+
+  font-weight: $fontWeight-bold;
+}
+
+.medium {
+  @include typography-headlineMedium();
+
+  font-weight: $fontWeight-bold;
+}
+
+.important {
+  color: $context-alert;
+}
+
+.muted {
+  color: $context-contrastVariant;
+}

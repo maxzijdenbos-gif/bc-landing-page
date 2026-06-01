@@ -1,0 +1,78 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+@use 'styles/variables/general' as *;
+
+.component {
+  .row {
+    display: flex;
+    justify-content: space-between;
+
+    .totalLabel {
+      flex-shrink: 0;
+      text-transform: uppercase;
+    }
+
+    .value {
+      flex-shrink: 0;
+    }
+
+    .discountValue {
+      color: $palette-red90;
+      flex-shrink: 0;
+    }
+  }
+
+  .totals {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xxs;
+    margin-bottom: $spacing-xs;
+
+    .row {
+      align-items: center;
+    }
+  }
+
+  .label {
+    flex-shrink: 0;
+  }
+
+  .labelGroup {
+    display: flex;
+    gap: $spacing-xxs;
+
+    .destinationFeeInfoTrigger {
+      &:focus-visible::after {
+        content: none;
+      }
+
+      &:-moz-focusring::after {
+        content: none;
+      }
+    }
+
+    .feeDescriptionHtml a {
+      text-decoration: underline;
+    }
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid $palette-grey10;
+    margin: $spacing-xs 0;
+  }
+
+  .checkoutAction {
+    margin-top: $spacing-sm;
+  }
+
+  .action {
+    width: 100%;
+  }
+
+  .checkoutUnavailableHint {
+    color: $palette-red90;
+    margin: $spacing-sm 0 0;
+    text-align: center;
+  }
+}

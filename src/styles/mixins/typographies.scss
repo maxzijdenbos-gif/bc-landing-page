@@ -1,0 +1,273 @@
+@use 'styles/functions/units' as *;
+@use 'styles/mixins/breakpoints' as *;
+@use 'styles/variables/breakpoints' as *;
+@use 'styles/variables/general' as *;
+
+@mixin typography-actionSmall() {
+  font-family: $fontFamily-action;
+  font-size: rem(12);
+  font-weight: $fontWeight-heavy;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-action;
+
+  @content;
+}
+
+@mixin typography-actionMedium() {
+  font-family: $fontFamily-action;
+  font-size: rem(14);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-action;
+
+  @content;
+}
+
+@mixin typography-actionLarge() {
+  font-family: $fontFamily-action;
+  font-size: rem(16);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-action;
+
+  @content;
+}
+
+@mixin typography-bodyXSmall() {
+  font-family: $fontFamily-body;
+  font-size: rem(10);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-body;
+
+  @content;
+}
+
+@mixin typography-bodySmall() {
+  font-family: $fontFamily-body;
+  font-size: rem(12);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-body;
+
+  @content;
+}
+
+@mixin typography-bodyMedium() {
+  font-family: $fontFamily-body;
+  font-size: rem(14);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-body;
+
+  @content;
+}
+
+@mixin typography-bodyLarge() {
+  font-family: $fontFamily-body;
+  font-size: rem(16);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-body;
+
+  @content;
+}
+
+@mixin typography-bodyXLarge() {
+  font-family: $fontFamily-body;
+  font-size: rem(20);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-body;
+  text-transform: $textTransform-body;
+
+  @content;
+}
+
+@mixin typography-headlineSmall() {
+  font-family: $fontFamily-headline;
+  font-size: rem(14);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-headline;
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(16);
+  }
+}
+
+@mixin typography-headlineMedium() {
+  font-family: $fontFamily-headline;
+  font-size: rem(18);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-headline;
+  text-transform: $textTransform-headline;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(20);
+  }
+}
+
+@mixin typography-headlineLarge() {
+  font-family: $fontFamily-headline;
+  font-size: rem(22);
+  font-weight: $fontWeight-regular;
+  line-height: $lineHeight-headline;
+  text-transform: $textTransform-headline;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(24);
+  }
+}
+
+@mixin typography-displayXSmall() {
+  font-family: $fontFamily-display;
+  font-size: rem(20);
+  font-weight: $fontWeight-regular;
+  line-height: rem(24);
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(24);
+    line-height: rem(28);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(28);
+    line-height: rem(32);
+    line-height: $lineHeight-display;
+  }
+}
+
+@mixin typography-displaySmall() {
+  font-family: $fontFamily-display;
+  font-size: rem(24);
+  font-weight: $fontWeight-heavy;
+  line-height: rem(28);
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(32);
+    line-height: rem(36);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(36);
+    line-height: $lineHeight-display;
+  }
+}
+
+@mixin typography-displayMedium() {
+  font-family: $fontFamily-display;
+  font-size: rem(32);
+  font-weight: $fontWeight-heavy;
+  line-height: rem(36);
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(40);
+    line-height: rem(44);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(48);
+    line-height: $lineHeight-display;
+  }
+}
+
+@mixin typography-displayLarge() {
+  font-family: $fontFamily-display;
+  font-size: rem(40);
+  font-weight: $fontWeight-heavy;
+  line-height: $lineHeight-display;
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(48);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(56);
+  }
+}
+
+@mixin typography-displayXLarge() {
+  font-family: $fontFamily-display;
+  font-size: rem(40);
+  font-weight: $fontWeight-heavy;
+  line-height: $lineHeight-display;
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(56);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(80);
+  }
+}
+
+@mixin typography-displayXXLarge() {
+  font-family: $fontFamily-display;
+  font-size: rem(56);
+  font-weight: $fontWeight-heavy;
+  line-height: $lineHeight-display;
+  text-transform: $textTransform-display;
+
+  @content;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    font-size: rem(96);
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    font-size: rem(140);
+  }
+}
+
+// mixin for link active state underline
+@mixin textLinkUnderline() {
+  position: relative;
+
+  &::before {
+    border-bottom: rem(2) solid currentcolor;
+    bottom: rem(-4);
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    transition: width $speed-medium $easing-base;
+    width: 0;
+
+    @media (prefers-reduced-motion) {
+      transition: none;
+    }
+  }
+
+  &:hover {
+    @include textLinkUnderlineActiveState();
+  }
+}
+
+@mixin textLinkUnderlineActiveState() {
+  &::before {
+    left: 0;
+    right: unset;
+    width: 100%;
+  }
+}

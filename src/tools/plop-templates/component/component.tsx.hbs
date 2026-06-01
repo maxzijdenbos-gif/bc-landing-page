@@ -1,0 +1,17 @@
+import styles from './{{kebabCase componentName}}.module.scss';
+
+export interface {{pascalCase componentName}}Props {
+  example: string;
+}
+
+const {{pascalCase componentName}} = ({ example }: {{pascalCase componentName}}Props) => {
+  return (
+    <div className={styles.component}>
+      {example}
+    </div>
+  );
+};
+
+{{pascalCase componentName}}.displayName = '{{pascalCase componentName}}';
+
+export default {{pascalCase componentName}};

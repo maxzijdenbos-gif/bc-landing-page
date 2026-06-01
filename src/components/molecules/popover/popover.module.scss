@@ -1,0 +1,155 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+$background-color: $palette-white;
+$arrow-size: rem(12);
+$arrow-overlap: rem(6.7);
+$default-gap: 5px;
+
+.root {
+  anchor-scope: --popover-trigger;
+  display: inline-flex;
+
+  --popover-gap: #{$default-gap};
+}
+
+.trigger {
+  align-items: center;
+  anchor-name: --popover-trigger;
+  background: none;
+  border: none;
+  border-radius: $borderRadius-round;
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  padding: rem(2);
+
+  &:focus-visible {
+    outline: $borderWidth-md solid $color-focusOutline;
+    outline-offset: $offset-focusOutline;
+  }
+}
+
+/* Popover wrapper: anchor positioning when supported; fallback uses fixed on .content */
+.popover {
+  margin: unset;
+  overflow: visible;
+}
+
+.popover:not([data-anchor-fallback]) {
+  position-anchor: --popover-trigger;
+}
+
+/* position-area and flip fallback by preferred side */
+.popover:not([data-anchor-fallback])[data-preferred-side='top'] {
+  position-area: top;
+  position-try-fallbacks: flip-block;
+}
+
+.popover:not([data-anchor-fallback])[data-preferred-side='bottom'] {
+  position-area: bottom;
+  position-try-fallbacks: flip-block;
+}
+
+.popover:not([data-anchor-fallback])[data-preferred-side='left'] {
+  position-area: left;
+  position-try-fallbacks: flip-inline;
+}
+
+.popover:not([data-anchor-fallback])[data-preferred-side='right'] {
+  position-area: right;
+  position-try-fallbacks: flip-inline;
+}
+
+/* Gap between trigger and popover (uses effective side after flip) */
+.popover[data-side='top'] {
+  margin-block-end: var(--popover-gap);
+}
+
+.popover[data-side='bottom'] {
+  margin-block-start: var(--popover-gap);
+}
+
+.popover[data-side='left'] {
+  margin-inline-end: var(--popover-gap);
+}
+
+.popover[data-side='right'] {
+  margin-inline-start: var(--popover-gap);
+}
+
+.content {
+  background-color: $background-color;
+  border: $borderWidth-sm solid $palette-grey30;
+  border-radius: rem(8);
+  box-shadow:
+    0 rem(4) rem(8) 0 #0000000f,
+    0 0 rem(4) 0 #0000000a;
+  max-width: min(calc(100vw - #{rem(24)}), rem(280));
+  padding: $spacing-s $spacing-sm;
+  position: relative;
+  z-index: $zIndex-navigation;
+
+  &[data-state='open'] {
+    animation: popoverIn $speed-medium $easing-base;
+  }
+}
+
+.text {
+  @include typography-bodySmall();
+
+  display: block;
+  letter-spacing: 0.02em;
+  line-height: rem(16);
+}
+
+.arrow {
+  background: $background-color;
+  border: $borderWidth-sm solid $palette-grey30;
+  border-radius: 0 0 0 $borderRadius-md;
+  border-right: 0;
+  border-top: 0;
+  height: $arrow-size;
+  position: absolute;
+  width: $arrow-size;
+
+  &[data-side='top'] {
+    bottom: calc(-1 * #{$arrow-overlap});
+    left: 50%;
+    margin-left: calc(-1 * #{$arrow-size} / 2);
+    transform: rotate(-45deg);
+  }
+
+  &[data-side='bottom'] {
+    left: 50%;
+    margin-left: calc(-1 * #{$arrow-size} / 2);
+    top: calc(-1 * #{$arrow-overlap});
+    transform: rotate(135deg);
+  }
+
+  &[data-side='left'] {
+    margin-top: calc(-1 * #{$arrow-size} / 2);
+    right: calc(-1 * #{$arrow-overlap});
+    top: 50%;
+    transform: rotate(-135deg);
+  }
+
+  &[data-side='right'] {
+    left: calc(-1 * #{$arrow-overlap});
+    margin-top: calc(-1 * #{$arrow-size} / 2);
+    top: 50%;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes popoverIn {
+  0% {
+    opacity: 0;
+    transform: translateY(rem(4));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

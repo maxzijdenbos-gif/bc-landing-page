@@ -1,0 +1,164 @@
+@use 'sass:map';
+@use 'styles/setup' as *;
+
+.component {
+  flex: 1 1 auto;
+
+  @each $key, $value in $gridGutters {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      padding-block: rem($value);
+    }
+  }
+
+  .container {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .container,
+  .row {
+    flex: 1 1 auto;
+  }
+
+  .row {
+    @each $key, $value in $gridGutters {
+      @include breakpoint-up(map.get($breakpoints, $key)) {
+        row-gap: rem($value);
+      }
+    }
+  }
+
+  .headline {
+    display: flex;
+    flex: 1 0 auto;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .info {
+    align-items: stretch;
+    display: flex;
+    flex: 0 1 auto;
+    flex-direction: column;
+    gap: $spacing-xs;
+    justify-content: space-evenly;
+    margin-top: $spacing-s;
+    padding-top: $spacing-s;
+
+    & p {
+      align-items: center;
+      display: flex;
+      padding: $spacing-xs;
+      text-transform: uppercase;
+    }
+
+    & > div {
+      display: inline-flex;
+    }
+  }
+
+  .colorBall {
+    background-color: currentcolor;
+    border-radius: 50%;
+    display: inline-flex;
+    height: rem(16);
+    margin-right: $spacing-xs;
+    width: rem(16);
+  }
+
+  .text {
+    color: $context-contrast;
+    margin: 0;
+  }
+
+  .baseColor {
+    background-color: $context-contrast;
+    color: $context-color;
+  }
+
+  .cta {
+    color: $context-cta;
+    padding-left: $spacing-xs;
+  }
+
+  .ctaVariant {
+    background-color: $context-contrast;
+    color: $context-ctaVariant;
+  }
+
+  .ctaContrast {
+    background-color: $context-cta;
+    color: $context-ctaContrast;
+  }
+
+  .ctaContrastVariant {
+    background-color: $context-ctaVariant;
+    color: $context-ctaContrastVariant;
+  }
+
+  .accent {
+    color: $context-accent;
+    padding-left: $spacing-xs;
+  }
+
+  .accentVariant {
+    color: $context-accentVariant;
+    padding-left: $spacing-xs;
+  }
+
+  .contrast {
+    color: $context-contrast;
+    padding-left: $spacing-xs;
+  }
+
+  .contrastVariant {
+    color: $context-contrastVariant;
+    padding-left: $spacing-xs;
+  }
+
+  .tint {
+    background-color: $context-color;
+    color: $context-tint;
+  }
+
+  .tintVariant {
+    background-color: $context-tintContrast;
+    color: $context-tintVariant;
+  }
+
+  .tintContrast {
+    background-color: $context-tintVariant;
+    color: $context-tintContrast;
+  }
+
+  .tone {
+    background-color: $context-contrast;
+    color: $context-tone;
+  }
+
+  .alert {
+    color: $context-alert;
+    padding-left: $spacing-xs;
+  }
+
+  .color {
+    align-items: stretch;
+    background-color: $context-color;
+    border-radius: $borderRadius-md;
+    color: $context-contrast;
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: $spacing-s;
+
+    @each $key, $context in $contexts {
+      &--#{$key} {
+        @include context($key);
+      }
+    }
+  }
+}

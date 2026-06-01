@@ -1,0 +1,14 @@
+@use 'styles/setup' as *;
+
+.component {
+  border-top: 1px solid $context-tint;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-ml 0;
+  row-gap: $spacing-m;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    padding: $spacing-ml 0 $spacing-l;
+    row-gap: $spacing-sm;
+  }
+}

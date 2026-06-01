@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>Giant/renovate-central-config//presets/base.json",
+    "group:test",
+    "group:linters"
+  ],
+  "baseBranchPatterns": ["develop"],
+  "constraints": {
+    "node": "^22.22.2"
+  }
+}

@@ -1,0 +1,141 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    flex-direction: row;
+    min-height: rem(487);
+  }
+
+  .imageContainer {
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      background: radial-gradient(
+        28.96% 30.22% at calc(50% - 150px) 50%,
+        #857a7a 0%,
+        transparent 100%
+      );
+      content: '';
+      inset: 0;
+      opacity: 0.15;
+      position: absolute;
+    }
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      height: rem(260);
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      flex-shrink: 0;
+      width: 48%;
+    }
+  }
+
+  .image {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+    z-index: 2;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      transform: translateX(rem(-120));
+      transition: transform $speed-verySlow $easing-easeOut;
+      width: auto;
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      transform: translateX(rem(-200));
+    }
+  }
+
+  &:hover .image {
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      transform: translateX(rem(-60));
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      transform: translateX(rem(-140));
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: $spacing-m;
+    justify-content: center;
+    padding: $spacing-m;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding: $spacing-m $spacing-m $spacing-m 0;
+    }
+  }
+
+  .textBlock {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  .name {
+    overflow-wrap: break-word;
+  }
+
+  .ctaContainer {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+    justify-content: space-between;
+  }
+
+  .fromPrice {
+    color: $context-contrastVariant;
+  }
+
+  .buttons {
+    align-items: stretch;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-m;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      align-items: center;
+      flex-wrap: nowrap;
+      width: auto;
+    }
+  }
+
+  .button {
+    flex: 1 1 calc((100% - #{$spacing-m}) / 2);
+    min-width: max-content;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      flex: 0 0 auto;
+    }
+  }
+
+  .buttonInner {
+    min-width: max-content;
+    white-space: nowrap;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      width: auto;
+    }
+  }
+
+  .buttonText.buttonText {
+    width: auto;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      width: 100%;
+    }
+  }
+}

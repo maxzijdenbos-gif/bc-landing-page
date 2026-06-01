@@ -1,0 +1,98 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex: 1 1 auto;
+  height: 100dvh;
+  inset: 0;
+  overflow: hidden;
+  position: fixed;
+  transform: translateX(-100%);
+  transition:
+    backdrop-filter $speed-fast $easing-base,
+    transform 0s $easing-base $speed-medium,
+    visibility 0s $easing-base $speed-medium;
+  visibility: hidden;
+  width: 100vw;
+  z-index: 1000;
+
+  .sidebar {
+    display: flex;
+    overflow: hidden;
+    transform: translateX(-100%);
+    transition: transform $speed-medium $easing-base;
+
+    &.sidebarIsOpen {
+      transform: translateX(0);
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      transition: transform #{$speed-medium * 1} $easing-base;
+    }
+  }
+
+  &.right .sidebar {
+    transform: translateX(100%);
+
+    &.sidebarIsOpen {
+      transform: translateX(0);
+    }
+  }
+
+  &.right {
+    flex-direction: row-reverse;
+    transform: translateX(100%);
+  }
+
+  &.isOpen {
+    backdrop-filter: blur($blur-light);
+    transform: translateX(0);
+    transition: backdrop-filter $speed-fast $easing-base;
+    visibility: visible;
+  }
+
+  &.mobileBottomSheet {
+    @include breakpoint-down($breakpoint-tablet) {
+      flex-direction: column;
+      justify-content: flex-end;
+      transform: translateY(100%);
+
+      &.right {
+        flex-direction: column;
+        transform: translateY(100%);
+      }
+
+      &.isOpen {
+        transform: translateY(0);
+      }
+
+      .sidebar {
+        border-radius: $borderRadius-lg $borderRadius-lg 0 0;
+        height: calc(100dvh - #{$spacing-m});
+        max-height: calc(100dvh - #{$spacing-m});
+        transform: translateY(100%);
+        width: 100%;
+
+        &.sidebarIsOpen {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+.overlay {
+  opacity: 0;
+  transition: opacity $speed-fast $easing-base;
+
+  .component.isOpen & {
+    @include darkBackground-medium();
+
+    inset: 0;
+    position: absolute;
+  }
+}
+
+:export {
+  breakpointFullWidth: $breakpoint-tablet;
+}

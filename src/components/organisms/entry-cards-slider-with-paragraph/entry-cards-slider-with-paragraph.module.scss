@@ -1,0 +1,255 @@
+@use 'styles/setup' as *;
+@use 'sass:math';
+
+$oneColumnWidth: math.div(1, 12) * 1 * 100%;
+$fourColumnWidth: math.div(1, 12) * 4 * 100%;
+$fiveColumnWidth: math.div(1, 12) * 5 * 100%;
+
+.component {
+  background: $context-color;
+  position: relative;
+
+  .slider {
+    --slider-bottom-padding: #{$spacing-xl};
+
+    padding: $spacing-m 0;
+    padding-bottom: var(--slider-bottom-padding);
+    user-select: none;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      --slider-bottom-padding: #{$spacing-xxl};
+    }
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .slide {
+    flex: 0 0 auto;
+    max-width: 100%;
+    pointer-events: none;
+    transform-style: preserve-3d;
+
+    .image {
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      transition: transform $speed-slow $easing-base;
+    }
+
+    .contentWrapper {
+      pointer-events: auto;
+      transform: perspective(16px) translate3d(0, 0, 0);
+
+      // Show focus ring on wrapper (content has overflow:hidden which clips focus ring)
+      &:has(:focus-visible) {
+        outline: none;
+        position: relative;
+
+        &::after {
+          border: rem(2) solid $color-focusOutline;
+          border-radius: rem(1);
+          box-shadow: inset 0 0 0 rem(2) #fff;
+          content: '';
+          inset: rem(-10);
+          pointer-events: none;
+          position: absolute;
+          z-index: 10;
+        }
+      }
+    }
+
+    .content {
+      aspect-ratio: 1 / 1;
+      box-sizing: content-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      transition: transform $speed-slow $easing-base;
+      width: 100%;
+
+      // Disable focus ring completely (shown on wrapper instead)
+      &:focus-visible {
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+
+      &::after {
+        // Override global focus ring
+        border: none;
+        box-shadow: none;
+        content: none;
+      }
+    }
+
+    .headline,
+    .paragraph {
+      max-height: 50%;
+      overflow: hidden;
+    }
+
+    &.isParagraph {
+      align-content: center;
+      background-color: $context-color;
+      width: $fiveColumnWidth;
+
+      .contentWrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .headline {
+        margin-bottom: $spacing-m;
+      }
+
+      .content {
+        justify-content: center;
+        text-align: left;
+        width: 60%;
+      }
+    }
+
+    /* Added right margin to allow item to get centered instead of right-aligned. */
+    &:last-child {
+      margin-right: $fourColumnWidth;
+    }
+
+    .content::before {
+      @include darkBackground-medium(
+
+      ); // We are overriding the opacity later, but need the other values.
+
+      content: '';
+      display: block;
+      inset: 0;
+      opacity: 0;
+      position: absolute;
+      transition: opacity $speed-slow $easing-base;
+      z-index: 3;
+    }
+
+    &.isSlide {
+      cursor: pointer;
+      width: $fourColumnWidth;
+
+      .paragraph {
+        margin-bottom: $spacing-ml;
+        margin-top: auto;
+        overflow: hidden;
+        white-space: normal; // allow line wrapping
+
+        @include breakpoint-up($breakpoint-laptop) {
+          margin-bottom: $spacing-l;
+        }
+      }
+
+      .content {
+        align-items: center;
+        color: $context-color;
+        position: relative;
+
+        .headline {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+
+        .headline,
+        .paragraph {
+          padding: 0 $spacing-m;
+          text-align: center;
+          z-index: 2;
+        }
+
+        .image {
+          inset: 0;
+          position: absolute;
+          z-index: 0;
+        }
+
+        &::after {
+          content: '';
+          display: block;
+          inset: 0;
+          position: absolute;
+          z-index: 1;
+
+          @include darkBackground-medium();
+        }
+      }
+
+      &[data-distance='true'] {
+        .content {
+          pointer-events: none;
+        }
+
+        .content::before {
+          @include darkBackground-medium();
+        }
+      }
+
+      &[data-distance='false']:not(:focus-within) .contentWrapper {
+        transform: perspective(500px) translate3d(0, 0, 0); // 500px used here to prevent bouncy side-effect when switching to and from distance
+        transition: transform $speed-slow $easing-base;
+      }
+
+      &[data-distance='false']:not(:focus-within) .contentWrapper:hover {
+        transform: perspective(16px) translate3d(0, 0, 1px);
+
+        .image {
+          transform: scale(1.1);
+          transform-origin: center center;
+        }
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+    gap: $spacing-xxs;
+    pointer-events: none;
+    transform-style: preserve-3d;
+  }
+
+  @include breakpoint-down($breakpoint-laptop) {
+    padding: 0;
+
+    .headline,
+    .paragraph {
+      margin-bottom: $spacing-s;
+    }
+  }
+
+  @include breakpoint-between($breakpoint-tablet, $breakpoint-laptop) {
+    .slide.isParagraph .content {
+      width: 80%;
+    }
+
+    .slide {
+      flex: 0 0 50%;
+      width: 50%;
+    }
+
+    .slide.isSlide:last-child {
+      margin-right: 33%;
+    }
+  }
+
+  @include breakpoint-down($breakpoint-tablet) {
+    .slide {
+      flex: 0 0 90%;
+      width: 90%;
+    }
+
+    .slide.isSlide:last-child {
+      margin-right: 0;
+    }
+  }
+}

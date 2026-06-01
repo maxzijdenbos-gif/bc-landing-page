@@ -1,0 +1,10 @@
+export { default as cityFitness } from './progress-tracks/cityFitness.svg';
+export { default as cityFitnessMobile } from './progress-tracks/cityFitnessMobile.svg';
+export { default as crossGravel } from './progress-tracks/crossGravel.svg';
+export { default as crossGravelMobile } from './progress-tracks/crossGravelMobile.svg';
+export { default as kids } from './progress-tracks/kids.svg';
+export { default as kidsMobile } from './progress-tracks/kidsMobile.svg';
+export { default as mountain } from './progress-tracks/mountain.svg';
+export { default as mountainMobile } from './progress-tracks/mountainMobile.svg';
+export { default as road } from './progress-tracks/road.svg';
+export { default as roadMobile } from './progress-tracks/roadMobile.svg';

@@ -1,0 +1,43 @@
+@use 'styles/setup' as *;
+
+.component {
+  opacity: 0;
+
+  &.fadeIn {
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: contentFadeIn;
+    animation-timing-function: ease-out;
+  }
+
+  &.fadeOut {
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: contentFadeOut;
+    animation-timing-function: ease-out;
+  }
+
+  &.animationDisabled {
+    opacity: 1;
+  }
+}
+
+@keyframes contentFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes contentFadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,20 @@
+steps:
+  - script: |
+      npx playwright install --with-deps chromium
+    displayName: Install Playwright Chromium
+
+  - script: |
+      npm run test:ci
+    displayName: Run unit tests with coverage
+
+  - task: PublishCodeCoverageResults@1
+    displayName: Publish coverage report
+    inputs:
+      codeCoverageTool: Cobertura
+      summaryFileLocation: $(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml
+      reportDirectory: $(System.DefaultWorkingDirectory)/coverage
+      failIfCoverageEmpty: true
+
+  - script: |
+      npm run test:storybook
+    displayName: Storybook tests

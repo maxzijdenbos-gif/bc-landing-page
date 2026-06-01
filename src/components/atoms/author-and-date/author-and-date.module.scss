@@ -1,0 +1,7 @@
+@use 'styles/setup' as *;
+
+.component {
+  .divider {
+    margin: 0 $spacing-xs;
+  }
+}

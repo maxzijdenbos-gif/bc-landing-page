@@ -1,0 +1,54 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  display: inline-flex;
+  min-height: rem(24);
+  width: fit-content;
+
+  &.medium {
+    padding: 0 $spacing-xs;
+  }
+
+  &.large {
+    padding: $spacing-xs $spacing-s;
+  }
+
+  &.solid {
+    &.base {
+      background-color: $context-color;
+      border: 1px solid $context-tint;
+      color: $context-tintContrast;
+    }
+
+    &.contrast {
+      background-color: $context-contrast;
+      color: $context-color;
+    }
+
+    &.tint {
+      background-color: $context-tint;
+      color: $context-tintContrast;
+    }
+  }
+
+  &.blur {
+    backdrop-filter: blur($blur-light);
+
+    &.base {
+      background-color: color-mix(in srgb, $context-color 55%, transparent);
+      border: 1px solid color-mix(in srgb, $context-color 55%, transparent);
+      color: $context-tintContrast;
+    }
+
+    &.contrast {
+      background-color: color-mix(in srgb, $context-contrast 55%, transparent);
+      color: $context-color;
+    }
+
+    &.tint {
+      background-color: color-mix(in srgb, $context-tint 55%, transparent);
+      color: $context-tintContrast;
+    }
+  }
+}

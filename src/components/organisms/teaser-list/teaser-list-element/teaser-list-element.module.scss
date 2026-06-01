@@ -1,0 +1,92 @@
+@use 'styles/setup' as *;
+
+.component.component {
+  @include context('primary');
+
+  align-items: center;
+  z-index: 1;
+
+  @include breakpoint-down($breakpoint-smallLaptop) {
+    flex: none;
+  }
+
+  &:focus-within {
+    // have to add focus within here as the focusable element inside this component has a clip path that will hide the focus ring
+    // Structure: 6px transparent gap + 2px white + 2px dark blue = 10px total
+    outline: none;
+    position: relative;
+    z-index: 2;
+
+    &::after {
+      border: rem(2) solid $color-focusOutline;
+      border-radius: var(--focus-ring-radius, inherit);
+      box-shadow: inset 0 0 0 rem(2) #fff;
+      content: '';
+      inset: rem(-10);
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  .contentTeaserElement {
+    color: $context-ctaContrastVariant;
+    display: grid;
+    height: rem(560);
+    overflow: hidden;
+    padding: $spacing-m;
+    position: relative;
+    width: 100%;
+  }
+
+  .gradientOverlay {
+    background: $gradient-linearDarkenToBottom;
+    inset: 0;
+    position: absolute;
+    transition: transform $speed-slow $easing-base;
+    z-index: 2;
+  }
+
+  .contentTeaserImage {
+    object-fit: cover;
+  }
+
+  &.isHovered .gradientOverlay {
+    transform: scale(1.1);
+  }
+
+  .contentTeaserContent {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-self: center;
+    position: relative;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .contentTeaserHeadline {
+    align-content: flex-end;
+    flex-grow: 1;
+    padding-bottom: $spacing-m;
+    text-align: left;
+  }
+
+  .contentTeaserCtaIcon {
+    margin-left: -$spacing-s; // to counter the needed padding
+    width: fit-content;
+  }
+
+  .contentTeaserTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-xs;
+  }
+
+  // SOCIAL TEASER LIST ELEMENT SPECIFIC STYLES
+
+  .socialIcon {
+    max-height: rem(24);
+    max-width: rem(24);
+  }
+}

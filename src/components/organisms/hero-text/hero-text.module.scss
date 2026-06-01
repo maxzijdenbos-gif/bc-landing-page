@@ -1,0 +1,59 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  justify-content: center;
+
+  $anchorLinksMenuHeightMobile: $height-mainNavigationMobile;
+  $anchorLinksMenuHeightDesktop: $height-mainNavigationDesktop;
+
+  &.component {
+    padding: $spacing-l 0;
+
+    &.hasAnchorMenu {
+      /* stylelint-disable-next-line scss/operator-no-newline-after */
+      margin-bottom: -$height-mainNavigationMobile -
+        $anchorLinksMenuHeightMobile;
+      /* stylelint-disable-next-line scss/operator-no-newline-after */
+      padding-bottom: $height-mainNavigationMobile +
+        $anchorLinksMenuHeightMobile;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        /* stylelint-disable-next-line scss/operator-no-newline-after */
+        margin-bottom: -$height-mainNavigationDesktop -
+          $anchorLinksMenuHeightDesktop;
+        /* stylelint-disable-next-line scss/operator-no-newline-after */
+        padding-bottom: $height-mainNavigationDesktop +
+          $anchorLinksMenuHeightDesktop;
+      }
+    }
+  }
+
+  @include breakpoint-up($breakpoint-tablet) {
+    gap: $spacing-ml;
+
+    &.component {
+      padding: $spacing-xl 0;
+    }
+  }
+
+  .contentColumn {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      gap: $spacing-ml;
+    }
+  }
+
+  .leadParagraph {
+    padding-top: $spacing-m;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-top: $spacing-ml;
+    }
+  }
+}

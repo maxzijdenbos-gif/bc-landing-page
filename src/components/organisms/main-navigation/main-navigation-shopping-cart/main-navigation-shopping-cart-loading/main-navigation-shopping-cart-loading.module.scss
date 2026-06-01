@@ -1,0 +1,40 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+.component {
+  list-style: none;
+  margin: 0;
+  padding: $spacing-sm;
+
+  .itemSkeleton {
+    display: flex;
+    gap: $spacing-sm;
+    padding: $spacing-sm 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $palette-grey10;
+    }
+  }
+
+  .itemSkeletonImage {
+    flex-shrink: 0;
+  }
+
+  .itemSkeletonDetails {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: $spacing-xxs;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .itemSkeletonLine {
+    height: rem(16);
+    width: 100%;
+  }
+}
+
+.componentFooter {
+  width: 100%;
+}

@@ -1,0 +1,143 @@
+@use 'styles/variables/palette' as *;
+
+[data-theme='liv'] {
+  --context-color: #{$palette-white};
+  --context-cta: #{$palette-purple90};
+  --context-ctaVariant: #{$palette-purple40};
+  --context-ctaContrast: #{$palette-white};
+  --context-ctaContrastVariant: #{$palette-white};
+  --context-accent: #{$palette-purple40};
+  --context-accentVariant: #{$palette-purple90};
+  --context-contrast: #{$palette-black};
+  --context-contrastVariant: #{$palette-grey60};
+  --context-tint: #{$palette-sand05};
+  --context-tintVariant: #{$palette-grey05};
+  --context-tintContrast: #{$palette-black};
+  --context-tone: #{$palette-white};
+  --context-alert: #{$palette-red90};
+
+  // primary
+  --context-primary-color: #{$palette-white};
+  --context-primary-cta: #{$palette-purple90};
+  --context-primary-ctaVariant: #{$palette-purple40};
+  --context-primary-ctaContrast: #{$palette-white};
+  --context-primary-ctaContrastVariant: #{$palette-white};
+  --context-primary-accent: #{$palette-purple90};
+  --context-primary-accentVariant: #{$palette-purple40};
+  --context-primary-contrast: #{$palette-black};
+  --context-primary-contrastVariant: #{$palette-grey60};
+  --context-primary-tint: #{$palette-sand05};
+  --context-primary-tintVariant: #{$palette-grey05};
+  --context-primary-tintContrast: #{$palette-black};
+  --context-primary-tone: #{$palette-white};
+  --context-primary-alert: #{$palette-red90};
+
+  // secondary
+  --context-secondary-color: #{$palette-black};
+  --context-secondary-cta: #{$palette-white};
+  --context-secondary-ctaVariant: #{$palette-purple40};
+  --context-secondary-ctaContrast: #{$palette-purple90};
+  --context-secondary-ctaContrastVariant: #{$palette-white};
+  --context-secondary-accent: #{$palette-white};
+  --context-secondary-accentVariant: #{$palette-white};
+  --context-secondary-contrast: #{$palette-white};
+  --context-secondary-contrastVariant: #{$palette-grey20};
+  --context-secondary-tint: #{$palette-sand05};
+  --context-secondary-tintVariant: #{$palette-grey05};
+  --context-secondary-tintContrast: #{$palette-black};
+  --context-secondary-tone: #{$palette-black};
+  --context-secondary-alert: #{$palette-red40};
+
+  // tertiary
+  --context-tertiary-color: #{$palette-purple40};
+  --context-tertiary-cta: #{$palette-white};
+  --context-tertiary-ctaVariant: #{$palette-purple90};
+  --context-tertiary-ctaContrast: #{$palette-purple90};
+  --context-tertiary-ctaContrastVariant: #{$palette-white};
+  --context-tertiary-accent: #{$palette-white};
+  --context-tertiary-accentVariant: #{$palette-white};
+  --context-tertiary-contrast: #{$palette-white};
+  --context-tertiary-contrastVariant: #{$palette-grey05};
+  --context-tertiary-tint: #{$palette-sand05};
+  --context-tertiary-tintVariant: #{$palette-grey05};
+  --context-tertiary-tintContrast: #{$palette-black};
+  --context-tertiary-tone: #{$palette-black};
+  --context-tertiary-alert: #{$palette-white};
+
+  // quaternary
+  --context-quaternary-color: #{$palette-purple90};
+  --context-quaternary-cta: #{$palette-white};
+  --context-quaternary-ctaVariant: #{$palette-purple40};
+  --context-quaternary-ctaContrast: #{$palette-purple90};
+  --context-quaternary-ctaContrastVariant: #{$palette-white};
+  --context-quaternary-accent: #{$palette-white};
+  --context-quaternary-accentVariant: #{$palette-white};
+  --context-quaternary-contrast: #{$palette-white};
+  --context-quaternary-contrastVariant: #{$palette-grey30};
+  --context-quaternary-tint: #{$palette-sand05};
+  --context-quaternary-tintVariant: #{$palette-grey05};
+  --context-quaternary-tintContrast: #{$palette-black};
+  --context-quaternary-tone: #{$palette-black};
+  --context-quaternary-alert: #{$palette-white};
+
+  // quinary
+  --context-quinary-color: #{$palette-sand05};
+  --context-quinary-cta: #{$palette-purple90};
+  --context-quinary-ctaVariant: #{$palette-purple40};
+  --context-quinary-ctaContrast: #{$palette-white};
+  --context-quinary-ctaContrastVariant: #{$palette-white};
+  --context-quinary-accent: #{$palette-purple90};
+  --context-quinary-accentVariant: #{$palette-purple40};
+  --context-quinary-contrast: #{$palette-black};
+  --context-quinary-contrastVariant: #{$palette-grey60};
+  --context-quinary-tint: #{$palette-grey30};
+  --context-quinary-tintVariant: #{$palette-sand05};
+  --context-quinary-tintContrast: #{$palette-black};
+  --context-quinary-tone: #{$palette-white};
+  --context-quinary-alert: #{$palette-red90};
+
+  // Brand colors
+  --context-brandLiv-color: #{$palette-purple90};
+  --context-brandMomentum-color: #{$palette-red100};
+  --context-brandGiant-color: #{$palette-blue90};
+
+  // accessibility colors
+  --context-focusOutline-color: #{$palette-blue90};
+
+  // Font families
+  --fontFamily-action: #{'Gotham', sans-serif};
+  --fontFamily-body: #{'Gotham', sans-serif};
+  --fontFamily-headline: #{'Gotham', sans-serif};
+  --fontFamily-display: #{'Gotham', sans-serif};
+  --fontFamily-displayRecut: #{'Gotham', sans-serif};
+
+  // Font weights
+  --fontWeight-regular: 400;
+  --fontWeight-semiBold: 600;
+  --fontWeight-bold: 700;
+  --fontWeight-heavy: 700;
+
+  // Explore page colors
+  --exploreCategoryRoad-gradientOne: #{$palette-darkGrey10};
+  --exploreCategoryRoad-gradientTwo: #{$palette-darkGrey15};
+
+  // Mountain
+  --exploreCategoryMountain-gradientOne: #{$palette-brown10};
+  --exploreCategoryMountain-gradientTwo: #{$palette-brown15};
+
+  // Cross and Gravel
+  --exploreCategoryCrossGravel-gradientOne: #{$palette-brown20};
+  --exploreCategoryCrossGravel-gradientTwo: #{$palette-brown25};
+
+  // City and Fitness
+  --exploreCategoryCityFitness-gradientOne: #{$palette-darkGrey20};
+  --exploreCategoryCityFitness-gradientTwo: #{$palette-darkGrey25};
+
+  // Kids
+  --exploreCategoryKids-gradientOne: #{$palette-green10};
+  --exploreCategoryKids-gradientTwo: #{$palette-green15};
+
+  // E-Bikes
+  --exploreCategoryEBikes-gradientOne: #{$palette-darkGrey30};
+  --exploreCategoryEBikes-gradientTwo: #{$palette-darkGrey35};
+}

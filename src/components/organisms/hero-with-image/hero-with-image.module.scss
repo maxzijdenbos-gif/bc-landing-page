@@ -1,0 +1,133 @@
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+$anchorLinksHeight: rem(100);
+$anchorLinksMenuHeightMobile: $height-mainNavigationMobile;
+$anchorLinksMenuHeightDesktop: $height-mainNavigationDesktop;
+$clipPercentage: math.div(1, 12) * 100%; // mimic one column of the grid
+$breadcrumbTopMobile: $spacing-sm;
+$breadcrumbTopDesktop: $spacing-m;
+$breadcrumbHeight: $spacing-m;
+
+.component {
+  &.component {
+    background-color: $context-contrast;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    margin-top: -$height-mainNavigationMobile;
+    min-height: 100svh;
+    min-height: calc(100svh - $height-mainNavigationMobile);
+    padding-bottom: 0;
+    padding-top: $height-mainNavigationMobile;
+
+    &.hasAnchorList {
+      /* stylelint-disable-next-line scss/operator-no-newline-after */
+      margin-bottom: -$height-mainNavigationMobile -
+        $anchorLinksMenuHeightMobile;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        /* stylelint-disable-next-line scss/operator-no-newline-after */
+        margin-bottom: -$height-mainNavigationDesktop -
+          $anchorLinksMenuHeightDesktop;
+      }
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-top: -$height-mainNavigationDesktop;
+      min-height: calc(100vh - $height-mainNavigationDesktop);
+      padding-top: $height-mainNavigationDesktop;
+    }
+  }
+
+  .heroContent {
+    box-sizing: border-box;
+    color: $context-contrast;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    position: relative;
+  }
+
+  .breadcrumb {
+    left: $spacing-sm;
+    min-height: $breadcrumbHeight;
+    position: absolute;
+    right: $spacing-sm;
+    top: $breadcrumbTopMobile;
+    width: unset;
+    z-index: 3;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      left: $spacing-m;
+      right: $spacing-m;
+      top: $breadcrumbTopDesktop;
+    }
+  }
+
+  .parallaxWrapper {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .imageWrapper {
+    inset: 0;
+    opacity: 0;
+    position: absolute;
+    transition: opacity $speed-slow $easing-base;
+
+    &.imageWrapperLoaded {
+      opacity: 1;
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      inset: 0 $spacing-m $spacing-m;
+    }
+  }
+
+  &.hasAnchorList .imageWrapper {
+    height: calc(100% - $anchorLinksMenuHeightMobile);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: calc(100% - $anchorLinksMenuHeightDesktop);
+      inset: 0 $spacing-m;
+    }
+  }
+
+  .image {
+    object-fit: cover;
+    scale: 1.1;
+  }
+
+  .overlay {
+    background-color: transparent-color-strong($context-color);
+    inset: 0;
+    position: absolute;
+    scale: 1.1;
+    z-index: 1;
+  }
+
+  .contentContainer {
+    padding: calc($breadcrumbHeight + $breadcrumbTopMobile + $spacing-xl) 0; // adding padding to ensure that the content is not displayed behind the breadcrumb
+    z-index: 2;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: calc($breadcrumbHeight + $breadcrumbTopDesktop + $spacing-xl) 0; // adding padding to ensure that the content is not displayed behind the breadcrumb
+    }
+  }
+
+  .contentColumn {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    row-gap: $spacing-m;
+    text-align: center;
+  }
+
+  .buttonGroup {
+    justify-content: center;
+    padding-top: $spacing-m;
+  }
+}

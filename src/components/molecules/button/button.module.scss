@@ -1,0 +1,196 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  background-color: transparent;
+  border-radius: $borderRadius-xxl;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+
+  // calc below is to adjust padding to account for $spacing-xs on motion track slider content
+  padding: $spacing-s calc($spacing-sm - $spacing-xs);
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: $speed-medium $easing-base;
+
+  &:focus-visible::after {
+    border-radius: inherit; // Inherit rounded corners for focus ring
+  }
+
+  .icon {
+    color: inherit;
+  }
+
+  &:not(.component.isOnlyIcon) .leftIcon {
+    margin-left: $spacing-xs;
+  }
+
+  &:not(.component.isOnlyIcon) .rightIcon {
+    margin-right: $spacing-xs;
+  }
+
+  .text {
+    font-family: $fontFamily-action;
+    font-weight: $fontWeight-heavy;
+    left: 0;
+    max-width: 100%;
+
+    @include textLinkUnderline();
+  }
+}
+
+.componentWrapper {
+  display: flex;
+
+  &.isFullWidth {
+    width: 100%;
+
+    .component {
+      width: 100%;
+
+      .text::before {
+        display: none;
+      }
+    }
+  }
+}
+
+.component.isPrimary,
+.component.isSecondary {
+  border: $borderWidth-md solid transparent;
+  transition-property: background-color, border-color, color;
+}
+
+.component.isTertiary {
+  @include background-blur-light($context-tint);
+
+  color: $context-contrast;
+}
+
+.component.noBackground {
+  backdrop-filter: none;
+  background-color: transparent;
+}
+
+.component.noBackground.isPrimary,
+.component.noBackground.isSecondary {
+  border-color: transparent;
+}
+
+.component.isPrimary {
+  background-color: $context-cta;
+  color: $context-ctaContrast;
+}
+
+.component.isSecondary {
+  background-color: transparent;
+  border-color: $context-cta;
+  color: $context-cta;
+}
+
+.component.isDisabled {
+  background-color: $context-tint;
+  border-color: $context-tint;
+  color: $context-color;
+}
+
+.component.isOnlyIcon {
+  .icon {
+    position: absolute;
+  }
+}
+
+.component:hover,
+.component:focus {
+  &.isPrimary,
+  &.isSecondary {
+    background-color: $context-ctaVariant;
+    border-color: $context-ctaVariant;
+    color: $context-ctaContrastVariant;
+  }
+
+  &.noBackground.isPrimary,
+  &.noBackground.isSecondary {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+.isDisabledWrapper {
+  pointer-events: none;
+}
+
+.component:active {
+  &.isPrimary,
+  &.isSecondary {
+    background-color: $context-cta;
+    border-color: $context-cta;
+    color: $context-ctaContrast;
+  }
+
+  &.noBackground.isPrimary,
+  &.noBackground.isSecondary {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+.component.isLarge {
+  font-size: rem(14);
+  min-width: rem(48);
+  padding: $spacing-sm $spacing-sm;
+
+  &.isOnlyIcon {
+    min-height: rem(48);
+  }
+
+  &.isText {
+    padding: $spacing-sm 0;
+  }
+}
+
+.component.isMedium {
+  font-size: rem(12);
+  min-width: rem(40);
+  padding-bottom: $spacing-s;
+  padding-top: $spacing-s;
+
+  &.isOnlyIcon {
+    min-height: rem(40);
+    min-width: rem(40);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      min-height: rem(48);
+      min-width: rem(48);
+    }
+  }
+}
+
+.component.isSmall {
+  font-size: rem(12);
+  min-width: rem(32);
+  padding-bottom: $spacing-xs;
+  padding-top: $spacing-xs;
+
+  &.isOnlyIcon {
+    min-height: rem(32);
+  }
+}
+
+.component.isText {
+  color: $context-accent;
+  padding: 0;
+  text-transform: none;
+}
+
+.component.isText.doUnderline {
+  border-radius: 0;
+  overflow: hidden;
+  padding-bottom: rem(4);
+  position: relative;
+
+  @include textLinkUnderline();
+}

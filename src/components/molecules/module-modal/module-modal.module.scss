@@ -1,0 +1,157 @@
+@use 'styles/setup' as *;
+
+$imageBaseSize: 70dvh;
+$componentPaddingMobile: $spacing-sm;
+$componentPaddingLaptop: $spacing-m;
+
+.loaderContainer {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  min-height: 50vh;
+  width: 100%;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: $componentPaddingMobile;
+
+  @include breakpoint-up($breakpoint-laptop) {
+    padding: $componentPaddingLaptop;
+  }
+
+  .tabsGrid {
+    column-gap: $spacing-sm;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      min-height: calc($imageBaseSize - 2 * $componentPaddingMobile);
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      display: grid;
+      gap: 0 $spacing-m;
+      grid-template: auto auto 1fr / 3fr 4fr;
+      grid-template-areas:
+        'image modalTitle'
+        'image tabsNavigation'
+        'image tabContent';
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      grid-template: auto auto 1fr / 1fr 1fr;
+      grid-template-areas:
+        'image modalTitle'
+        'image tabsNavigation'
+        'image tabContent';
+      min-height: calc($imageBaseSize - 2 * $componentPaddingLaptop);
+    }
+  }
+
+  .modalTitle {
+    padding-bottom: $spacing-sm;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      grid-area: modalTitle;
+      padding-bottom: $spacing-ml;
+    }
+  }
+
+  .tabsNavigation {
+    @include background-blur-strong($context-color);
+
+    padding: $spacing-sm 0;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      grid-area: tabsNavigation;
+      margin-left: -$spacing-m; // to compensate for the parent column gap so that all beneath is blurred
+      margin-right: -$spacing-sm; // to compensate for the parent column gap so that all beneath is blurred
+      padding: $spacing-sm $spacing-m;
+    }
+  }
+
+  .imageContainer {
+    height: 100%;
+    position: relative;
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      height: 50vh;
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      grid-area: image;
+    }
+  }
+
+  .image {
+    height: 100%;
+    object-fit: cover;
+    position: sticky;
+    top: 0;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      height: calc($imageBaseSize - 2 * $componentPaddingLaptop);
+    }
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: $spacing-m;
+    max-height: 50dvh;
+    min-height: 0;
+    overflow-y: auto;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      grid-area: tabContent;
+      max-height: 55dvh;
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      max-height: 60dvh;
+    }
+  }
+
+  .tabContent {
+    // display: none;
+  }
+
+  .tabContent:not([hidden]) {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: $spacing-ml;
+    min-height: 0;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      display: grid;
+      gap: 0 $spacing-m;
+      grid-column: 1 / -1;
+      grid-row: 1 / -1;
+      grid-template-columns: subgrid;
+      grid-template-rows: subgrid;
+
+      @supports not (grid-template-columns: subgrid) {
+        grid-column: 1 / -1;
+        grid-row: 3 / -1;
+        grid-template-areas: 'image tabContent';
+        grid-template-columns: 3fr 4fr;
+
+        @include breakpoint-up($breakpoint-laptop) {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    }
+  }
+}

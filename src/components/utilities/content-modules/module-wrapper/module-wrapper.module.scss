@@ -1,0 +1,27 @@
+@use 'styles/setup' as *;
+
+.component {
+  background-color: $context-color;
+  color: $context-contrast;
+  margin-inline: auto;
+  padding: $spacing-xl 0;
+  position: relative;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    padding: $spacing-3xl 0;
+  }
+
+  &[data-hero] {
+    padding-top: 0;
+  }
+}
+
+@each $key, $context in $contexts {
+  .component[data-color='#{$key}'] {
+    @include context($key);
+
+    &:not([data-hero]):not([data-anchor]) + [data-color='#{$key}'] {
+      padding-top: 0;
+    }
+  }
+}

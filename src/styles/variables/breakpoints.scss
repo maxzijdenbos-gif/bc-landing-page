@@ -1,0 +1,17 @@
+// scale
+$scale: 8;
+
+// breakpoints
+$breakpoint-mobile: 375;
+$breakpoint-tablet: 768;
+$breakpoint-smallLaptop: 1025;
+$breakpoint-laptop: 1440;
+$breakpoint-smallDesktop: 1800;
+$breakpoint-desktop: 1920;
+$breakpoints: (
+  'mobile': $breakpoint-mobile,
+  'tablet': $breakpoint-tablet,
+  'smallLaptop': $breakpoint-smallLaptop,
+  'laptop': $breakpoint-laptop,
+  'desktop': $breakpoint-desktop,
+);

@@ -1,0 +1,11 @@
+variables:
+  - name: BUILD_DIRECTORY
+    value: './build'
+  - name: CACHE_RESTORED
+    value: 'false'
+  - name: DOTENV_FILENAME
+    value: '.env.production'
+  - name: NODE_MODULES
+    value: $(Build.SourcesDirectory)/node_modules
+  - name: STORYBOOK_BUILD_DIRECTORY
+    value: './storybook-static'

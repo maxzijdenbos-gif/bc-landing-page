@@ -1,0 +1,33 @@
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+.component {
+  @include context('primary');
+
+  color: $context-contrast;
+
+  .topBarContent {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+  }
+
+  .menuToggleButton {
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: rem(24);
+    justify-content: center;
+    justify-self: flex-end;
+    transition:
+      opacity $speed-medium $easing-base,
+      transform $speed-medium $easing-base;
+    width: rem(24);
+  }
+}

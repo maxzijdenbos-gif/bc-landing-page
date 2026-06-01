@@ -1,0 +1,8 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xxs;
+  width: 100%;
+}

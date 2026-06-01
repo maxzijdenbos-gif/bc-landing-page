@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run prettier
+    displayName: Prettier check

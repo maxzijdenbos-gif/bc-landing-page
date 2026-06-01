@@ -1,0 +1,63 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  display: flex;
+  margin-top: -50vh;
+  width: 100%;
+
+  .row {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .paragraph {
+    height: 100%;
+    text-align: center;
+    width: 100%;
+  }
+
+  .slideContainer,
+  .placeholderSlideContainer {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: -10vh;
+    min-height: 30vh;
+    pointer-events: none;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-top: 0;
+    }
+  }
+
+  .placeholderSlideContainer {
+    margin-top: -15vh;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-top: 0;
+    }
+  }
+
+  .isActive {
+    pointer-events: all;
+  }
+
+  .slide {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-ml;
+    padding: $spacing-sm;
+    scroll-margin-top: 50vh;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: unset;
+    }
+  }
+}

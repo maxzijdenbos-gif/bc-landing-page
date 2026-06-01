@@ -1,0 +1,75 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+.component {
+  background-color: $palette-grey20;
+  display: block;
+
+  &.variantText {
+    border-radius: rem(2);
+    height: 1em;
+    transform-origin: 0 55%;
+  }
+
+  &.variantRectangular {
+    border-radius: rem(2);
+  }
+
+  &.variantRounded {
+    border-radius: $borderRadius-md;
+  }
+
+  &.variantCircular {
+    border-radius: 50%;
+  }
+
+  &.animationPulse {
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none;
+    }
+  }
+
+  &.animationWave {
+    overflow: hidden;
+    position: relative;
+
+    &::after {
+      animation: skeletonWave 1.6s linear infinite;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgb(255, 255, 255, 40%),
+        transparent
+      );
+      content: '';
+      inset: 0;
+      position: absolute;
+      transform: translateX(-100%);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}
+
+@keyframes skeletonPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes skeletonWave {
+  100% {
+    transform: translateX(100%);
+  }
+}

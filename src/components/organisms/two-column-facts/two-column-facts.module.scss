@@ -1,0 +1,53 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  margin: 0 $spacing-sm;
+
+  @include breakpoint-up($breakpoint-mobile) {
+    margin: 0;
+  }
+
+  .headline {
+    padding-bottom: $spacing-m;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-bottom: $spacing-ml;
+    }
+  }
+
+  .facts {
+    width: 100%;
+  }
+
+  .fact {
+    border-bottom: 1px solid $context-tint;
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: 1fr;
+    padding: $spacing-sm 0;
+    text-align: left;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      grid-auto-flow: column;
+      grid-template-columns: 1fr 1fr;
+      padding: $spacing-m 0;
+    }
+  }
+
+  .fact .title {
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-right: $spacing-sm;
+    }
+  }
+
+  .fact .description {
+    padding-top: $spacing-xxs;
+    white-space: pre-line;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-top: 0;
+    }
+  }
+}

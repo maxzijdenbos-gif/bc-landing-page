@@ -1,0 +1,163 @@
+@use 'styles/functions/units' as *;
+
+// border radiuses
+$borderRadius-sm: rem(2);
+$borderRadius-md: rem(4);
+$borderRadius-lg: rem(8);
+$borderRadius-xl: rem(20);
+$borderRadius-xxl: rem(30);
+$borderRadius-round: rem(1000);
+
+// border widths
+$borderWidth-sm: 1px;
+$borderWidth-md: rem(2);
+$borderWidth-lg: rem(4);
+
+// contexts
+$context-color: var(--context-color);
+$context-cta: var(--context-cta);
+$context-ctaVariant: var(--context-ctaVariant);
+$context-ctaContrast: var(--context-ctaContrast);
+$context-ctaContrastVariant: var(--context-ctaContrastVariant);
+$context-accent: var(--context-accent);
+$context-accentVariant: var(--context-accentVariant);
+$context-contrast: var(--context-contrast);
+$context-contrastVariant: var(--context-contrastVariant);
+$context-tint: var(--context-tint);
+$context-tintVariant: var(--context-tintVariant);
+$context-tintContrast: var(--context-tintContrast);
+$context-tone: var(--context-tone);
+$context-alert: var(--context-alert);
+
+// accessibility
+$color-focusOutline: var(--context-focusOutline-color);
+$offset-focusOutline: rem(4);
+
+// easings
+$easing-base: ease-in-out;
+$easing-easeOut: ease-out;
+
+// font families
+$fontFamily-action: var(--fontFamily-action);
+$fontFamily-body: var(--fontFamily-body);
+$fontFamily-headline: var(--fontFamily-headline);
+$fontFamily-display: var(--fontFamily-display);
+$fontFamily-displayRecut: var(--fontFamily-displayRecut);
+
+// font weights
+$fontWeight-regular: var(--fontWeight-regular);
+$fontWeight-semiBold: var(--fontWeight-semiBold);
+$fontWeight-bold: var(--fontWeight-bold);
+$fontWeight-heavy: var(--fontWeight-heavy);
+
+// gradients
+$gradient-linearColorRight: linear-gradient(
+  90deg,
+  $context-color 50%,
+  rgb(255, 255, 255, 0%) 100%
+);
+$gradient-linearDarkenToBottom:
+  linear-gradient(0deg, rgb(0, 0, 0, 20%) 0%, rgb(0, 0, 0, 20%) 100%),
+  linear-gradient(180deg, rgb(0, 0, 0, 0%) 37.84%, rgb(0, 0, 0, 55%) 71.47%);
+$gradient-liniearColorRight: linear-gradient(
+  90deg,
+  $context-color 50%,
+  rgb(255, 255, 255, 0%) 100%
+);
+$gradient-tintColorTintLow: linear-gradient(
+  180deg,
+  $context-tintVariant 0%,
+  $context-color 76.04%,
+  $context-tintVariant 100%
+);
+$gradient-radial: radial-gradient(
+  28.96% 30.22% at 50% 50%,
+  $context-contrast 0%,
+  $context-color 100%
+);
+$gradient-radialToTransparent: radial-gradient(
+  28.96% 30.22% at 50% 50%,
+  $context-contrast 0%,
+  transparent 100%
+);
+$gradient-radialMobile: radial-gradient(
+  50.85% 50% at 50% 50%,
+  $context-contrast 0%,
+  $context-color 100%
+);
+
+// line heights
+$lineHeight-body: 1.5;
+$lineHeight-headline: 1.14;
+$lineHeight-display: 1;
+
+// spacings
+$spacing-xxs: rem(4);
+$spacing-xs: rem(8);
+$spacing-s: rem(12);
+$spacing-sm: rem(16);
+$spacing-m: rem(24);
+$spacing-ml: rem(32);
+$spacing-l: rem(48);
+$spacing-xl: rem(64);
+$spacing-xxl: rem(96);
+$spacing-3xl: rem(136);
+
+// blurs
+$blur-light: rem(8);
+$blur-strong: rem(20);
+
+// speeds
+
+$speed-fast: 0.125s;
+$speed-medium: 0.25s;
+$speed-slow: 0.5s;
+$speed-verySlow: 1s;
+$speed-2xSlow: 1.5s;
+
+// text transforms
+$textTransform-actionBold: uppercase;
+$textTransform-action: none;
+$textTransform-body: none;
+$textTransform-headline: none;
+$textTransform-display: uppercase;
+
+// z indexes
+$zIndex-navigation: 500;
+
+// heights
+$height-mainNavigationMobile: rem(48);
+$height-mainNavigationDesktop: rem(64);
+
+// Explore pages
+// Road
+$exploreCategoryRoad-gradient1: var(--exploreCategoryRoad-gradientOne);
+$exploreCategoryRoad-gradient2: var(--exploreCategoryRoad-gradientTwo);
+
+// Mountain
+$exploreCategoryMountain-gradient1: var(--exploreCategoryMountain-gradientOne);
+$exploreCategoryMountain-gradient2: var(--exploreCategoryMountain-gradientTwo);
+
+// Cross and Gravel
+$exploreCategoryCrossGravel-gradient1: var(
+  --exploreCategoryCrossGravel-gradientOne
+);
+$exploreCategoryCrossGravel-gradient2: var(
+  --exploreCategoryCrossGravel-gradientTwo
+);
+
+// City and Fitness
+$exploreCategoryCityFitness-gradient1: var(
+  --exploreCategoryCityFitness-gradientOne
+);
+$exploreCategoryCityFitness-gradient2: var(
+  --exploreCategoryCityFitness-gradientTwo
+);
+
+// Kids
+$exploreCategoryKids-gradient1: var(--exploreCategoryKids-gradientOne);
+$exploreCategoryKids-gradient2: var(--exploreCategoryKids-gradientTwo);
+
+// E-Bikes
+$exploreCategoryEBikes-gradient1: var(--exploreCategoryEBikes-gradientOne);
+$exploreCategoryEBikes-gradient2: var(--exploreCategoryEBikes-gradientTwo);

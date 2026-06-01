@@ -1,0 +1,12 @@
+steps:
+  - bash: |
+      set -euo pipefail
+      echo "Disk usage BEFORE cleanup:"
+      df -h /
+
+      sudo rm -rf /usr/share/dotnet
+      sudo rm -rf /usr/local/lib/android
+
+      echo "Disk usage AFTER cleanup:"
+      df -h /
+    displayName: Free disk space on /

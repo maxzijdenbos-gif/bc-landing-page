@@ -1,0 +1,221 @@
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+$tabletColumns: 4;
+$smallLaptopColumns: 3;
+
+@mixin drawerWidths() {
+  min-width: 100vw;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    min-width: unset;
+    width: #{math.div(100vw, $grid-columns) * $tabletColumns};
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    min-width: unset;
+    width: #{math.div(100vw, $grid-columns) * $smallLaptopColumns};
+  }
+}
+
+.component {
+  display: flex;
+
+  .burgerDrawer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden auto;
+    transform: translateX(0);
+    width: 0;
+  }
+
+  .burgerDrawerOne {
+    background-color: $context-color;
+    z-index: 2;
+
+    @include drawerWidths();
+  }
+
+  .doScrollState {
+    @include background-blur-strong($context-color);
+
+    border-bottom: 1px solid $context-tint;
+  }
+
+  .drawerTop {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: $spacing-s $spacing-sm;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: $spacing-m;
+    }
+
+    .logo {
+      color: $context-cta;
+      opacity: 1;
+      position: absolute;
+      transition: opacity $speed-medium $easing-base;
+
+      &.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .backButton {
+      cursor: pointer;
+      display: flex;
+      opacity: 1;
+      transform: translateX(0);
+      transition:
+        opacity $speed-medium $easing-base,
+        transform $speed-medium $easing-base;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.hide {
+        opacity: 0;
+        transform: translateX(rem(32));
+        visibility: hidden;
+      }
+    }
+
+    .menuCloseButton {
+      cursor: pointer;
+      display: flex;
+      height: fit-content;
+      transition: opacity $speed-medium $easing-base;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        &.hide {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+    }
+  }
+
+  .drawerBody {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+  }
+
+  .drawerContentFixed {
+    display: grid;
+    gap: $spacing-m;
+    padding: $spacing-sm;
+    position: sticky;
+    top: 0;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: $spacing-m $spacing-m $spacing-sm;
+    }
+  }
+
+  .scrollableContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden auto;
+    padding: $spacing-s 0;
+  }
+
+  .scrollableContent {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: rem(40);
+    padding: $spacing-sm;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      gap: $spacing-l;
+      padding: $spacing-m;
+    }
+
+    &.addBackground {
+      background-color: $context-color;
+    }
+  }
+
+  .linkList {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    row-gap: rem(20);
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      &:last-of-type {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .linkListGroupStart {
+    margin-top: rem(20);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-top: rem(28);
+    }
+  }
+
+  .crossBrandGroupStart {
+    border-top: 1px solid $context-tint;
+    padding-top: $spacing-ml;
+  }
+
+  .crossBrandGroupEnd {
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-bottom: $spacing-l;
+    }
+  }
+
+  .burgerDrawerTwo {
+    background-color: $context-tintVariant;
+    color: $context-tintContrast;
+    overflow: hidden;
+    transition:
+      transform $speed-fast $easing-base,
+      width $speed-fast $easing-base,
+      visibility 0s linear 0.1s;
+    visibility: hidden;
+    width: 0;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      transform: translateX(-100%);
+    }
+
+    .drawerTop {
+      background-color: $context-tintVariant;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    &.drawerTwoOpen {
+      transform: translateX(0);
+      transition: transform $speed-medium $easing-base;
+      visibility: visible;
+
+      @include drawerWidths();
+    }
+
+    .drawerContentFixed {
+      background-color: $context-tintVariant;
+    }
+  }
+}
+
+:export {
+  speed-medium: $speed-medium;
+}

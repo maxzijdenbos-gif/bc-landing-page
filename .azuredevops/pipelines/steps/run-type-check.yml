@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run type-check
+    displayName: Run type-check

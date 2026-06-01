@@ -1,0 +1,111 @@
+@use 'styles/setup' as *;
+
+.component {
+  position: relative;
+
+  .scrollableContainer {
+    align-items: center;
+    column-gap: $spacing-m;
+    display: flex;
+    flex-wrap: nowrap;
+
+    // Add padding for focus ring (10px) and compensate with negative margin
+    margin: rem(-10) rem(-10) 0;
+    max-width: calc(600px + rem(20));
+    -webkit-overflow-scrolling: touch;
+    overflow-x: auto;
+    padding: rem(10);
+    position: relative;
+    scroll-behavior: smooth;
+    scrollbar-color: $context-contrast transparent;
+    scrollbar-width: thin;
+    white-space: nowrap;
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: $context-contrast;
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      max-width: calc(917px + rem(20));
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      max-width: calc(600px + rem(20));
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      max-width: calc(800px + rem(20));
+    }
+  }
+
+  .rightFade {
+    background: linear-gradient(to left, $context-color, transparent);
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition:
+      opacity 0.3s ease,
+      visibility 0.3s ease;
+    visibility: hidden;
+    width: rem(80);
+    z-index: 2;
+
+    &.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .tabLink {
+    color: $context-contrastVariant;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding-bottom: rem(4);
+    position: relative;
+
+    &::before {
+      border-bottom: rem(2) solid currentcolor;
+      bottom: 0;
+      content: '';
+      display: block;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      transition:
+        width $speed-medium $easing-base,
+        opacity $speed-medium $easing-base $speed-medium;
+      width: 0;
+    }
+
+    &.activeTabLink {
+      color: $context-contrast;
+
+      &::before {
+        left: 0;
+        opacity: 1;
+        right: unset;
+        transition:
+          width $speed-medium $easing-base,
+          opacity 0s $easing-base;
+        width: 100%;
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        &::before {
+          left: 0;
+          opacity: 1;
+          right: unset;
+          transition:
+            width $speed-medium $easing-base,
+            opacity 0s $easing-base;
+          width: 100%;
+        }
+      }
+    }
+  }
+}

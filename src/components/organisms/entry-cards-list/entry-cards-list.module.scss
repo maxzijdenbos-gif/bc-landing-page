@@ -1,0 +1,118 @@
+@use 'styles/setup' as *;
+
+$expactedMaxGrowth: rem(32);
+
+.component {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      gap: $spacing-xl;
+    }
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .headlineColumn {
+    align-items: flex-end;
+    display: flex;
+  }
+
+  .column {
+    &.stackCardsOnMobile {
+      &:not(:last-of-type) {
+        padding-bottom: rem($gridGutter-mobile);
+      }
+    }
+
+    &.stackCardsOnSmallLaptop {
+      @include breakpoint-up($breakpoint-tablet) {
+        &:not(:last-of-type) {
+          padding-bottom: rem($gridGutter-tablet);
+        }
+      }
+
+      @include breakpoint-up($breakpoint-smallLaptop) {
+        flex-basis: content;
+        flex-grow: 1;
+      }
+    }
+
+    &:not(.stackCardsOnSmallLaptop) {
+      @include breakpoint-up($breakpoint-tablet) {
+        flex-basis: content;
+        flex-grow: 1;
+      }
+    }
+  }
+
+  .slider {
+    margin: 0;
+    margin: -$expactedMaxGrowth 0; // to compensate for the padding
+    overflow: hidden;
+    padding: $expactedMaxGrowth 0; // to compensate for the overflow being hidden and still support content growing
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .arrows {
+    align-items: center;
+    display: flex;
+    gap: $spacing-sm;
+    justify-content: flex-end;
+  }
+
+  .arrow {
+    height: fit-content;
+  }
+
+  .entryCardColumn {
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      max-width: 85%;
+    }
+  }
+
+  .sliderElementContainer {
+    display: flex;
+  }
+}
+
+// Start hover styling
+$clipPathOffset: calc(2.5%);
+
+.component .cardTransition {
+  box-sizing: border-box;
+  clip-path: inset(0 0 0 0);
+
+  // Should help with the lack of performance in firefox
+  transform: translateZ(1px);
+  transition:
+    scale $speed-slow $easing-base,
+    clip-path $speed-slow $easing-base;
+}
+
+.component .hovered {
+  scale: 1.05;
+}
+
+.component .prevSibling.prevSibling {
+  clip-path: inset(0 0 0 $clipPathOffset);
+}
+
+.component .nextSibling.nextSibling {
+  clip-path: inset(0 $clipPathOffset 0 0);
+}
+
+// End hover styling

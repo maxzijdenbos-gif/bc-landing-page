@@ -1,0 +1,86 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: flex-end;
+  border: rem(2) solid $context-tint;
+  margin-bottom: $spacing-xl;
+  padding: $spacing-m;
+  position: relative;
+  width: 100%;
+
+  .treeNode {
+    border-left: rem(1) solid $context-tint;
+    margin-left: $spacing-sm;
+    padding-left: $spacing-sm;
+
+    .treeNodeButton {
+      align-items: center;
+      cursor: pointer;
+      display: flex;
+      text-transform: capitalize;
+
+      &:hover {
+        background-color: $context-tint;
+      }
+    }
+
+    .disabled {
+      color: $context-tint;
+
+      &:hover {
+        background-color: transparent;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .tree {
+    overflow-y: scroll;
+    width: 100%;
+
+    & > .treeNode {
+      border: none;
+      margin: 0;
+    }
+  }
+
+  .buttonGroup {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-s;
+    justify-content: flex-end;
+    left: 0;
+    padding: $spacing-sm;
+    position: fixed;
+    width: 100%;
+
+    @include background-blur-light($context-tintVariant);
+  }
+
+  .publicationIndicator {
+    align-items: center;
+    color: $context-alert;
+    display: inline-flex;
+    font-size: 85%;
+    gap: $spacing-xxs;
+    justify-content: center;
+    margin-left: $spacing-sm;
+
+    &.isPublishedNode {
+      color: $context-accent;
+    }
+  }
+
+  .treeNodeButton .infoText {
+    opacity: 0;
+    transition:
+      opacity $speed-fast $easing-base,
+      color $speed-fast $easing-base;
+  }
+
+  .treeNodeButton:hover .infoText {
+    opacity: 1;
+  }
+}

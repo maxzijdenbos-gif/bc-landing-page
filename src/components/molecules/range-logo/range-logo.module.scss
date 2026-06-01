@@ -1,0 +1,154 @@
+@use 'styles/setup' as *;
+
+// Following names must be aligned with the icons provided - This type: RangeIconName
+$allRanges: (
+  'alightEPlus',
+  'allure',
+  'allureEPlus',
+  'alright',
+  'amitiEPlus',
+  'anthem',
+  'anytour',
+  'anytourEPlus',
+  'anytourXEPlus',
+  'atx',
+  'attend',
+  'avail',
+  'availAR',
+  'availEPlus',
+  'avow',
+  'beLiv',
+  'beLivAR',
+  'bliss',
+  'brava',
+  'contend',
+  'contendAr',
+  'contendSl',
+  'dailytourEPlus',
+  'dailytourEPlusAlt',
+  'defy',
+  'defyEPlus',
+  'devote',
+  'embolden',
+  'emboldenEPlus',
+  'entourEPlus',
+  'enviLiv',
+  'enviLivAlt',
+  'escape',
+  'escapeEPlus',
+  'exploreEPlus',
+  'faith',
+  'fastRoadEPlus',
+  'fastRoadAR',
+  'fathom',
+  'fathomEPlus',
+  'flourish',
+  'flourishEPlus',
+  'glory',
+  'intrigue',
+  'intrigueEPlus',
+  'intrigueX',
+  'intrigueXEPlus',
+  'langma',
+  'lurra',
+  'newtourEPlus',
+  'pique',
+  'propel',
+  'reign',
+  'reignEPlus',
+  'revolt',
+  'revoltEPlus',
+  'revoltX',
+  'roam',
+  'roamEPlus',
+  'rove',
+  'roveEPlus',
+  'scr',
+  'seek',
+  'stance',
+  'stanceEPlus',
+  'stormguardEPlus',
+  'stp',
+  'talon',
+  'talonEPlus',
+  'tcr',
+  'tcx',
+  'tempt',
+  'temptEPlus',
+  'thrive',
+  'thriveEPlus',
+  'thriveGX',
+  'toughroad',
+  'trance',
+  'tranceEPlus',
+  'tranceX',
+  'trinity',
+  'vallEPlus',
+  'xtc',
+  'yukon'
+);
+
+.component.road {
+  --startGradientColor: #{$exploreCategoryRoad-gradient1};
+  --endGradientColor: #{$exploreCategoryRoad-gradient2};
+}
+
+.component.mountain {
+  --startGradientColor: #{$exploreCategoryMountain-gradient1};
+  --endGradientColor: #{$exploreCategoryMountain-gradient2};
+}
+
+.component.crossGravel {
+  --startGradientColor: #{$exploreCategoryCrossGravel-gradient1};
+  --endGradientColor: #{$exploreCategoryCrossGravel-gradient2};
+}
+
+.component.cityFitness {
+  --startGradientColor: #{$exploreCategoryCityFitness-gradient1};
+  --endGradientColor: #{$exploreCategoryCityFitness-gradient2};
+}
+
+.component.kids {
+  --startGradientColor: #{$exploreCategoryKids-gradient1};
+  --endGradientColor: #{$exploreCategoryKids-gradient2};
+}
+
+.component.eBikes {
+  --startGradientColor: #{$exploreCategoryEBikes-gradient1};
+  --endGradientColor: #{$exploreCategoryEBikes-gradient1};
+}
+
+.component {
+  height: rem(62); // Fallback value
+  position: relative;
+  width: 100%;
+
+  .maskedGradient {
+    @include exploreRangeBaseGradient(--startGradientColor, --endGradientColor);
+
+    background-position: 0% 0%;
+    background-size: 100% 100%;
+    display: block;
+    height: 100%;
+    mask-position: center;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    position: relative;
+
+    .animatedGradient {
+      @include exploreRangeTubeGradient();
+
+      content: '';
+      display: block;
+      inset: 0;
+      position: absolute;
+      transform: translateY(100%);
+    }
+  }
+
+  @each $range in $allRanges {
+    .rangeName-#{$range} {
+      mask-image: url('../../../assets/icons/range-logos/#{$range}.svg');
+    }
+  }
+}

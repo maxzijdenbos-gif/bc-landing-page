@@ -1,0 +1,263 @@
+@use 'styles/setup' as *;
+
+$scrollbarCorrection: 1rem; // This is needed to prevent the scrollbar from overlapping the content
+
+@mixin underlineActiveState {
+  &::before {
+    left: 0;
+    opacity: 1;
+    right: unset;
+    transition:
+      width $speed-medium $easing-base,
+      opacity 0s linear;
+    width: 100%;
+  }
+}
+
+.component {
+  [data-color='secondary'] &,
+  [data-nav-color='secondary'] &,
+  [data-page-color='secondary']:not([data-nav-color='primary']) & {
+    @include context('secondary');
+
+    border-bottom: none;
+  }
+
+  border-bottom: 1px solid $context-tint;
+  box-sizing: border-box;
+  margin-top: -$height-mainNavigationMobile;
+  opacity: 1;
+  pointer-events: none; // as the anchor menu might be placed on top of other clickable UI elements in e.g. heroes
+  position: sticky;
+  top: 0;
+  transition:
+    top $speed-medium $easing-base,
+    background-color $speed-medium $easing-base,
+    color $speed-medium $easing-base;
+  z-index: 3;
+
+  &.pullIntoTopElement {
+    margin-top: -$height-mainNavigationMobile - $height-mainNavigationMobile;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-top: -$height-mainNavigationDesktop - $height-mainNavigationDesktop;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: -$height-mainNavigationDesktop;
+  }
+
+  .backdrop {
+    height: $height-mainNavigationMobile;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: $height-mainNavigationDesktop;
+    }
+  }
+
+  &.mainNavigationIsHidden {
+    top: -$height-mainNavigationMobile;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      top: -$height-mainNavigationDesktop;
+    }
+  }
+
+  .stickyTopBarInner {
+    pointer-events: all; // as this part of the anchor menu will contain clickable UI elements
+
+    &::after {
+      background-color: $context-tone;
+      bottom: 0;
+      content: '';
+      height: calc($height-mainNavigationMobile);
+      left: 0;
+      opacity: 1;
+      pointer-events: all; // as this part of the anchor menu will *not* contain clickable UI elements
+      position: absolute;
+      transition: background-color $speed-medium $easing-base;
+      width: 100%;
+      z-index: 1;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        height: calc($height-mainNavigationDesktop);
+      }
+    }
+  }
+
+  &.doDoubleBackgroundHeight {
+    // placed here for stuctural readability reasons
+    .stickyTopBarInner::after {
+      height: $height-mainNavigationMobile * 2;
+      opacity: 1;
+      transition:
+        background-color $speed-medium $easing-base,
+        opacity $speed-medium $easing-base;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        height: $height-mainNavigationDesktop * 2;
+      }
+    }
+  }
+
+  [data-color='secondary'] & .stickyTopBarInner::after,
+  [data-nav-color='secondary'] & .stickyTopBarInner::after,
+  [data-page-color='secondary']:not([data-nav-color='primary'])
+    &
+    .stickyTopBarInner::after {
+    background-color: $context-color;
+  }
+
+  .anchorMenu {
+    display: flex;
+    justify-content: center;
+    min-height: $height-mainNavigationMobile;
+    position: relative;
+    z-index: 2;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      min-height: $height-mainNavigationDesktop;
+
+      &.justifyEnd {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  .anchorMenuOverflowIndicator {
+    display: flex;
+    height: 100%;
+    position: relative;
+    width: fit-content;
+  }
+
+  .anchorMenuHasOverflow {
+    &::before,
+    &::after {
+      content: '';
+      display: block;
+      inset: 0;
+      pointer-events: none;
+      position: sticky;
+      transition: $speed-fast opacity $easing-base;
+      width: $spacing-m;
+      z-index: 1;
+    }
+
+    &::before {
+      background: linear-gradient(90deg, $context-color, transparent);
+      right: auto;
+    }
+
+    &::after {
+      background: linear-gradient(-90deg, $context-color, transparent);
+      left: auto;
+    }
+  }
+
+  .anchorMenuHasScrollStart {
+    &::before {
+      opacity: 0;
+    }
+  }
+
+  .anchorMenuHasScrollEnd {
+    &::after {
+      opacity: 0;
+    }
+  }
+
+  .anchorMenuLinkWrapper {
+    // Add padding for focus ring (10px) and compensate with negative margin
+    margin: rem(-10) 0;
+    overflow-x: auto;
+    padding: rem(10) 0;
+    scrollbar-color: $context-contrastVariant transparent;
+
+    @include breakpoint-down($breakpoint-tablet) {
+      scrollbar-width: thin;
+    }
+  }
+
+  .anchorMenuLinkList {
+    display: flex;
+    gap: $spacing-ml;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    width: fit-content;
+  }
+
+  .anchorMenuLinkListItem {
+    display: flex;
+  }
+
+  .anchorMenuLink {
+    white-space: nowrap;
+
+    // hide default focus
+    &:focus-visible::after {
+      display: none;
+    }
+
+    // show focus inside element
+    &:focus-visible .anchorMenuText::after {
+      border: rem(2) solid $color-focusOutline;
+      border-radius: rem(1);
+      box-shadow: inset 0 0 0 rem(2) #fff;
+      content: '';
+      inset: rem(-10);
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  .anchorMenuText {
+    color: $context-contrastVariant;
+    cursor: pointer;
+    display: block;
+    position: relative;
+
+    &.isActive {
+      color: $context-accentVariant;
+
+      @include underlineActiveState();
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $context-accent;
+      }
+    }
+
+    // not using the mixin here as slightly different styles are needed
+    &::before {
+      border-bottom: rem(2) solid currentcolor;
+      bottom: rem(-4);
+      content: '';
+      display: block;
+      opacity: 0; // setting opacity to 0 as safari sometimes will leave a pixel line visible even width is set to 0. Transition will be delayes to ensure no visible transition.
+      position: absolute;
+      right: 0;
+      transition:
+        width $speed-medium $easing-base,
+        opacity 0s linear $speed-medium;
+      width: 0;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        @include underlineActiveState();
+      }
+    }
+  }
+}
+
+:export {
+  mainNavigationDesktopHeight: $height-mainNavigationDesktop;
+  mainNavigationMobileHeight: $height-mainNavigationMobile;
+  remScale: $scale;
+}

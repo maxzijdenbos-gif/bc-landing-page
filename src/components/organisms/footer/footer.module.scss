@@ -1,0 +1,148 @@
+@use 'styles/setup' as *;
+
+.component {
+  @include context('quaternary');
+
+  background-color: $context-color;
+  color: $context-contrast;
+  display: flex;
+  flex-direction: column;
+  padding-top: $spacing-l;
+  width: 100%;
+  z-index: 0;
+
+  .footerMainLinks {
+    padding-bottom: $spacing-xl;
+    position: relative;
+    z-index: 1;
+  }
+
+  .row {
+    row-gap: $spacing-l;
+  }
+
+  .section {
+    .header {
+      padding-bottom: $spacing-sm;
+    }
+
+    .linksList {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+      padding-bottom: rem(
+        4
+      ); // to allow for link underline to be visible on links aligning to bottom
+    }
+  }
+
+  .link {
+    @include textLinkUnderline();
+  }
+
+  .iconRow {
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    margin-bottom: $spacing-l;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      flex-direction: row;
+      margin-bottom: 0;
+    }
+  }
+
+  .iconLinks {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-m;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      align-items: flex-end;
+    }
+
+    .languageLink {
+      align-items: center;
+      display: flex;
+      gap: $spacing-xxs;
+      margin-bottom: $spacing-m;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        margin-bottom: 0;
+      }
+    }
+
+    .socialLinks {
+      @include breakpoint-up($breakpoint-tablet) {
+        align-items: center;
+        display: flex;
+        gap: $spacing-sm;
+      }
+    }
+
+    .socialLinkSeparator {
+      background-color: $context-contrast;
+      display: none;
+      height: rem(16);
+      opacity: 0.2;
+      width: rem(2);
+
+      @include breakpoint-up($breakpoint-tablet) {
+        display: block;
+      }
+    }
+
+    .socialMediaIcons {
+      align-items: center;
+      display: flex;
+      gap: $spacing-xs;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        flex-direction: row;
+        gap: $spacing-sm;
+      }
+
+      .socialLink {
+        display: flex; // Ensure proper sizing for focus ring
+        transition: color $speed-medium $easing-base;
+
+        &:hover {
+          color: $context-contrastVariant;
+        }
+      }
+    }
+  }
+
+  .copyrightText {
+    color: $context-contrastVariant;
+  }
+
+  .brandImageWrapper {
+    align-items: flex-end;
+    display: flex;
+  }
+
+  .giantImage {
+    margin-inline: $spacing-m;
+    max-width: 878px;
+    position: relative;
+    width: calc(100% - #{$spacing-m} * 2);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-inline: 0;
+    }
+  }
+
+  .aboveTabletOnly {
+    @include breakpoint-down($breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .belowTabletOnly {
+    @include breakpoint-up($breakpoint-tablet) {
+      display: none;
+    }
+  }
+}

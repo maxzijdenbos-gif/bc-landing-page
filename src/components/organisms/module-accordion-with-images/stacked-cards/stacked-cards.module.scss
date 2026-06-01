@@ -1,0 +1,16 @@
+@use 'styles/setup' as *;
+
+.component {
+  overflow: hidden;
+  position: relative;
+
+  .child {
+    position: absolute;
+    right: calc(
+      1px - 1px
+    ); /* Using calc() forces layout re-flow during the initial render, which is the desired outcome to fix firefox issue. right: 0px. */
+
+    transition: all $speed-medium $easing-base;
+    will-change: transform, right;
+  }
+}

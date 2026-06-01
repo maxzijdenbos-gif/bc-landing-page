@@ -1,0 +1,57 @@
+@use 'styles/setup' as *;
+
+.component {
+  width: 100%;
+
+  .hideOnMobile {
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      display: none;
+    }
+  }
+
+  .row {
+    padding: 0 $spacing-m;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      align-items: flex-start;
+      display: flex;
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      padding: 0;
+    }
+  }
+
+  .cardsWrapper {
+    height: 100%;
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      display: none;
+    }
+  }
+
+  .link,
+  .image.isContent {
+    display: block;
+    margin-top: $spacing-m;
+  }
+
+  .image {
+    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+
+    &.isContent {
+      display: none;
+
+      @include breakpoint-down($breakpoint-smallLaptop) {
+        display: block;
+      }
+    }
+  }
+
+  .title {
+    margin-bottom: $spacing-l;
+  }
+}

@@ -1,0 +1,98 @@
+@use 'styles/setup' as *;
+
+.component {
+  outline-offset: -2px;
+
+  .headline {
+    padding-bottom: $spacing-l;
+    text-align: center;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding-bottom: $spacing-xl;
+    }
+  }
+
+  .sliderWrapper {
+    padding: 2px; // fixing the slider margin
+    position: relative;
+  }
+
+  .slider {
+    overflow: hidden;
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .container {
+    --slider-bottom-padding: #{$spacing-xl};
+
+    display: flex;
+    padding-bottom: var(--slider-bottom-padding);
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      --slider-bottom-padding: #{$spacing-xxl};
+    }
+  }
+
+  .noSlider .container {
+    justify-content: center;
+  }
+
+  .background,
+  .foreground {
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  .background {
+    background: $gradient-radialMobile;
+    inset: 0 0 rem(192);
+    opacity: 0.1;
+    position: absolute;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      background: $gradient-radial;
+    }
+  }
+
+  .foreground {
+    align-items: flex-start;
+    animation: animateIn $speed-medium forwards;
+    display: flex;
+    justify-content: center;
+
+    &.isHidden {
+      animation: animateOut $speed-medium forwards;
+    }
+  }
+}
+
+@keyframes animateIn {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 5vh, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes animateOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

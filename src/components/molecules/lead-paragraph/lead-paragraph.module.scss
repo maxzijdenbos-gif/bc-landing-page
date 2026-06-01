@@ -1,0 +1,6 @@
+@use 'styles/setup' as *;
+
+.component {
+  color: $context-accentVariant;
+  white-space: pre-line;
+}

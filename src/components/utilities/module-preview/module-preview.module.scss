@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use 'styles/setup' as *;
+@use 'styles/themes/root';
+@use 'styles/themes/liv';
+
+.component {
+  background-color: $context-color;
+  color: $context-contrast;
+  min-height: 100vh;
+  position: relative;
+
+  &.isDocs {
+    min-height: 400px;
+  }
+
+  &.isCentered {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@each $key, $context in $contexts {
+  .component[data-color='#{$key}'] {
+    @include context($key);
+  }
+}

@@ -1,0 +1,29 @@
+@use 'styles/setup' as *;
+
+.component {
+  .linkListItem {
+    width: fit-content;
+  }
+
+  .linkListDeeper {
+    transition: transform $speed-medium $easing-base;
+
+    @media (hover: none) {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    @media (hover: hover) {
+      .arrow {
+        display: none;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: translateX($spacing-xs);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@use 'styles/variables/palette' as *;
+
+@mixin darkBackground-strong() {
+  background-color: $palette-grey90;
+  opacity: 0.8;
+}
+
+@mixin darkBackground-medium() {
+  background-color: $palette-grey90;
+  opacity: 0.6;
+}
+
+@mixin darkBackground-light() {
+  background-color: $palette-grey90;
+  opacity: 0.3;
+}
+
+@mixin darkBackground-black() {
+  background-color: $palette-black;
+  opacity: 0.8;
+}

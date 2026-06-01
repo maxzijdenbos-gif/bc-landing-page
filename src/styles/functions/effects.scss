@@ -1,0 +1,11 @@
+@function transparent-color-strong($color) {
+  @return color-mix(in srgb, $color 80%, transparent);
+}
+
+@function transparent-color-medium($color) {
+  @return color-mix(in srgb, $color 60%, transparent);
+}
+
+@function transparent-color-light($color) {
+  @return color-mix(in srgb, $color 30%, transparent);
+}

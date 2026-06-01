@@ -1,0 +1,83 @@
+@use 'styles/setup' as *;
+
+$maxLogoHeight: rem(32); // the max height of the logo
+$cardHeightAtMaxLogoHeight: rem(
+  476
+); // the height of the card when the logo is at its max height. used for scaling down the logo
+
+.component {
+  aspect-ratio: 1;
+  color: $context-contrast;
+  position: relative;
+
+  @include context('secondary');
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    &.isDualCard {
+      aspect-ratio: 1.25;
+    }
+  }
+
+  .overlay {
+    inset: 0;
+    position: absolute;
+
+    @include darkBackground-medium();
+  }
+
+  .backgroundImage {
+    object-fit: cover;
+    transition: transform $speed-slow $easing-base;
+  }
+
+  &:hover {
+    .backgroundImage {
+      transform: scale(1.1);
+    }
+  }
+
+  .content {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    inset: 0;
+    justify-content: flex-end;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .titleWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    inset: 0 $spacing-m;
+    place-content: center;
+    position: absolute;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      inset: 0 $spacing-m;
+    }
+  }
+
+  .logo {
+    height: calc($maxLogoHeight / $cardHeightAtMaxLogoHeight * 100%);
+    max-height: $maxLogoHeight;
+    max-width: 100%;
+  }
+
+  .headline {
+    text-align: center;
+  }
+
+  .rangeIcon {
+    aspect-ratio: unset;
+    height: 100%;
+  }
+
+  .button {
+    margin-bottom: $spacing-l;
+
+    @include breakpoint-up($breakpoint-laptop) {
+      margin-bottom: $spacing-xl;
+    }
+  }
+}

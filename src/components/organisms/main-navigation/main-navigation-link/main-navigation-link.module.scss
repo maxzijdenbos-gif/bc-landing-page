@@ -1,0 +1,19 @@
+@use 'styles/setup' as *;
+
+.component {
+  .linkListItem {
+    width: fit-content;
+  }
+
+  .isHighlighted {
+    color: $context-accent;
+  }
+
+  .doUnderline {
+    @include textLinkUnderline();
+
+    &.isCurrentPathId {
+      @include textLinkUnderlineActiveState();
+    }
+  }
+}

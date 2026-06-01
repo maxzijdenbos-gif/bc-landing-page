@@ -1,0 +1,87 @@
+@use 'styles/setup' as *;
+
+.component {
+  color: $context-contrast;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: left;
+
+  .label {
+    color: $context-contrastVariant;
+    cursor: text;
+    left: 0;
+    margin: 0 0 $spacing-s;
+    position: absolute;
+    top: 0;
+    transition: transform $speed-fast $easing-base;
+  }
+
+  .field {
+    @include typography-bodyLarge(); // prevet iOS zoom on focus
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      @include typography-bodySmall(); // desired font size in terms of design
+    }
+
+    &.field {
+      // need to increase specificity to overwrite typography includes
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid $context-tint;
+      border-radius: 0%; // overwrite browser default
+      color: inherit;
+      font-weight: 700;
+      height: 2em;
+      margin: 0;
+      padding: 0 0 $spacing-xs;
+      transition: color $speed-medium $easing-base;
+    }
+
+    &::placeholder {
+      color: $context-tint;
+    }
+
+    &:focus ~ .label,
+    &:not(&:placeholder-shown) ~ .label {
+      transform: translateY(calc(-100% - #{$spacing-s}));
+    }
+
+    &:not(&:placeholder-shown) {
+      border-bottom-color: $context-accentVariant;
+    }
+  }
+
+  .field:focus-visible.field:focus-visible,
+  .field:hover.field:hover {
+    border-bottom: $borderWidth-md solid $color-focusOutline;
+    outline: none;
+  }
+
+  .error {
+    color: $context-alert;
+  }
+
+  .help,
+  .error {
+    margin-top: $spacing-xxs;
+  }
+}
+
+.component.isDisabled {
+  color: $context-tint;
+  pointer-events: none;
+}
+
+.component.hasError {
+  /* stylelint-disable-next-line no-descending-specificity */
+  .label {
+    color: $context-alert;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  .field {
+    border-bottom-color: $context-alert;
+  }
+}

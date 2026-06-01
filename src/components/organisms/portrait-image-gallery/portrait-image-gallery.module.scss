@@ -1,0 +1,111 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+@mixin set-margin-based-on-aspect-ratio-and-width($width) {
+  margin: rem(calc(($width * 3 / 2) / 2)) rem(2);
+}
+
+.component {
+  outline-offset: -2px;
+  position: relative;
+
+  .headline {
+    padding: $spacing-xl;
+    text-align: center;
+  }
+
+  .slider {
+    --slider-bottom-padding: #{$spacing-xl};
+
+    overflow: hidden;
+    padding-bottom: var(--slider-bottom-padding);
+    position: relative;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      --slider-bottom-padding: #{$spacing-xxl};
+    }
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+  }
+
+  .slide {
+    position: relative;
+    user-select: none;
+
+    @include breakpoint-up($breakpoint-desktop) {
+      flex: 0 0 rem(250);
+      max-width: rem(250);
+
+      @include set-margin-based-on-aspect-ratio-and-width(250);
+    }
+
+    @include breakpoint-down($breakpoint-desktop) {
+      flex: 0 0 rem(220);
+      max-width: rem(220);
+
+      @include set-margin-based-on-aspect-ratio-and-width(220);
+    }
+
+    @include breakpoint-down($breakpoint-laptop) {
+      flex: 0 0 rem(180);
+      max-width: rem(180);
+
+      @include set-margin-based-on-aspect-ratio-and-width(180);
+    }
+
+    /* Override the container breakpoint on mobile */
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      flex: 0 0 rem(150);
+      max-width: rem(150);
+
+      @include set-margin-based-on-aspect-ratio-and-width(150);
+    }
+
+    /* position relative to support depth effect */
+    .slideContainer {
+      height: auto;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      z-index: 0;
+
+      .imageContainer {
+        aspect-ratio: 2 / 3;
+
+        /* Moved aspect-ratio and added position here to wrangle the image contained */
+        position: relative;
+      }
+
+      .image {
+        /* Settings the image to double it's container size so that slider-depth scale(2) causes original pixel density specifically in safari */
+        filter: url('#blurFilter');
+        height: 200%;
+        left: -50%;
+        object-fit: cover;
+        position: absolute;
+        top: -50%;
+      }
+
+      .animationTrigger {
+        height: 100%;
+        left: 50%;
+        pointer-events: none;
+        position: absolute;
+        top: 30%;
+        width: 1px;
+      }
+    }
+  }
+}

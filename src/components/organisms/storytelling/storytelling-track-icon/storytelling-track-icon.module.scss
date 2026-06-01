@@ -1,0 +1,12 @@
+.component {
+  height: auto;
+  width: 100%;
+
+  .startGradientColor {
+    stop-color: var(--startGradientColor);
+  }
+
+  .endGradientColor {
+    stop-color: var(--endGradientColor);
+  }
+}

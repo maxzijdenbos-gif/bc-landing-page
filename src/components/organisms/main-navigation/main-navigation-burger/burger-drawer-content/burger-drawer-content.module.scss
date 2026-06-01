@@ -1,0 +1,40 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  top: $spacing-m;
+  transform: translateX(-100%);
+  transition:
+    transform $speed-medium $easing-base,
+    visibility 0s $easing-base $speed-medium,
+    opacity $speed-medium $easing-base;
+  visibility: hidden;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    inset: 0;
+  }
+
+  &:first-of-type {
+    z-index: 2;
+  }
+
+  &.drawerContentDisplay {
+    opacity: 1;
+    overflow: visible;
+    transform: translateX(0%);
+    transition:
+      transform $speed-medium $easing-base,
+      opacity $speed-medium $easing-base;
+    visibility: visible;
+  }
+
+  &.drawerContentPrepareDisplay {
+    transform: translateX(100%);
+  }
+}

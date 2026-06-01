@@ -1,0 +1,54 @@
+@use 'styles/setup' as *;
+
+.component {
+  .initialState {
+    opacity: 0;
+
+    @media screen and (prefers-reduced-motion: reduce) {
+      opacity: 1;
+    }
+  }
+
+  .slideUp {
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: handleSlideUp;
+    animation-timing-function: ease-out;
+  }
+
+  .slideLeftToRight {
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: handleSlideLeftToRight;
+    animation-timing-function: ease-out;
+  }
+
+  .animationDisabled {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes handleSlideLeftToRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(-5vw, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes handleSlideUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 5vh, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run eslint
+    displayName: ESLint check

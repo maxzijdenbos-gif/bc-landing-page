@@ -1,0 +1,63 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+
+  .container {
+    position: relative;
+  }
+
+  .mediaWrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .overlay {
+    @include darkBackground-light();
+
+    inset: 0;
+    position: absolute;
+    transition:
+      opacity $speed-slow $easing-base,
+      visibility 0s linear $speed-slow;
+    z-index: 1;
+  }
+
+  .buttonWrapper {
+    align-items: center;
+    display: flex;
+    inset: 0;
+    justify-content: center;
+    position: absolute;
+  }
+
+  .mediaWrapper:has(:focus-visible) {
+    // using global focus style pattern from elements.scss
+    // Structure: 6px transparent gap + 2px white + 2px dark blue = 10px total
+    outline: none;
+    position: relative;
+
+    &::after {
+      border: rem(2) solid $color-focusOutline;
+      border-radius: var(--focus-ring-radius, inherit);
+      box-shadow: inset 0 0 0 rem(2) #fff;
+      content: '';
+      inset: rem(-10);
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+
+  .playButton {
+    transition:
+      opacity $speed-slow $easing-base,
+      visibility 0s linear $speed-slow;
+    z-index: 2;
+  }
+
+  .isHidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+}

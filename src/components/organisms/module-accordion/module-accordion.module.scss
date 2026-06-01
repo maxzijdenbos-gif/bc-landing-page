@@ -1,0 +1,11 @@
+@use 'styles/setup' as *;
+
+$itemBorder: 1px solid $context-tint;
+
+.component {
+  width: 100%;
+
+  .headline {
+    padding-bottom: $spacing-m;
+  }
+}

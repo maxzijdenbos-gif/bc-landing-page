@@ -1,0 +1,129 @@
+@use 'styles/setup' as *;
+
+.component {
+  $anchorLinksMenuHeightMobile: $height-mainNavigationMobile;
+  $anchorLinksMenuHeightDesktop: $height-mainNavigationDesktop;
+
+  &.component {
+    padding-top: 0;
+
+    &.hasAnchorMenu {
+      /* stylelint-disable-next-line scss/operator-no-newline-after */
+      margin-bottom: -$height-mainNavigationMobile -
+        $anchorLinksMenuHeightMobile;
+      padding-bottom: $anchorLinksMenuHeightMobile;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        /* stylelint-disable-next-line scss/operator-no-newline-after */
+        margin-bottom: -$height-mainNavigationDesktop -
+          $anchorLinksMenuHeightDesktop;
+        padding-bottom: $anchorLinksMenuHeightDesktop;
+      }
+    }
+  }
+
+  .contentContainer {
+    overflow: hidden;
+    padding: #{$spacing-l + $height-mainNavigationMobile} 0 $spacing-l;
+    position: relative;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: #{$spacing-l + $height-mainNavigationDesktop} 0 $spacing-xl;
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      padding: #{$spacing-xl + $height-mainNavigationDesktop} 0 $spacing-xxl;
+    }
+  }
+
+  .contentColumn {
+    overflow-wrap: break-word;
+  }
+
+  .breadcrumb {
+    padding-bottom: $spacing-sm;
+    z-index: 2;
+  }
+
+  .authorAndDate {
+    color: $context-contrastVariant;
+    padding-top: $spacing-m;
+  }
+
+  .labelContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: $spacing-m;
+    position: relative;
+    z-index: 1;
+  }
+
+  .waterMark {
+    bottom: 0;
+    display: none;
+    height: fit-content;
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 0;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      bottom: unset;
+      display: block;
+      top: #{$spacing-l + $height-mainNavigationDesktop};
+      width: calc(100% / #{$grid-columns} * 10);
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      top: $spacing-xl;
+    }
+  }
+
+  .waterMarkTablet {
+    /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
+    @extend .waterMark;
+
+    display: block;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      display: none;
+    }
+  }
+}
+
+.overflowContainer {
+  aspect-ratio: 9/16;
+  max-height: 70vh;
+  overflow: hidden;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    aspect-ratio: 16/9;
+  }
+}
+
+.imageContainer {
+  aspect-ratio: 9/16;
+  height: 111%; // Added height to compensate for parallax effect. Added one more percent to compensate for visual errors.
+  max-height: 1000vh;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    aspect-ratio: 16/9;
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.waterMarkImage {
+  object-fit: contain;
+  object-position: top;
+}
+
+.leadParagraph {
+  position: relative;
+}

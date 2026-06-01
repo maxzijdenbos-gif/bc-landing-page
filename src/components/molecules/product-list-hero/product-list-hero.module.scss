@@ -1,0 +1,71 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  background-color: $context-contrast;
+  display: flex;
+  margin-top: -$height-mainNavigationMobile;
+  min-height: rem(324);
+  padding: 0;
+  padding: $spacing-xl $spacing-xs $spacing-xl;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: -$height-mainNavigationDesktop;
+    padding: $spacing-xxl $spacing-xs $spacing-l;
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    min-height: rem(404);
+  }
+
+  .overlay {
+    @include darkBackground-light();
+
+    display: block;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+
+    &.dark {
+      @include darkBackground-medium();
+    }
+  }
+
+  .titleContainerOuter {
+    height: 100%;
+    width: 100%;
+  }
+
+  .breadcrumb {
+    padding-bottom: $spacing-m;
+  }
+
+  .titleContainer {
+    align-content: center;
+    color: $context-contrast;
+    display: flex;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+  }
+
+  .titleColumn {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    justify-content: flex-end;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      justify-content: center;
+    }
+  }
+
+  .heroImage {
+    object-fit: cover;
+  }
+}

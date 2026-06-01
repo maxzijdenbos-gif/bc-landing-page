@@ -1,0 +1,40 @@
+@use 'styles/setup' as *;
+
+.component {
+  padding: 0;
+
+  .rangeLogo {
+    height: rem(113);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: rem(180);
+    }
+  }
+
+  .iconContainer {
+    margin: $spacing-l 0;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      margin: $spacing-xxl 0;
+    }
+
+    // TODO: US[2100]: Redo when doing gradient system
+    /* stylelint-disable-next-line selector-disallowed-list */
+    svg {
+      height: auto;
+      max-height: rem(180);
+      width: 100%;
+    }
+  }
+
+  .cardContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cardInnerContainer {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-l;
+  }
+}

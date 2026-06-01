@@ -1,0 +1,230 @@
+@use 'styles/setup' as *;
+
+.component.road {
+  --startGradientColor: #{$exploreCategoryRoad-gradient1};
+  --endGradientColor: #{$exploreCategoryRoad-gradient2};
+}
+
+.component.mountain {
+  --startGradientColor: #{$exploreCategoryMountain-gradient1};
+  --endGradientColor: #{$exploreCategoryMountain-gradient2};
+}
+
+.component.crossGravel {
+  --startGradientColor: #{$exploreCategoryCrossGravel-gradient1};
+  --endGradientColor: #{$exploreCategoryCrossGravel-gradient2};
+}
+
+.component.cityFitness {
+  --startGradientColor: #{$exploreCategoryCityFitness-gradient1};
+  --endGradientColor: #{$exploreCategoryCityFitness-gradient2};
+}
+
+.component.kids {
+  --startGradientColor: #{$exploreCategoryKids-gradient1};
+  --endGradientColor: #{$exploreCategoryKids-gradient2};
+}
+
+.component.eBikes {
+  --startGradientColor: #{$exploreCategoryEBikes-gradient1};
+  --endGradientColor: #{$exploreCategoryEBikes-gradient1};
+}
+
+.component {
+  background: $context-color;
+  overflow: initial;
+  position: relative;
+
+  .container {
+    position: relative;
+  }
+
+  .textElement {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    height: 100%;
+    justify-content: center;
+    min-height: 40vh;
+    opacity: 1;
+    text-align: center;
+
+    &:first-child {
+      margin-top: 30vh;
+    }
+  }
+
+  .paragraphContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+  }
+
+  .gradientContainer {
+    position: relative;
+  }
+
+  .gradientText {
+    /* This section intentionally commented out. Adding this back in will re-enable gradient text */
+
+    /* @include exploreRangeSecondGradient( */
+
+    /* --startGradientColor, */
+
+    /* --endGradientColor */
+
+    /* ); */
+
+    /* background-clip: text; */
+
+    /* background-position: 0 0, 0 0; */
+
+    /* background-size: 100% 100%, 100% 100%; */
+
+    /* color: transparent; */
+  }
+
+  .textWrapper {
+    margin-top: -100vh;
+    min-height: 100vh;
+    padding: 0 $spacing-sm;
+    position: relative;
+    z-index: 2;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: 0;
+    }
+  }
+
+  .overlay {
+    @include darkBackground-strong();
+
+    display: block;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    transition: clip-path $speed-verySlow;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .masked {
+    height: 100%;
+    width: 100%;
+  }
+
+  .sticky {
+    height: 100vh;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+
+    .video {
+      height: 100%;
+      left: 0;
+      object-fit: cover;
+      padding: 1px;
+      position: absolute;
+      top: 0;
+      user-select: none;
+      width: 100%;
+      z-index: 0;
+    }
+
+    .progressWrapper {
+      align-items: flex-end;
+      bottom: $spacing-l;
+      color: $context-contrast;
+      display: flex;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      user-select: none;
+      width: 100%;
+      z-index: 99;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        bottom: $spacing-l;
+      }
+
+      .progressTrack,
+      .backLayerTrack {
+        bottom: 0;
+        height: rem(80);
+        position: absolute;
+        width: 100%;
+
+        @include breakpoint-up($breakpoint-tablet) {
+          height: rem(200);
+        }
+      }
+
+      .backLayerTrack {
+        opacity: 0.1;
+      }
+    }
+  }
+
+  .clippedContainer {
+    height: 100%;
+    width: 100%;
+  }
+
+  .textRow {
+    justify-content: center;
+  }
+
+  .videButtonStickyContainer {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    width: 22vw;
+    z-index: 3;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      width: 10vw;
+    }
+
+    .toggleVideo {
+      bottom: $spacing-m;
+      left: $spacing-m;
+      pointer-events: auto;
+      position: absolute;
+      z-index: 10;
+
+      .videoButton {
+        @include context('secondary');
+        @include darkBackground-strong();
+      }
+    }
+  }
+
+  .videoContainer {
+    height: 100%;
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+  }
+
+  .mobile {
+    display: block;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .desktop {
+    display: none;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      display: block;
+    }
+  }
+}

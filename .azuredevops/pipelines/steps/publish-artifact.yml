@@ -1,0 +1,6 @@
+steps:
+  - task: PublishBuildArtifacts@1
+    displayName:
+      Publish Artifact: Create drop from $(Build.ArtifactStagingDirectory)
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'

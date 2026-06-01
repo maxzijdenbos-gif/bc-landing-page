@@ -1,0 +1,110 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+$cartDrawerWidth: 450px;
+
+.cartTrigger {
+  align-items: center;
+  cursor: pointer;
+  display: inline-flex;
+  gap: $spacing-xxs;
+  padding: $spacing-xs 0;
+  transition: $speed-medium $easing-base;
+}
+
+.cartCountBadge {
+  background-color: $palette-blue40;
+  border-radius: rem(8);
+  color: $palette-white;
+  font-family: $fontFamily-headline;
+  font-size: rem(12);
+  font-weight: $fontWeight-heavy;
+  line-height: 1;
+  min-width: rem(16);
+  padding: rem(2) rem(4);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Force primary context so cart drawer matches burger menu (nav) background. */
+.cartDrawerContext {
+  @include context('primary');
+
+  color: $context-contrast;
+  height: 100%;
+
+  .cartDrawerContent {
+    background-color: $context-color;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    max-width: $cartDrawerWidth;
+    min-width: min($cartDrawerWidth, 100vw);
+    overflow: auto;
+
+    @include breakpoint-down($breakpoint-tablet) {
+      max-width: initial;
+      width: 100vw;
+    }
+  }
+
+  .cartDrawerHeader {
+    align-items: center;
+    border-bottom: 1px solid $palette-grey10;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-between;
+    padding: $spacing-sm $spacing-m;
+
+    .cartDrawerHeaderTitle {
+      font-size: rem(16);
+      line-height: rem(24);
+      text-transform: uppercase;
+    }
+  }
+
+  .cartDrawerBody {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .cartDrawerItems {
+    list-style: none;
+    margin: 0;
+    padding: $spacing-sm;
+  }
+
+  .cartDrawerEmpty {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    height: 100%;
+    justify-content: center;
+    padding-inline: $spacing-m;
+  }
+
+  .cartDrawerEmptyIcon {
+    flex-shrink: 0;
+    height: rem(64);
+    width: rem(64);
+  }
+
+  .cartDrawerFooter {
+    border-top: 1px solid $palette-grey10;
+    bottom: 0;
+    flex-shrink: 0;
+    padding: $spacing-sm;
+  }
+
+  .cartDrawerCloseButton {
+    cursor: pointer;
+    display: flex;
+    height: fit-content;
+    transition: opacity $speed-medium $easing-base;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

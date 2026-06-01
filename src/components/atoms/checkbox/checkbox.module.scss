@@ -1,0 +1,115 @@
+@use 'styles/setup' as *;
+
+$cardBorder: 2;
+
+.component {
+  align-items: center;
+  cursor: pointer;
+  display: block;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  padding: $spacing-xs 0;
+  position: relative;
+
+  .input {
+    background-color: transparent;
+    border-color: $context-contrastVariant;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    display: grid;
+    font: inherit;
+    height: rem(18);
+    margin: 0 rem(3); // adding padding to achieve widhth of 24px
+    place-content: center;
+    transition:
+      $speed-medium border-color $easing-base,
+      $speed-medium background-color $easing-base;
+    width: rem(18);
+  }
+
+  &.hasError {
+    .input {
+      border-color: $context-alert;
+    }
+  }
+
+  .input::before {
+    background-color: transparent;
+    content: '';
+    height: rem(18);
+    -webkit-mask-image: url('../../../assets/icons/icons/16/Check_16.svg');
+    mask-image: url('../../../assets/icons/icons/16/Check_16.svg');
+    mask-repeat: no-repeat;
+    mask-size: cover;
+    opacity: 0;
+    transition:
+      $speed-medium opacity $easing-base,
+      $speed-medium background-color $easing-base;
+    width: rem(18);
+  }
+
+  .input:checked {
+    background-color: $context-accent;
+    border-color: $context-accent;
+
+    &::before {
+      background-color: $context-color;
+      opacity: 1;
+    }
+  }
+
+  .input:hover {
+    border-color: $context-accent;
+  }
+
+  // Pressed not checked
+  &.isPressed .input {
+    &::before {
+      background-color: $context-accent;
+      opacity: 1;
+    }
+  }
+
+  // Checked and hovered
+  .input:checked:hover {
+    background-color: $context-accentVariant;
+    border-color: $context-accentVariant;
+
+    &::before {
+      background-color: $context-color;
+      opacity: 1;
+    }
+  }
+
+  // Checked and pressed
+  &.isPressed .input:checked {
+    background-color: transparent;
+    border-color: $context-accentVariant;
+
+    &::before {
+      background-color: $context-accentVariant;
+    }
+  }
+
+  .children {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    justify-content: flex-start;
+  }
+
+  .errorMessage {
+    color: $context-alert;
+    text-align: left;
+  }
+
+  &:disabled {
+    border-color: $context-tintVariant;
+
+    &:hover {
+      border-color: $context-tintVariant;
+    }
+  }
+}

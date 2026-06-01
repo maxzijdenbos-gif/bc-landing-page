@@ -1,0 +1,9 @@
+import { {{pascalCase componentName}}Props } from './{{kebabCase componentName}}';
+
+const defaultStub: {{pascalCase componentName}}Props = {
+  example: '{{titleCase componentName}}',
+};
+
+export default <Record<string, {{pascalCase componentName}}Props>>{
+  default: defaultStub,
+};

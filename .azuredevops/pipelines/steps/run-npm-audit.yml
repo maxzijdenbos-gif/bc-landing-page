@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run audit
+    displayName: Audit production packages

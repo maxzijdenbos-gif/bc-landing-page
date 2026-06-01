@@ -1,0 +1,66 @@
+@use 'sass:map';
+@use 'styles/functions/units' as *;
+@use 'styles/variables/contexts' as *;
+
+@mixin context($value: 'primary') {
+  $context: map.get($contexts, $value);
+
+  --context-color: #{map.get($context, 'color')};
+  --context-cta: #{map.get($context, 'cta')};
+  --context-ctaVariant: #{map.get($context, 'ctaVariant')};
+  --context-ctaContrast: #{map.get($context, 'ctaContrast')};
+  --context-ctaContrastVariant: #{map.get($context, 'ctaContrastVariant')};
+  --context-accent: #{map.get($context, 'accent')};
+  --context-accentVariant: #{map.get($context, 'accentVariant')};
+  --context-contrast: #{map.get($context, 'contrast')};
+  --context-contrastVariant: #{map.get($context, 'contrastVariant')};
+  --context-tint: #{map.get($context, 'tint')};
+  --context-tintVariant: #{map.get($context, 'tintVariant')};
+  --context-tintContrast: #{map.get($context, 'tintContrast')};
+  --context-tone: #{map.get($context, 'tone')};
+  --context-alert: #{map.get($context, 'alert')};
+}
+
+@mixin context-wrapper($value: 'color') {
+  @each $key, $context in $contexts {
+    [data-#{$value}='#{$key}'] .component {
+      @include context($key);
+    }
+  }
+}
+
+@mixin margin-remove() {
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@mixin scrollbar-horizontal($color) {
+  &::-webkit-scrollbar {
+    height: rem(8);
+    width: rem(10);
+    z-index: 12;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0, 5%);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(0, 0, 0, 30%);
+    background: $color;
+  }
+
+  &::-webkit-scrollbar-thumb:window-inactive {
+    background: rgb(0, 0, 0, 10%);
+  }
+}
+
+@mixin unselectable {
+  outline: 0;
+  user-select: none;
+}

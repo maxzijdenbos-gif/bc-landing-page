@@ -1,0 +1,88 @@
+@use 'styles/setup' as *;
+
+.component {
+  min-height: 50vh;
+
+  .loader {
+    align-items: center;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+  }
+
+  .title {
+    margin-bottom: $spacing-s;
+  }
+
+  .teaserText {
+    margin-bottom: $spacing-l;
+  }
+
+  .introText {
+    margin-bottom: $spacing-m;
+  }
+
+  .buttonRow {
+    bottom: 0;
+    left: 0;
+    padding: $spacing-sm $spacing-l $spacing-sm $spacing-sm;
+    position: fixed;
+    width: 100%;
+
+    @include background-blur-light($context-tintVariant);
+  }
+
+  .buttonColumn {
+    align-items: center;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-sm;
+    justify-content: flex-end;
+    width: 100%;
+
+    /* stylelint-disable-next-line selector-disallowed-list */
+    button {
+      height: min-content;
+    }
+  }
+
+  .dialog[open] {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    inset: 0;
+    justify-content: center;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    &::backdrop {
+      @include background-blur-strong($context-contrast);
+    }
+  }
+
+  .dialogContent {
+    align-items: center;
+    background-color: $context-color;
+    border-radius: $borderRadius-md;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-ml;
+    justify-content: center;
+    padding: $spacing-m;
+    text-align: center;
+    width: 50%;
+  }
+
+  .dialogHeader {
+    margin-bottom: $spacing-s;
+  }
+
+  .dialogButtons {
+    display: flex;
+    gap: $spacing-sm;
+  }
+}

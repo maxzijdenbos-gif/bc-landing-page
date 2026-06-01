@@ -1,0 +1,29 @@
+@use 'styles/setup' as *;
+
+.component {
+  .row {
+    margin-block: $spacing-xxs;
+    padding: $spacing-s;
+
+    &:nth-child(2n) {
+      background-color: $context-tintVariant;
+    }
+  }
+
+  .timestamp {
+    align-self: center;
+    text-align: center;
+  }
+
+  .contentItemName {
+    align-self: center;
+  }
+
+  .buttons {
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-m;
+    justify-content: flex-end;
+  }
+}

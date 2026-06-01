@@ -1,0 +1,17 @@
+@use 'styles/setup' as *;
+
+.headline {
+  padding-bottom: $spacing-m;
+}
+
+.leftPad {
+  padding-left: $spacing-m;
+}
+
+.sitemapLink {
+  display: block;
+  margin: $spacing-sm 0;
+  width: fit-content;
+
+  @include textLinkUnderline();
+}

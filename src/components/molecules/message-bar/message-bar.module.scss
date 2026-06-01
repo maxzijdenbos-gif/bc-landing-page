@@ -1,0 +1,50 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+.component {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 11.25px $spacing-xs 13.25px; /* overruled standard vertical padding to align with ecom */
+  text-align: center;
+  width: 100%;
+
+  .anchor {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .linkText {
+    @include typography-actionMedium();
+
+    font-weight: $fontWeight-bold;
+    text-decoration: underline;
+  }
+
+  &.isPrimary {
+    background-color: $palette-black;
+    color: $palette-white;
+
+    .linkText {
+      color: $palette-white;
+    }
+  }
+
+  &.isSecondary {
+    background-color: $palette-white;
+    color: $palette-black;
+
+    .linkText {
+      color: $palette-blue40;
+    }
+  }
+
+  &.isTertiary {
+    background-color: $palette-grey70;
+    color: $palette-white;
+
+    .linkText {
+      color: $palette-white;
+    }
+  }
+}

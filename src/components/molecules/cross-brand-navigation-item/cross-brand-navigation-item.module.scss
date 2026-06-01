@@ -1,0 +1,42 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xxs $spacing-s;
+  justify-content: space-between;
+  transition: color $speed-medium $easing-base;
+  width: 100%;
+
+  &:hover {
+    &.giant {
+      @include context('brandGiant');
+    }
+
+    &.liv {
+      @include context('brandLiv');
+    }
+
+    &.momentum {
+      @include context('brandMomentum');
+    }
+
+    color: $context-color;
+  }
+
+  @media (hover: none) {
+    &.giant {
+      @include context('brandGiant');
+    }
+
+    &.liv {
+      @include context('brandLiv');
+    }
+
+    &.momentum {
+      @include context('brandMomentum');
+    }
+
+    color: $context-color;
+  }
+}

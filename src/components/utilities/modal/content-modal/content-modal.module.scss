@@ -1,0 +1,85 @@
+@use 'styles/setup' as *;
+
+$slideInSpeed: $speed-slow;
+$topOffsetDesktop: 15dvh;
+$topOffsetMobile: $spacing-xxl;
+
+.component {
+  opacity: 0;
+  position: absolute;
+  top: 100vh;
+  transition:
+    top 0s $easing-base $slideInSpeed,
+    opacity $slideInSpeed $easing-base;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    padding-bottom: $topOffsetDesktop;
+  }
+
+  .modalContent {
+    background-color: $context-color;
+    min-height: calc(100dvh - 2 * $topOffsetMobile);
+    padding: 0;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      min-height: calc(100dvh - 2 * $topOffsetDesktop);
+    }
+  }
+
+  .iconWrapper {
+    position: sticky;
+    top: 0;
+    z-index: 3; // to account for elements inside the modal that will need z-index
+  }
+
+  .closeIcon {
+    color: $context-contrast;
+    cursor: pointer;
+    position: absolute;
+    right: $spacing-sm;
+    top: $spacing-sm;
+    z-index: 10;
+
+    @include breakpoint-up($breakpoint-laptop) {
+      right: $spacing-m;
+      top: $spacing-m;
+    }
+  }
+}
+
+.modalAnimation {
+  opacity: 0;
+  transition:
+    visibility 0s linear $slideInSpeed,
+    opacity $slideInSpeed $easing-base;
+  visibility: hidden;
+
+  @include background-blur-strong($context-tintContrast);
+}
+
+[data-show='true'] {
+  .component {
+    opacity: 1;
+    top: $topOffsetMobile;
+    transition: top $slideInSpeed $easing-base;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      top: $topOffsetDesktop;
+    }
+  }
+
+  &.modalAnimation {
+    opacity: 1;
+    transition: visibility 0s linear;
+    visibility: visible;
+
+    .modalContent {
+      height: 100%;
+    }
+  }
+}
+
+:export {
+  slideInSpeed: $slideInSpeed;
+}

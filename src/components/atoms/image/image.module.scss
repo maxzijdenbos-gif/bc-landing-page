@@ -1,0 +1,11 @@
+@use 'styles/setup' as *;
+
+.component {
+  height: auto;
+  transition: opacity $speed-fast $easing-base;
+  width: 100%;
+}
+
+.component.isLoading {
+  opacity: 0;
+}

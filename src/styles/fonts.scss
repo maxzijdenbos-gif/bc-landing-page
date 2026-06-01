@@ -1,0 +1,105 @@
+@font-face {
+  ascent-override: 100%;
+  font-display: swap;
+  font-family: OverPass;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Overpass Bold'),
+    url('../assets/fonts/overpass/overpass-bold.woff2') format('woff2');
+}
+
+@font-face {
+  ascent-override: 100%;
+  font-display: swap;
+  font-family: OverPass;
+  font-style: normal;
+  font-weight: 800;
+  src:
+    local('Overpass ExtraBold'),
+    url('../assets/fonts/overpass/overpass-extrabold.woff2') format('woff2');
+}
+
+@font-face {
+  ascent-override: 100%;
+  font-display: swap;
+  font-family: OverPass;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Overpass Regular'),
+    url('../assets/fonts/overpass/overpass-regular.woff2') format('woff2');
+}
+
+@font-face {
+  ascent-override: 100%;
+  font-display: swap;
+  font-family: OverPass;
+  font-style: normal;
+  font-weight: 600;
+  src:
+    local('Overpass SemiBold'),
+    url('../assets/fonts/overpass/overpass-semibold.woff2') format('woff2');
+}
+
+@font-face {
+  ascent-override: 100%;
+  font-display: swap;
+  font-family: 'OverPass Recut';
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Overpass Recut'),
+    url('../assets/fonts/overpass/overpass-recut.woff2') format('woff2');
+}
+
+// Liv fonts
+@font-face {
+  font-display: swap;
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local('Gotham Book'),
+    url('../assets/fonts/gotham/gotham-book.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Gotham;
+  font-style: italic;
+  font-weight: 400;
+  src:
+    local('Gotham Book Italic'),
+    url('../assets/fonts/gotham/gotham-book-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 600;
+  src:
+    local('Gotham Medium'),
+    url('../assets/fonts/gotham/gotham-medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Gotham;
+  font-style: italic;
+  font-weight: 600;
+  src:
+    local('Gotham Medium Italic'),
+    url('../assets/fonts/gotham/gotham-medium-italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: Gotham;
+  font-style: normal;
+  font-weight: 700;
+  src:
+    local('Gotham Bold'),
+    url('../assets/fonts/gotham/gotham-bold.woff2') format('woff2');
+}

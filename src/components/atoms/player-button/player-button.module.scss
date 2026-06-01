@@ -1,0 +1,67 @@
+@use 'styles/setup' as *;
+
+.component {
+  @include context('primary');
+
+  align-items: center;
+  aspect-ratio: 1;
+  border-radius: 100%;
+  cursor: pointer;
+  display: flex;
+  height: rem(64);
+  justify-content: center;
+  transition:
+    background-color $speed-medium $easing-base,
+    color $speed-medium $easing-base;
+  width: rem(64);
+
+  &:focus-visible::after {
+    border-radius: inherit; // Inherit rounded shape for focus ring
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    height: rem(80);
+    width: rem(80);
+  }
+
+  &.isPrimary {
+    background-color: $context-color;
+    color: $context-cta;
+  }
+
+  &.isSecondary {
+    background-color: $context-cta;
+    color: $context-color;
+  }
+
+  &:hover:not(:active) {
+    background-color: $context-ctaVariant;
+    color: $context-color;
+  }
+
+  &.isActive {
+    &.isPrimary {
+      background-color: $context-color;
+      color: $context-cta;
+    }
+
+    &.isSecondary {
+      background-color: $context-cta;
+      color: $context-color;
+    }
+  }
+
+  &[disabled] {
+    @include background-blur-light($context-tintVariant);
+
+    color: $context-tint;
+  }
+
+  .animationContainer {
+    width: rem(40);
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      width: rem(48);
+    }
+  }
+}

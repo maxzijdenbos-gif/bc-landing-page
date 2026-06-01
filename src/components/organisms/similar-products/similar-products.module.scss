@@ -1,0 +1,72 @@
+@use 'styles/setup' as *;
+
+.component {
+  margin-top: $spacing-xl;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: $spacing-xxl;
+  }
+
+  .headline {
+    align-items: flex-end;
+    display: flex;
+    margin-bottom: $spacing-l;
+    padding: 0 $spacing-s;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      margin-bottom: $spacing-xl;
+      padding: 0 $spacing-m;
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      padding: 0;
+    }
+  }
+
+  .slider {
+    // Add padding for focus ring (10px) and compensate with negative margin
+    margin: rem(-10) 0;
+    overflow: hidden;
+    padding: rem(10) 0;
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+  }
+
+  .slide {
+    aspect-ratio: 1 / 1;
+    flex: 0 0 80%;
+    padding: rem(2);
+    width: 80%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      // Adding 1px to combat rounding errors when embla calculates whether loop is possible
+      flex: 0 0 calc(50% + 1px);
+      width: calc(50% + 1px);
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      // Adding 1px to combat rounding errors when embla calculates whether loop is possible
+      flex: 0 0 calc((100% / 3) + 1px);
+      width: calc((100% / 3) + 1px);
+    }
+  }
+
+  .arrows {
+    display: flex;
+    gap: $spacing-xs;
+    margin-left: auto;
+    margin-right: $spacing-xs;
+  }
+}

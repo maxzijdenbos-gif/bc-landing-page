@@ -1,0 +1,67 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+.component {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding-inline: rem(math.div($gridGutter-mobile, 2));
+  position: relative;
+  width: 100%;
+
+  @each $key, $value in $gridGutters {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      padding-inline: rem(math.div($value, 2));
+    }
+  }
+}
+
+@for $i from 0 through $grid-columns {
+  .component--#{$i} {
+    flex: 0 0 #{math.div(100%, $grid-columns) * $i};
+    max-width: #{math.div(100%, $grid-columns) * $i};
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @include breakpoint-up(map.get($breakpoints, $key)) {
+    @for $i from 0 through $grid-columns {
+      .#{$key}\:component--#{$i} {
+        flex: 0 0 #{math.div(100%, $grid-columns) * $i};
+        max-width: #{math.div(100%, $grid-columns) * $i};
+      }
+    }
+  }
+}
+
+@for $i from 0 through $grid-columns {
+  .offset--#{$i} {
+    margin-left: #{math.div(100%, $grid-columns) * $i};
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @include breakpoint-up(map.get($breakpoints, $key)) {
+    @for $i from 0 through $grid-columns {
+      .#{$key}\:offset--#{$i} {
+        margin-left: #{math.div(100%, $grid-columns) * $i};
+      }
+    }
+  }
+}
+
+@for $i from 0 through $grid-columns {
+  .order--#{$i} {
+    order: #{$i};
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @include breakpoint-up(map.get($breakpoints, $key)) {
+    @for $i from 0 through $grid-columns {
+      .#{$key}\:order--#{$i} {
+        order: #{$i};
+      }
+    }
+  }
+}

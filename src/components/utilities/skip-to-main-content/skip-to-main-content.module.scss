@@ -1,0 +1,21 @@
+@use 'styles/setup' as *;
+
+.component {
+  align-items: center;
+  color: $context-contrast;
+  display: flex;
+  height: $height-mainNavigationDesktop;
+  justify-content: center;
+  opacity: 0;
+  position: absolute;
+  top: -$height-mainNavigationDesktop;
+  width: 100%;
+  z-index: $zIndex-navigation + 1;
+
+  @include background-blur-strong($context-color);
+
+  &:focus-within {
+    opacity: 1;
+    top: 0;
+  }
+}

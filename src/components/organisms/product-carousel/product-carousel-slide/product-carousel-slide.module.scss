@@ -1,0 +1,134 @@
+@use 'styles/setup' as *;
+
+$slideSizeDesktop: 50%;
+$slideSizeMobile: 100%;
+
+.component {
+  flex: 0 0 $slideSizeMobile;
+  max-width: $slideSizeMobile;
+  text-align: center;
+  user-select: none;
+
+  .title,
+  .description,
+  .link {
+    visibility: hidden;
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    padding: $spacing-ml 0 $spacing-s 0;
+  }
+
+  .link {
+    display: flex;
+    justify-content: center;
+    padding-top: $spacing-m;
+    pointer-events: all;
+  }
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    flex: 0 0 $slideSizeDesktop;
+    max-width: $slideSizeDesktop;
+
+    .textContainer {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title,
+    .description {
+      margin: 0;
+      max-width: calc(
+        rem($breakpoint-laptop) * 0.5
+      ); /* Ensure we do not exceed half container size */
+
+      width: 100%;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-desktop) {
+    .title,
+    .description {
+      max-width: calc(
+        rem($breakpoint-desktop) * 0.5
+      ); /* Ensure we do not exceed half container size */
+    }
+  }
+
+  .imageContainer {
+    aspect-ratio: 16 / 9;
+    height: auto;
+    position: relative;
+  }
+
+  .image {
+    object-fit: contain;
+  }
+
+  .lastItem {
+    opacity: 0;
+    transform: translate3d(-30%, 0, 0);
+  }
+
+  .lastItemAnimation {
+    animation-delay: $speed-verySlow;
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: handleSlideLeftToRight;
+    animation-timing-function: ease-out;
+  }
+
+  .secondItem {
+    opacity: 0;
+    transform: translate3d(30%, 0, 0);
+  }
+
+  .secondItemAnimation {
+    animation-delay: $speed-verySlow;
+    animation-duration: $speed-slow;
+    animation-fill-mode: forwards;
+    animation-name: handleSlideRightToLeft;
+    animation-timing-function: ease-out;
+  }
+
+  &.isOverlay {
+    .image {
+      transform: none;
+      transition: none;
+      visibility: hidden;
+    }
+
+    .title,
+    .description,
+    .link {
+      visibility: visible;
+    }
+  }
+}
+
+@keyframes handleSlideLeftToRight {
+  0% {
+    opacity: 0;
+    transform: translate3d(-30%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes handleSlideRightToLeft {
+  0% {
+    opacity: 0;
+    transform: translate3d(30%, 0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

@@ -1,0 +1,153 @@
+@use 'styles/setup' as *;
+
+$titleRowHeight: 50;
+$mainImageHeightMobile: 80;
+$mainImageHeightDesktop: 100;
+$slideHeight: 30;
+$heightUnit: 'dvh';
+
+@function size-syntax($n) {
+  @return #{$n}#{$heightUnit};
+}
+
+.component.component {
+  color: $context-contrast;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(
+    #{size-syntax($titleRowHeight)} + #{size-syntax($mainImageHeightMobile)}
+  );
+  overflow: initial;
+  padding: 0; // Since we scale down the image, we need to remove padding. This way we don't have a too large padding
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    min-height: calc(
+      #{size-syntax($titleRowHeight)} + #{size-syntax($mainImageHeightDesktop)}
+    );
+  }
+
+  .stickyContainer {
+    position: relative;
+  }
+
+  .breadcrumb {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: $spacing-xs;
+    z-index: 2;
+  }
+
+  .titleRow {
+    display: flex;
+    justify-content: center;
+    min-height: size-syntax($titleRowHeight);
+    padding-top: $spacing-xl;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-top: calc(#{$spacing-xxl} + #{$height-mainNavigationDesktop});
+    }
+  }
+
+  .titleContainer {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-ml;
+    padding: $spacing-sm;
+    text-align: center;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: unset;
+    }
+  }
+
+  .title {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-ml;
+    text-align: center;
+  }
+
+  .mainImage {
+    animation-duration: $speed-verySlow;
+    animation-fill-mode: forwards;
+    animation-name: handleSlideUp;
+    animation-timing-function: ease-out;
+    display: flex;
+    height: size-syntax($mainImageHeightMobile);
+    justify-content: center;
+    margin: 0 auto;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: size-syntax($mainImageHeightDesktop);
+      width: 90%;
+    }
+
+    .motionContainer {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+    }
+
+    .radial {
+      background: $gradient-radialMobile;
+      content: '';
+      height: 100%;
+      inset: 0;
+      opacity: 0.15;
+      position: absolute;
+      width: 100%;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        background: $gradient-radial;
+      }
+    }
+  }
+
+  .image {
+    max-height: 150%;
+    object-fit: contain;
+    transform-origin: bottom;
+    transition: none;
+    width: 180%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      max-height: 100%;
+      transform-origin: unset;
+      width: 100%;
+    }
+  }
+
+  .rangeLogo {
+    height: rem(24);
+  }
+
+  .slide {
+    min-height: size-syntax($slideHeight);
+    position: sticky;
+    top: 0;
+    width: 100%;
+  }
+}
+
+// Copied from motionSlider animation component
+// Needs to be made manually, since it does not work since this module does a lot of inline manipulation
+@keyframes handleSlideUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 5vh, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}

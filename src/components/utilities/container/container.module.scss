@@ -1,0 +1,18 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+.component {
+  margin: 0 auto;
+  width: 100%;
+
+  @each $key, $value in $gridContainers {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      max-width: $value;
+    }
+  }
+}
+
+.component.isFullWidth {
+  max-width: none;
+}

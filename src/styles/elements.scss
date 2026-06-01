@@ -1,0 +1,149 @@
+@use 'variables/general' as general;
+@use './functions/units' as *;
+/* stylelint-disable selector-disallowed-list */
+
+* {
+  appearance: none;
+  background-color: transparent;
+  border: 0;
+  border-style: none;
+  box-sizing: border-box;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: inherit;
+  line-height: inherit;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+// Hide outline for elements that don't qualify for :focus-visible, e.g. non-form elements, buttons, etc.
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// Display the focus ring for keyboard-focused elements
+// Structure: 6px transparent gap + 2px white + 2px dark blue = 10px total
+// Border-radius: default 1px corners
+// For elements with border-radius, add in component: &:focus-visible::after { border-radius: inherit; }
+:focus-visible {
+  outline: none;
+  position: relative;
+
+  &::after {
+    border: rem(2) solid general.$color-focusOutline;
+    border-radius: rem(1); // Default 1px corners for square elements
+    box-shadow: inset 0 0 0 rem(2) #fff;
+    content: '';
+    inset: rem(-10);
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+main {
+  display: block;
+}
+
+hr {
+  height: 0;
+  overflow: visible;
+}
+
+sub,
+sup {
+  position: relative;
+  vertical-align: baseline;
+}
+
+input {
+  overflow: visible;
+}
+
+select {
+  text-transform: none;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  appearance: auto;
+  overflow: visible;
+  text-transform: none;
+
+  &::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+  }
+
+  &:-moz-focusring {
+    outline: none;
+    position: relative;
+
+    &::after {
+      border: rem(2) solid general.$color-focusOutline;
+      border-radius: var(--focus-ring-radius, inherit);
+      box-shadow: inset 0 0 0 rem(2) #fff;
+      content: '';
+      inset: rem(-10);
+      pointer-events: none;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+}
+
+legend {
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+img {
+  height: auto;
+  width: 100%;
+}
+
+[type='checkbox'],
+[type='radio'] {
+  padding: 0;
+}
+
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type='search'] {
+  appearance: textfield;
+  outline-offset: -2px;
+
+  &::-webkit-search-decoration {
+    appearance: none;
+  }
+}
+
+::-webkit-file-upload-button {
+  appearance: auto;
+  font: inherit;
+}

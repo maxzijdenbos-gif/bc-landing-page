@@ -1,0 +1,36 @@
+@use 'styles/functions/units' as *;
+
+// grid columns
+$grid-columns: 12;
+
+// grid gutters
+$gridGutter-mobile: 4;
+$gridGutter-tablet: 4;
+$gridGutter-laptop: 4;
+$gridGutter-desktop: 4;
+$gridGutters: (
+  'mobile': $gridGutter-mobile,
+  'tablet': $gridGutter-tablet,
+  'laptop': $gridGutter-laptop,
+  'desktop': $gridGutter-desktop,
+);
+
+// grid containers
+$gridContainer-mobile: 100%;
+$gridContainer-tablet: 100%;
+$gridContainer-laptop: 100%;
+$gridContainer-desktop: rem(1920);
+$gridContainers: (
+  'mobile': $gridContainer-mobile,
+  'tablet': $gridContainer-tablet,
+  'laptop': $gridContainer-laptop,
+  'desktop': $gridContainer-desktop,
+);
+
+// row gutters
+$gridGutter-medium: rem(24);
+$gridGutter-large: rem(48);
+$rowGutters: (
+  'medium': $gridGutter-medium,
+  'none': 0,
+);

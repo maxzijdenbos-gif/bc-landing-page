@@ -1,0 +1,140 @@
+@use 'styles/setup' as *;
+
+.component {
+  @include context('secondary');
+
+  background: $context-color;
+  bottom: 0;
+  color: $context-contrast;
+  cursor: default;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+  padding: $spacing-sm 0;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  transform: translate(0%, 0%);
+  transition: all $speed-slow $easing-base;
+  z-index: 9900;
+
+  .buttonRow {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    margin-top: $spacing-m;
+
+    .button {
+      width: fit-content;
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      flex-direction: row;
+
+      .button {
+        width: 100%;
+      }
+    }
+  }
+
+  .headerRow {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-s;
+    justify-content: space-between;
+    margin-bottom: $spacing-s;
+    padding: $spacing-l $spacing-xl;
+  }
+
+  &,
+  .tokenInfoDrawer {
+    max-width: 100%;
+    width: 450px;
+  }
+
+  &.isError {
+    bottom: 50%;
+    right: 50%;
+    transform: translate(50%, 50%);
+  }
+
+  .tokenInfoDrawer {
+    @include context('primary');
+
+    background: $context-color;
+    bottom: 100%;
+    box-shadow: 0 2px 16px rgb(0, 0, 0, 20%);
+    color: $context-contrast;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    opacity: 0;
+    padding: 16px;
+    pointer-events: none;
+    position: absolute;
+    right: 0%;
+    transform: translateY(100%);
+    transition:
+      opacity $speed-fast $easing-base,
+      transform $speed-slow $easing-base;
+    z-index: 10000;
+
+    .tokenActions {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-m;
+    }
+  }
+
+  &.isExpanded .tokenInfoDrawer {
+    opacity: 1;
+    pointer-events: initial;
+    transform: translateY(0%);
+    transition:
+      opacity $speed-fast $easing-base,
+      transform $speed-fast $easing-base;
+  }
+
+  &.isError .tokenInfoDrawer {
+    height: 100%;
+    transform: translateY(100%);
+  }
+
+  &.isMinified {
+    bottom: $spacing-l;
+    right: rem(64);
+    transform: translate(100%, 100%);
+  }
+
+  .closeButton {
+    padding: $spacing-xxs;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .minifyButton {
+    left: 0;
+    padding: $spacing-xxs;
+    position: absolute;
+    top: 0;
+  }
+
+  .stopButton {
+    padding-top: $spacing-s;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      bottom: $spacing-s;
+      position: absolute;
+      right: rem(20);
+    }
+
+    .stopButtonText {
+      border-color: $context-alert;
+      color: $context-alert;
+    }
+  }
+}

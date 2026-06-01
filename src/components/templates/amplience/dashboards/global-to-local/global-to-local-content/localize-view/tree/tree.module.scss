@@ -1,0 +1,41 @@
+@use 'styles/setup' as *;
+
+.component {
+  border: rem(2) solid $context-tint;
+  margin-bottom: $spacing-xl;
+  padding: $spacing-m;
+
+  .treeNode {
+    border-left: rem(1) solid $context-tint;
+    margin-left: $spacing-sm;
+    padding-left: $spacing-sm;
+
+    .treeNodeButton {
+      cursor: pointer;
+      text-transform: capitalize;
+
+      &:hover {
+        background-color: $context-tint;
+      }
+    }
+
+    .disabled {
+      color: $context-tint;
+
+      &:hover {
+        background-color: transparent;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .tree {
+    height: rem(500);
+    overflow-y: scroll;
+
+    & > .treeNode {
+      border: none;
+      margin: 0;
+    }
+  }
+}

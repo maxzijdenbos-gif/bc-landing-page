@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run build-standalone
+    displayName: Run build-standalone command

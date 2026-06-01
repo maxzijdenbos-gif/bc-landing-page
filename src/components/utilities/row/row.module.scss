@@ -1,0 +1,42 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+.component {
+  overflow-x: clip;
+}
+
+@each $gutter, $gutterValue in $rowGutters {
+  .outerGutter--#{$gutter} {
+    padding-inline: $gutterValue;
+  }
+}
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+
+  @each $key, $value in $gridGutters {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      margin-inline: -#{rem(math.div($value, 2))};
+    }
+  }
+}
+
+@each $key, $value in $breakpoints {
+  @include breakpoint-up(map.get($breakpoints, $key)) {
+    @each $gutter, $gutterValue in $rowGutters {
+      .#{$key}\:outerGutter--#{$gutter} {
+        padding-inline: unset;
+
+        & > :first-child {
+          padding-left: $gutterValue;
+        }
+
+        & > :last-child {
+          padding-right: $gutterValue;
+        }
+      }
+    }
+  }
+}

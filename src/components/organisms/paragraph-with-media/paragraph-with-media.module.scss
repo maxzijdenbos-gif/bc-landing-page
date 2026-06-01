@@ -1,0 +1,237 @@
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+$breakpoint-twoColumn: $breakpoint-smallLaptop;
+
+.component {
+  .container,
+  .rowOuter,
+  .row {
+    @include breakpoint-up($breakpoint-twoColumn) {
+      height: 100%;
+    }
+  }
+
+  .row {
+    row-gap: $spacing-l;
+  }
+
+  @include breakpoint-up($breakpoint-twoColumn) {
+    .textColumn {
+      order: 1;
+    }
+
+    .mediaColumn {
+      order: 2;
+    }
+  }
+
+  // start content
+  .textColumn {
+    display: flex;
+  }
+
+  .textWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    justify-content: center;
+    padding-bottom: $spacing-l;
+
+    @include breakpoint-up($breakpoint-twoColumn) {
+      gap: $spacing-m;
+      padding: $spacing-l 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .buttonGroup {
+    @include breakpoint-down($breakpoint-twoColumn) {
+      padding-top: $spacing-xs;
+    }
+  }
+
+  // start media
+  .mediaColumn {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
+    height: 100%;
+    height: fit-content;
+    min-width: 100vw;
+  }
+
+  .primaryMediaContainer {
+    align-self: center;
+    aspect-ratio: 1;
+    grid-column: 1 / 6;
+    grid-row: 1 / 2;
+    position: relative;
+    z-index: 2;
+  }
+
+  .videoButton {
+    @include context('secondary');
+    @include darkBackground-strong();
+
+    border: none;
+    bottom: $spacing-sm;
+    left: $spacing-sm;
+    position: absolute;
+    z-index: 10;
+  }
+
+  .videoContainer {
+    height: 100%;
+
+    .videoButton {
+      @include context('secondary');
+      @include darkBackground-strong();
+
+      border: none;
+      bottom: $spacing-sm;
+      left: $spacing-sm;
+      position: absolute;
+      z-index: 10;
+    }
+  }
+
+  .video {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .backgroundImageContainer {
+    aspect-ratio: 1;
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+    margin-left: $gridGutter-medium;
+    position: relative;
+  }
+
+  .backgroundOverlay {
+    @include darkBackground-medium();
+
+    inset: 0;
+    position: absolute;
+    z-index: 1;
+  }
+
+  // start breakpoint logic divided by breakpoint
+  @include breakpoint-down($breakpoint-tablet) {
+    .mediaColumn {
+      // compensate for padding (outerGutter--medium) and inline gutter (rem(math.div($gridGutter-mobile, 2))) on row
+      margin-left: -$gridGutter-medium + rem(math.div($gridGutter-mobile, 2));
+      padding-inline: unset;
+    }
+  }
+
+  @include breakpoint-down($breakpoint-twoColumn) {
+    .mediaColumn {
+      padding-top: $spacing-l;
+    }
+  }
+
+  @include breakpoint-between($breakpoint-tablet, $breakpoint-twoColumn) {
+    .mediaColumn {
+      grid-template-columns: repeat(12, 1fr);
+    }
+
+    .primaryMediaContainer {
+      aspect-ratio: 3 / 2;
+      grid-column: 2 / 9;
+    }
+
+    .backgroundImageContainer {
+      aspect-ratio: 3 / 2;
+      grid-column: 4 / 13;
+      margin-left: unset;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-twoColumn) {
+    .mediaColumn {
+      grid-template-columns: repeat(5, 1fr);
+      height: fit-content;
+      min-width: unset;
+    }
+
+    .primaryMediaContainer {
+      grid-column: 1 / 5;
+    }
+
+    .backgroundImageContainer {
+      aspect-ratio: 4 / 5;
+      margin-left: unset;
+      width: 100%;
+    }
+  }
+
+  @include breakpoint-between($breakpoint-twoColumn, $breakpoint-laptop) {
+    .primaryMediaContainer {
+      margin-left: -$gridGutter-large;
+    }
+
+    .backgroundImageContainer {
+      grid-column: 1 / 6;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-laptop) {
+    .mediaColumn {
+      grid-template-columns: repeat(6, 1fr);
+    }
+
+    .backgroundImageContainer {
+      grid-column: 2 / 7;
+    }
+  }
+
+  // start revert order specific styles
+  .revertRowOrder {
+    flex-direction: row-reverse;
+
+    .videoButton {
+      left: auto;
+      right: $spacing-sm;
+    }
+
+    @include breakpoint-up($breakpoint-tablet) {
+      .textColumn {
+        margin-right: #{math.div(100%, $grid-columns) * 1}; // simulate offset--1 but for reversed row
+      }
+    }
+
+    @include breakpoint-down($breakpoint-tablet) {
+      .mediaColumn {
+        margin-right: -$gridGutter-medium + rem(math.div($gridGutter-mobile, 2)); // compensate for padding (outerGutter--medium) and inline gutter (rem(math.div($gridGutter-mobile, 2))) on row
+      }
+    }
+
+    .primaryMediaContainer {
+      grid-column: 3 / 7;
+
+      @include breakpoint-between($breakpoint-tablet, $breakpoint-twoColumn) {
+        grid-column: 5 / 12;
+      }
+
+      @include breakpoint-between($breakpoint-twoColumn, $breakpoint-laptop) {
+        grid-column: 2 / 6;
+        margin-left: $gridGutter-large;
+      }
+    }
+
+    .backgroundImageContainer {
+      grid-column: 1 / 6;
+      margin-left: 0;
+
+      @include breakpoint-between($breakpoint-tablet, $breakpoint-twoColumn) {
+        grid-column: 1 / 10;
+      }
+    }
+  }
+}

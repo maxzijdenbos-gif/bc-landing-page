@@ -1,0 +1,137 @@
+@use 'styles/setup' as *;
+
+.overlay {
+  align-items: center;
+  background-color: rgba(24, 22, 22, 0.3);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: rem(32);
+  position: fixed;
+  z-index: $zIndex-navigation + 100;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    align-items: flex-start;
+    padding: rem(16);
+  }
+}
+
+.modal {
+  background-color: #fff;
+  border-radius: $borderRadius-xxl;
+  max-width: rem(1200);
+  padding: $spacing-xl 0;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    max-height: calc(100dvh - rem(32));
+    overflow-y: auto;
+    padding: $spacing-ml 0;
+  }
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: #181616;
+  cursor: pointer;
+  line-height: 0;
+  padding: 0;
+  position: absolute;
+  right: $spacing-ml;
+  top: $spacing-ml;
+
+  &:focus-visible {
+    border-radius: $borderRadius-md;
+    outline: rem(2) solid currentcolor;
+    outline-offset: rem(4);
+  }
+
+  @include breakpoint-down($breakpoint-tablet) {
+    right: $spacing-m;
+    top: $spacing-m;
+  }
+}
+
+.title {
+  margin-bottom: $spacing-l;
+  padding: 0 $spacing-xxl;
+  text-align: center;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    margin-bottom: $spacing-m;
+    padding: 0 $spacing-ml;
+  }
+}
+
+.cards {
+  display: grid;
+  gap: $spacing-ml;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0 $spacing-xxl;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    gap: $spacing-m;
+    grid-template-columns: 1fr;
+    padding: 0 $spacing-ml;
+  }
+}
+
+.isSingle {
+  grid-template-columns: 1fr;
+  margin: 0 auto;
+  max-width: 50%;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    max-width: 100%;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.imageWrapper {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.image {
+  object-fit: contain;
+}
+
+.cardContent {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: $spacing-l;
+  padding-top: $spacing-m;
+  text-align: center;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    padding-bottom: 0;
+    padding-top: $spacing-sm;
+  }
+}
+
+.bikeName {
+  text-align: center;
+}
+
+.price {
+  color: $context-contrastVariant;
+  margin-top: $spacing-xs;
+  text-align: center;
+}
+
+.ctaWrapper {
+  margin-top: $spacing-m;
+
+  @include breakpoint-down($breakpoint-tablet) {
+    margin-top: $spacing-sm;
+  }
+}

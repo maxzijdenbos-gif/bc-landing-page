@@ -1,0 +1,181 @@
+@use 'styles/setup' as *;
+
+$desktopPaddingBlock: $spacing-xxl;
+$desktopPaddingInline: $spacing-sm;
+
+.moduleWrapper.moduleWrapper {
+  padding: 0;
+}
+
+.component {
+  @include context('secondary');
+
+  color: $context-contrast;
+  display: flex;
+  height: 100%;
+  margin-top: -$height-mainNavigationMobile;
+  min-height: 100svh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: -$height-mainNavigationDesktop;
+  }
+
+  .parallax {
+    height: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
+    padding: $spacing-xl $spacing-sm $spacing-xl;
+    position: relative;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: $spacing-xl $spacing-sm $spacing-xxl;
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      justify-content: space-between;
+      padding: $desktopPaddingBlock $desktopPaddingInline;
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      justify-content: center;
+    }
+  }
+
+  .headlineMotion {
+    width: 100%;
+  }
+
+  .title {
+    overflow-wrap: break-word;
+  }
+
+  .background {
+    inset: 0;
+    position: absolute;
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .video {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .backgroundOverlay {
+    @include exploreCategoryGradient(
+      var(--startGradientColor),
+      var(--endGradientColor)
+    );
+
+    inset: 0;
+    opacity: 0.8;
+    position: absolute;
+  }
+
+  .textContainer {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    justify-content: flex-end;
+  }
+
+  .playButtonColumn {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .buttonRow .playButtonColumn {
+    .videoButtonInner {
+      @include darkBackground-strong();
+    }
+  }
+
+  .textRow {
+    display: flex;
+    padding-top: $spacing-sm;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      flex-grow: 1;
+      padding-top: $spacing-xl;
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      align-items: flex-end;
+      flex-grow: 0;
+    }
+  }
+
+  .textRowInner {
+    display: flex;
+    width: 100%;
+  }
+
+  .buttonRow {
+    @include context('secondary');
+
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      align-items: flex-end;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      bottom: $desktopPaddingBlock;
+      position: absolute;
+      right: $desktopPaddingInline;
+    }
+  }
+}
+
+.component.road {
+  --startGradientColor: #{$exploreCategoryRoad-gradient1};
+  --endGradientColor: #{$exploreCategoryRoad-gradient2};
+}
+
+.component.mountain {
+  --startGradientColor: #{$exploreCategoryMountain-gradient1};
+  --endGradientColor: #{$exploreCategoryMountain-gradient2};
+}
+
+.component.crossGravel {
+  --startGradientColor: #{$exploreCategoryCrossGravel-gradient1};
+  --endGradientColor: #{$exploreCategoryCrossGravel-gradient2};
+}
+
+.component.cityFitness {
+  --startGradientColor: #{$exploreCategoryCityFitness-gradient1};
+  --endGradientColor: #{$exploreCategoryCityFitness-gradient2};
+}
+
+.component.kids {
+  --startGradientColor: #{$exploreCategoryKids-gradient1};
+  --endGradientColor: #{$exploreCategoryKids-gradient2};
+}
+
+.component.eBikes {
+  --startGradientColor: #{$exploreCategoryEBikes-gradient1};
+  --endGradientColor: #{$exploreCategoryEBikes-gradient1};
+}

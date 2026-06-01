@@ -1,0 +1,102 @@
+@use 'styles/setup' as *;
+
+$itemBorder: 1px solid $context-tint;
+
+.component {
+  width: 100%;
+
+  .item {
+    border-bottom: $itemBorder;
+    padding: $spacing-m 0;
+    position: relative;
+
+    &:not(.isActive) {
+      cursor: pointer;
+    }
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    .itemHeadline {
+      cursor: pointer;
+      display: flex;
+      text-align: left;
+      width: 100%;
+    }
+
+    &.isDisabled .itemHeadline {
+      cursor: auto;
+    }
+
+    .expander {
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      transition: grid-template-rows $speed-medium $easing-base;
+    }
+
+    .content {
+      min-height: 0;
+
+      & > :first-child {
+        padding-top: $spacing-xs;
+      }
+    }
+
+    &.isActive .expander {
+      grid-template-rows: 1fr;
+
+      .content {
+        visibility: visible;
+      }
+    }
+
+    .itemTitle {
+      cursor: pointer;
+      display: flex;
+      text-align: left;
+      width: 100%;
+    }
+
+    .close {
+      align-self: start;
+      margin-left: auto;
+      transform: rotate(-45deg);
+      transition: transform $speed-medium $easing-base;
+    }
+
+    &.isDisabled .close {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    &.willDisableToggle .close {
+      transition: opacity $speed-medium $easing-base;
+    }
+
+    &.isActive:not(.willDisableToggle) .close {
+      transform: rotate(0deg);
+    }
+
+    &::after {
+      background: $context-contrast;
+      bottom: -1px;
+      content: '';
+      height: 1px;
+      left: 0;
+      overflow: hidden;
+      position: absolute;
+      top: initial;
+      transition: width $speed-medium $easing-base;
+      width: 0;
+      z-index: 1;
+    }
+
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}

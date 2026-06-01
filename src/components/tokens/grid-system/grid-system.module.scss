@@ -1,0 +1,27 @@
+@use 'sass:map';
+@use 'styles/setup' as *;
+
+.component {
+  height: 50vh;
+
+  @each $key, $value in $gridGutters {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      padding-block: rem($value);
+    }
+  }
+
+  .container,
+  .row {
+    height: 100%;
+  }
+
+  .grid {
+    align-items: center;
+    background-color: currentcolor;
+    display: flex;
+    flex: 0 0 auto;
+    height: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}

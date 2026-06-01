@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npm run build-storybook -- -o $(STORYBOOK_BUILD_DIRECTORY)
+    displayName: Build Storybook

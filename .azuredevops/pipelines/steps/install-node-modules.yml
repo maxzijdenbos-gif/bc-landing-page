@@ -1,0 +1,12 @@
+steps:
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | $(Build.SourcesDirectory)/package-lock.json'
+      path: $(NODE_MODULES)
+      cacheHitVar: CACHE_RESTORED
+    displayName: Cache node modules
+
+  - script: |
+      npm ci --prefer-offline --audit=false
+    displayName: Install node modules
+    condition: ne(variables.CACHE_RESTORED, 'true')

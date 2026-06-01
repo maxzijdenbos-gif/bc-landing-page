@@ -1,0 +1,44 @@
+@use 'styles/setup' as *;
+
+$slideInSpeed: $speed-slow;
+$topOffsetMobile: $spacing-xxl;
+
+.component {
+  @include context('secondary');
+
+  background-color: transparent;
+  inset: 0;
+  overflow: hidden;
+  position: fixed;
+  visibility: hidden;
+  z-index: $zIndex-navigation;
+
+  &[data-show='true'] {
+    visibility: visible;
+  }
+
+  .iconWrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3; // to account for elements inside the modal that will need z-index
+  }
+
+  .closeIcon {
+    color: $context-contrast;
+    cursor: pointer;
+    position: absolute;
+    right: $spacing-sm;
+    top: $spacing-sm;
+    z-index: 10;
+
+    @include breakpoint-up($breakpoint-laptop) {
+      right: $spacing-m;
+      top: $spacing-m;
+    }
+  }
+}
+
+:export {
+  slideInSpeed: $slideInSpeed;
+}

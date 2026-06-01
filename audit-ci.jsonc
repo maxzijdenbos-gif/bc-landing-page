@@ -1,0 +1,8 @@
+// See https://www.npmjs.com/package/audit-ci for more information on how to use this file.
+
+{
+  "$schema": "https://github.com/IBM/audit-ci/raw/main/docs/schema.json",
+  "low": true,
+  "show-not-found": true,
+  "allowlist": [],
+}

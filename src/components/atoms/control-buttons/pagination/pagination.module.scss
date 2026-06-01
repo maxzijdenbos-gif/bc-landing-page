@@ -1,0 +1,47 @@
+@use 'styles/setup' as *;
+
+.component {
+  @include background-blur-strong($context-tint);
+
+  border-radius: $borderRadius-round;
+  bottom: $spacing-l;
+  display: flex;
+  gap: rem(6);
+  left: 50%;
+  overflow: hidden;
+  padding: $spacing-sm;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 0;
+
+  @include breakpoint-down($breakpoint-smallLaptop) {
+    bottom: $spacing-sm;
+    gap: $spacing-xxs;
+    padding: $spacing-xs $spacing-s;
+  }
+
+  .button {
+    background-color: $context-contrast;
+    display: block;
+    height: $spacing-sm;
+    opacity: 0.55;
+    width: $spacing-xxs;
+
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      height: $spacing-xs;
+      width: rem(3);
+    }
+
+    &[aria-current='true'],
+    &:focus-visible {
+      background: $context-contrast;
+      opacity: 1;
+    }
+  }
+}
+
+[data-color='secondary'] {
+  .component {
+    @include background-blur-light($context-tint);
+  }
+}

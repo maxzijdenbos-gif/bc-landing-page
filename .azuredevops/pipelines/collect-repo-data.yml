@@ -1,0 +1,194 @@
+schedules:
+  - cron: '27 20 * * *'
+    displayName: Nightly schedule at 20:27h
+    always: true
+    branches:
+      include:
+        - main # Change to the default production branch if not 'main'!
+
+trigger:
+  branches:
+    include:
+      - main # Change to the default production branch if not 'main'!
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: FILENAME_NPM_AUDIT_PROD
+    value: npm-audit-prod.json
+  - name: FILENAME_NPM_AUDIT_ALL
+    value: npm-audit-all.json
+  - name: FILENAME_NPM_LIST
+    value: npm-list.json
+  - name: FILENAME_NPM_OUTDATED
+    value: npm-outdated.json
+  - name: FILENAME_COMBINED_RESULT
+    value: combined-result.json
+
+steps:
+  - checkout: self
+    persistCredentials: true
+
+  - script: |
+      NVM_NODE_VERSION=$(cat .nvmrc | tr -d '[:space:]')
+      echo "##vso[task.setvariable variable=NVM_NODE_VERSION]$NVM_NODE_VERSION"
+      echo "Found version $NVM_NODE_VERSION in .nvmrc"
+    displayName: Read Node version from .nvmrc
+
+  - task: UseNode@1
+    displayName: Install Node.js
+    inputs:
+      version: '$(NVM_NODE_VERSION)'
+
+  - script: |
+      NODE_VERSION=$(node -v)
+      echo "Node version: $NODE_VERSION"
+      echo "##vso[task.setvariable variable=NODE_VERSION]$NODE_VERSION"
+
+      REPO_URL="$(System.CollectionUri)$(System.TeamProject)/_git/$(Build.Repository.Name)"
+      echo "Repo url: $REPO_URL"
+      echo "##vso[task.setvariable variable=REPO_URL]$REPO_URL"
+
+      echo "Branch name: $(Build.SourceBranch)"
+      BRANCH_NAME=$(Build.SourceBranch)
+      BRANCH_NAME=${BRANCH_NAME#refs/heads/}
+      echo "##vso[task.setvariable variable=BRANCH_NAME]$BRANCH_NAME"
+
+      REPO_SIZE_KB=$(du -sk . | cut -f1)
+      echo "Repository size (KB): $REPO_SIZE_KB"
+      echo "##vso[task.setvariable variable=REPO_SIZE_KB]$REPO_SIZE_KB"
+
+      ############################################################
+      # Branch Statistics
+      ############################################################
+
+      git fetch --all --prune
+
+      # Total remote branches
+      TOTAL_BRANCHES=$(git for-each-ref refs/remotes --format='%(refname)' | wc -l)
+      echo "Total branches: $TOTAL_BRANCHES"
+      echo "##vso[task.setvariable variable=TOTAL_BRANCHES]$TOTAL_BRANCHES"
+
+      # Stale threshold
+      STALE_DAYS=90
+      CUTOFF_TS=$(date -d "-$STALE_DAYS days" +%s)
+
+      # Count stale branches by commit timestamp
+      STALE_BRANCHES=$(git for-each-ref refs/remotes --format='%(committerdate:unix)' \
+          | awk -v cutoff="$CUTOFF_TS" '$1 < cutoff' | wc -l)
+
+      echo "Stale branches (> ${STALE_DAYS} days): $STALE_BRANCHES"
+      echo "##vso[task.setvariable variable=STALE_BRANCHES]$STALE_BRANCHES"
+
+      # Active = total - stale
+      ACTIVE_BRANCHES=$((TOTAL_BRANCHES - STALE_BRANCHES))
+      echo "Active branches: $ACTIVE_BRANCHES"
+      echo "##vso[task.setvariable variable=ACTIVE_BRANCHES]$ACTIVE_BRANCHES"
+
+      ############################################################
+      # Commit Statistics
+      ############################################################
+
+      # Ensure full history is fetched
+      git fetch --unshallow || true
+
+      COMMITS_TOTAL=$(git rev-list --all --count)
+      echo "Total commits: $COMMITS_TOTAL"
+      echo "##vso[task.setvariable variable=COMMITS_TOTAL]$COMMITS_TOTAL"
+
+      COMMITS_LAST_WEEK=$(git rev-list --count --since="1 week ago" HEAD)
+      echo "Commits last week: $COMMITS_LAST_WEEK"
+      echo "##vso[task.setvariable variable=COMMITS_LAST_WEEK]$COMMITS_LAST_WEEK"
+
+      COMMITS_LAST_MONTH=$(git rev-list --count --since="1 month ago" HEAD)
+      echo "Commits last month: $COMMITS_LAST_MONTH"
+      echo "##vso[task.setvariable variable=COMMITS_LAST_MONTH]$COMMITS_LAST_MONTH"
+
+      COMMITS_LAST_YEAR=$(git rev-list --count --since="1 year ago" HEAD)
+      echo "Commits last year: $COMMITS_LAST_YEAR"
+      echo "##vso[task.setvariable variable=COMMITS_LAST_YEAR]$COMMITS_LAST_YEAR"
+
+      LAST_COMMIT=$(git log -1 --format=%cI HEAD)
+      echo "Last commit (committer ISO): $LAST_COMMIT"
+      echo "##vso[task.setvariable variable=LAST_COMMIT]$LAST_COMMIT"
+
+    displayName: Collect repository metrics
+
+  - task: Npm@1
+    displayName: Install packages
+    inputs:
+      command: 'custom'
+      customCommand: 'ci --audit=false'
+
+  - script: |
+      npm list --package-lock-only --json --depth 0 > $(FILENAME_NPM_LIST)
+    displayName: List top-level packages
+
+  - script: |
+      npm audit --audit-level=none --package-lock-only --json > $(FILENAME_NPM_AUDIT_ALL)
+    displayName: Audit packages
+
+  - script: |
+      npm audit --audit-level=none --package-lock-only --json --omit=dev > $(FILENAME_NPM_AUDIT_PROD)
+    displayName: Audit production packages
+
+  - script: |
+      npm outdated --long --json > $(FILENAME_NPM_OUTDATED) || true
+    displayName: Outdated packages
+
+  - script: |
+      echo "Merged results:"
+
+      node -e "
+        const fs = require('fs');
+        const auditProd = JSON.parse(fs.readFileSync('./${FILENAME_NPM_AUDIT_PROD}', 'utf-8'));
+        const auditAll = JSON.parse(fs.readFileSync('./${FILENAME_NPM_AUDIT_ALL}', 'utf-8'));
+        const npmList = JSON.parse(fs.readFileSync('./${FILENAME_NPM_LIST}', 'utf-8'));
+        const outdated = JSON.parse(fs.readFileSync('./${FILENAME_NPM_OUTDATED}', 'utf-8'));
+
+        const json = {
+          "metadata": {
+            "pipelineVersion": '0.7.0',
+            "name": '$(Build.Repository.Name)',
+            "url": encodeURI('$(REPO_URL)'),
+            "branch": '$(BRANCH_NAME)',
+            "nodeVersion": '$(NODE_VERSION)',
+            "repoSizeKB": $(REPO_SIZE_KB),
+            "commits": {
+              "total": $(COMMITS_TOTAL),
+              "lastWeek": $(COMMITS_LAST_WEEK),
+              "lastMonth": $(COMMITS_LAST_MONTH),
+              "lastYear": $(COMMITS_LAST_YEAR),
+              "lastCommit": '$(LAST_COMMIT)'
+            },
+            "branches": {
+              "total": $(TOTAL_BRANCHES),
+              "active": $(ACTIVE_BRANCHES),
+              "stale": $(STALE_BRANCHES)
+            }
+          },
+          "audit": {
+            "total": auditAll,
+            "production": auditProd
+          },
+          "packages": npmList,
+          "outdated": outdated
+        };
+
+        console.log(JSON.stringify(json, null, 2));
+
+        fs.writeFileSync('$(FILENAME_COMBINED_RESULT)', JSON.stringify(json));
+      "
+    displayName: Merge results
+
+  - script: |
+      echo "Response body:"
+      curl -s -X POST \
+        -H "Content-Type: application/json" \
+        -H "X-API-Key: $(API_KEY)" \
+        -H "Authorization: Bearer $(API_AUTH_TOKEN)" \
+        -d @$(FILENAME_COMBINED_RESULT) \
+        -w "\nHTTP status: %{http_code}\n" \
+        https://webdashboard.triple-it.nl/api/repository
+    displayName: Send results to webhook

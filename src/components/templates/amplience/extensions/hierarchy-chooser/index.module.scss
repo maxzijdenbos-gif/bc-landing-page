@@ -1,0 +1,39 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+  flex-flow: row wrap;
+  gap: rem(10);
+  padding-block: $spacing-s;
+}
+
+.loader {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  width: rem(100);
+}
+
+.localeChooser {
+  appearance: auto;
+  border: rem(2) solid $context-contrast;
+  display: flex;
+}
+
+.buttonWrapper,
+.publishedStatus {
+  align-items: center;
+  display: flex;
+}
+
+.buttonWrapper {
+  flex-direction: column;
+}
+
+.publishedStatus {
+  color: $context-alert;
+  pointer-events: none;
+  transform: translateY(-$spacing-sm);
+}

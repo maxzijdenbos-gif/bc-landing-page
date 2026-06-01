@@ -1,0 +1,4 @@
+steps:
+  - script: |
+      npx lockfile-lint --path package-lock.json --allowed-hosts registry.npmjs.org
+    displayName: Lint package-lock file

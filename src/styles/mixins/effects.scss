@@ -1,0 +1,12 @@
+@use 'styles/variables/general' as *;
+@use 'styles/functions/effects' as *;
+
+@mixin background-blur-strong($color) {
+  backdrop-filter: blur($blur-strong);
+  background-color: transparent-color-strong($color);
+}
+
+@mixin background-blur-light($color) {
+  backdrop-filter: blur($blur-light);
+  background-color: transparent-color-light($color);
+}

@@ -1,0 +1,70 @@
+@use 'sass:map';
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+
+  @each $key, $value in $gridGutters {
+    @include breakpoint-up(map.get($breakpoints, $key)) {
+      padding-block: rem($value);
+    }
+  }
+
+  .row {
+    @each $key, $value in $gridGutters {
+      @include breakpoint-up(map.get($breakpoints, $key)) {
+        row-gap: rem($value);
+      }
+    }
+  }
+
+  .spacing {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xxs;
+    width: 100%;
+  }
+
+  .indicator {
+    background-color: currentcolor;
+    display: flex;
+    width: 100%;
+
+    &[data-title='XXS'] {
+      height: $spacing-xxs;
+    }
+
+    &[data-title='XS'] {
+      height: $spacing-xs;
+    }
+
+    &[data-title='S'] {
+      height: $spacing-s;
+    }
+
+    &[data-title='SM'] {
+      height: $spacing-sm;
+    }
+
+    &[data-title='M'] {
+      height: $spacing-m;
+    }
+
+    &[data-title='ML'] {
+      height: $spacing-ml;
+    }
+
+    &[data-title='L'] {
+      height: $spacing-l;
+    }
+
+    &[data-title='XL'] {
+      height: $spacing-xl;
+    }
+
+    &[data-title='XXL'] {
+      height: $spacing-xxl;
+    }
+  }
+}

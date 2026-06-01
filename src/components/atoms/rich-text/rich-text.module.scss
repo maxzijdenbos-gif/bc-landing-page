@@ -1,0 +1,175 @@
+@use 'styles/setup' as *;
+
+/* stylelint-disable no-descending-specificity, selector-disallowed-list */
+
+.component {
+  @include typography-bodyMedium();
+
+  > *:first-child {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  > *:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  // List styles
+  ol,
+  ul {
+    list-style: none;
+    margin-bottom: $spacing-sm;
+    margin-left: 0;
+  }
+
+  ol ol,
+  ul ul {
+    margin-top: $spacing-sm;
+  }
+
+  @include breakpoint-up($breakpoint-laptop) {
+    ol,
+    ul {
+      margin-bottom: $spacing-m;
+    }
+
+    ol ol,
+    ul ul {
+      margin-top: $spacing-sm;
+    }
+  }
+
+  li {
+    counter-increment: custom;
+    margin-bottom: $spacing-sm;
+    padding-left: $spacing-m;
+    position: relative;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      margin-bottom: $spacing-m;
+    }
+  }
+
+  ol li {
+    list-style: decimal;
+    padding-left: $spacing-xs;
+  }
+
+  ul li {
+    list-style: disc;
+    padding-left: $spacing-xs;
+  }
+
+  li::before {
+    left: -$spacing-sm;
+    position: absolute;
+  }
+
+  div {
+    // Markdown to JSX plugin renders a div wrapper
+
+    ul > li {
+      list-style: none;
+      margin-left: -$spacing-xs;
+      padding-left: $spacing-sm;
+    }
+
+    ul > li::before {
+      content: '•';
+      font-weight: $fontWeight-bold;
+      max-width: $spacing-m;
+      min-width: $spacing-m;
+      text-align: center;
+    }
+
+    > ul,
+    > ol {
+      margin-bottom: $spacing-ml;
+
+      @include breakpoint-up($breakpoint-laptop) {
+        margin-bottom: $spacing-l;
+      }
+    }
+
+    > ol > li {
+      list-style: none;
+      margin-left: $spacing-sm;
+      padding-left: $spacing-sm;
+    }
+
+    > ol > li::before {
+      content: counter(custom);
+      font-weight: $fontWeight-bold;
+      max-width: $spacing-ml;
+      min-width: $spacing-ml;
+    }
+
+    > ol > li:nth-child(-n + 9)::before {
+      content: '0' counter(custom);
+    }
+  }
+
+  // Headings
+  h2 {
+    @include typography-displaySmall() {
+      padding-bottom: $spacing-m;
+    }
+  }
+
+  h3 {
+    @include typography-headlineLarge() {
+      font-weight: $fontWeight-bold;
+      padding-bottom: $spacing-xs;
+    }
+  }
+
+  h4,
+  h5,
+  h6 {
+    @include typography-bodyMedium() {
+      font-weight: $fontWeight-bold;
+    }
+  }
+
+  p b,
+  p strong {
+    font-weight: $fontWeight-semiBold;
+  }
+
+  a {
+    // as the @include textLinkUnderline() approach will not work with multiple lines of inline text another approach is needed here
+    background: linear-gradient(to left, $context-accent, $context-accent);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    background-size: 0 rem(2);
+    color: $context-accent;
+    font-weight: $fontWeight-semiBold;
+
+    // for placing the background image underline below the text
+    margin-bottom: rem(-2);
+
+    // for placing the background image underline below the text
+    padding-bottom: rem(2);
+    transition: background-size $speed-medium $easing-base;
+  }
+
+  a:hover,
+  a:focus-visible {
+    background-position: 0 100%;
+    background-size: 100% rem(2);
+  }
+
+  h1,
+  p {
+    margin-bottom: $spacing-sm;
+
+    @include breakpoint-up($breakpoint-laptop) {
+      margin-bottom: $spacing-m;
+    }
+  }
+}

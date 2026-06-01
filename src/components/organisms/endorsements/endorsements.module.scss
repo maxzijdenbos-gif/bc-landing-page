@@ -1,0 +1,120 @@
+@use 'styles/setup' as *;
+
+.component {
+  --slider-bottom-padding: #{$spacing-xl};
+
+  padding-bottom: var(--slider-bottom-padding);
+  position: relative;
+
+  @include breakpoint-up($breakpoint-smallLaptop) {
+    --slider-bottom-padding: #{$spacing-xxl};
+  }
+
+  // Only here: reserve space so pagination doesn't overlap the slider
+  .sliderNavigation {
+    padding-bottom: var(--slider-bottom-padding);
+  }
+
+  .slider {
+    overflow: hidden;
+    padding: $spacing-xs;
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .container {
+    align-items: center;
+    display: flex;
+    user-select: none;
+  }
+
+  .slide {
+    flex: 0 0 100%;
+    justify-items: center;
+    padding: 0 $spacing-m;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: 0;
+    }
+  }
+
+  .endorsement {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-bottom: rem(4);
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      max-width: rem(calc(($breakpoint-tablet / 12) * 8));
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      --slider-bottom-padding: #{$spacing-xl};
+
+      max-width: rem(calc(($breakpoint-smallLaptop / 12) * 8));
+    }
+
+    @include breakpoint-up($breakpoint-laptop) {
+      max-width: rem(calc(($breakpoint-laptop / 12) * 8));
+    }
+
+    @include breakpoint-up($breakpoint-desktop) {
+      max-width: rem(calc(($breakpoint-desktop / 12) * 8));
+    }
+  }
+
+  .imageObjectWrapper {
+    display: flex;
+    margin: $spacing-m;
+    max-height: rem(100);
+    width: 100%;
+  }
+
+  .imageObject {
+    object-fit: contain;
+  }
+
+  .tagline {
+    margin: $spacing-m 0;
+  }
+
+  .quote {
+    margin-bottom: $spacing-ml;
+    text-align: center;
+  }
+
+  .bylineAndLink {
+    display: flex;
+    gap: $spacing-m;
+    justify-content: center;
+    padding: rem(4);
+
+    @include breakpoint-down($breakpoint-tablet) {
+      flex-direction: column;
+      gap: $spacing-xs;
+      text-align: center;
+    }
+  }
+
+  .byline {
+    color: $context-contrastVariant;
+  }
+
+  .button {
+    display: flex;
+    line-height: 160%; /* Fix for font lineheight */
+
+    @include breakpoint-down($breakpoint-tablet) {
+      justify-content: center;
+    }
+  }
+}

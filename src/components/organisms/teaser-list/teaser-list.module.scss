@@ -1,0 +1,111 @@
+@use 'styles/setup' as *;
+
+$expactedMaxGrowth: rem(32);
+
+.component {
+  .headContainer {
+    padding-bottom: $spacing-l;
+    row-gap: $spacing-m;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding-bottom: $spacing-xl;
+    }
+  }
+
+  .headlineColumn {
+    align-items: flex-end;
+    display: flex;
+  }
+
+  .buttonColumn {
+    align-self: flex-end;
+    display: grid;
+    gap: $spacing-l;
+    height: fit-content;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      justify-content: flex-end;
+    }
+  }
+
+  .buttonContainer {
+    width: fit-content;
+
+    @include breakpoint-between($breakpoint-tablet, $breakpoint-smallLaptop) {
+      padding-left: $spacing-m;
+    }
+  }
+
+  .arrows {
+    display: flex;
+    gap: $spacing-sm;
+    grid-column: 2;
+    justify-self: flex-end;
+  }
+
+  .slider {
+    margin: 0;
+    margin: -$expactedMaxGrowth 0; // to compensate for the padding
+    overflow: hidden;
+    padding: $expactedMaxGrowth 0; // to compensate for the overflow being hidden and still support content growing
+
+    &:focus-visible {
+      outline: rem(2) solid var(--context-focusOutline-color);
+      outline-offset: rem(2);
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .container {
+    display: flex;
+  }
+
+  .teaserElementInSlider {
+    max-width: 80vw;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      max-width: 45vw;
+    }
+  }
+
+  .teaserElementInStack {
+    &.wrapping {
+      padding-bottom: $spacing-xxs;
+
+      @include breakpoint-up($breakpoint-smallLaptop) {
+        padding-bottom: $spacing-l;
+      }
+    }
+  }
+}
+
+// Start hover styling
+$clipPathOffset: calc(2.5%);
+
+.component .cardTransition {
+  box-sizing: border-box;
+  clip-path: inset(0 0 0 0);
+
+  // Should help with the lack of performance in firefox
+  transform: translateZ(1px);
+  transition:
+    scale $speed-slow $easing-base,
+    clip-path $speed-slow $easing-base;
+}
+
+.component .hovered {
+  scale: 1.05;
+}
+
+.component .prevSibling.prevSibling {
+  clip-path: inset(0 0 0 $clipPathOffset);
+}
+
+.component .nextSibling.nextSibling {
+  clip-path: inset(0 $clipPathOffset 0 0);
+}
+
+// End hover styling

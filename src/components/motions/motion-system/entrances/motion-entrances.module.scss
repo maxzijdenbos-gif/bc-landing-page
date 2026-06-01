@@ -1,0 +1,72 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: block;
+  padding-top: $spacing-m;
+  width: 80vw;
+
+  .headline {
+    margin-bottom: $spacing-sm;
+  }
+
+  .borderBottom {
+    border-bottom: rem(2) solid $context-contrast;
+    padding-bottom: $spacing-xxs;
+  }
+
+  .motionContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: $spacing-xs;
+  }
+
+  .placeholderBox {
+    background-color: $context-contrast;
+    height: rem(200);
+    opacity: 1;
+    overflow: hidden;
+    width: auto;
+  }
+
+  .innerPlaceholderBox {
+    background-color: $context-accent;
+    height: rem(100);
+    margin: $spacing-xs;
+    opacity: 1;
+    width: fit-content;
+  }
+
+  .motionDuration {
+    position: relative;
+  }
+
+  .refreshMotion {
+    cursor: pointer;
+    transform: rotate(0deg);
+
+    &:hover {
+      transform: rotate(360deg);
+      transition: transform $speed-fast ease-out;
+    }
+  }
+
+  .motionInfoStart {
+    text-align: left;
+  }
+
+  .motionInfoMiddle {
+    text-align: center;
+  }
+
+  .motionInfoEnd {
+    text-align: right;
+  }
+
+  .durationBlock {
+    background-color: $context-contrast;
+    height: rem(20);
+  }
+}
+
+@include context-wrapper();

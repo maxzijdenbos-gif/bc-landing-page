@@ -1,0 +1,17 @@
+@use 'styles/setup' as *;
+
+.component {
+  background-color: $context-tintVariant;
+  color: $context-tintContrast;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+  justify-content: center;
+  padding: $spacing-m;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    align-items: center;
+    padding: $spacing-xl;
+    text-align: center;
+  }
+}

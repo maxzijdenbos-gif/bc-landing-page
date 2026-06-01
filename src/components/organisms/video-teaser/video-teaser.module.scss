@@ -1,0 +1,133 @@
+@use 'styles/setup' as *;
+
+.component {
+  background: $context-color;
+  overflow: initial;
+
+  .quoteElement {
+    align-items: center;
+    color: $context-contrast;
+    display: flex;
+    height: 100vh;
+    opacity: 1;
+    padding: 0 $spacing-s;
+    position: relative;
+    z-index: 1;
+
+    @include context('secondary');
+
+    &:first-child {
+      margin-top: -40vh;
+    }
+  }
+
+  .quoteRow {
+    flex-grow: 1;
+  }
+
+  .sticky .video,
+  .animateContainer {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .sticky {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    width: 100%;
+
+    .animateContainer {
+      user-select: none;
+      z-index: 1;
+
+      @include context('secondary');
+    }
+
+    .video {
+      object-fit: cover;
+      z-index: 0;
+    }
+  }
+
+  .author {
+    align-items: center;
+    display: flex;
+    margin-top: $spacing-m;
+  }
+
+  .avatar {
+    border-radius: $borderRadius-round;
+    height: rem(64);
+    margin-right: $spacing-m;
+    object-fit: cover;
+    transition: none;
+    width: rem(64);
+
+    &.hideAvatar {
+      margin-right: 0;
+      transition:
+        $speed-fast width ease,
+        $speed-fast margin ease;
+    }
+  }
+
+  .overlay {
+    @include darkBackground-medium();
+
+    display: block;
+    height: 100%;
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .videoButtonsWrapper {
+    bottom: 0;
+    display: flex;
+    height: rem(40) + $spacing-m + rem(20); // button height + position from bottom + wiggleroom
+    position: sticky;
+    width: 100%;
+    z-index: 2;
+
+    @include context('secondary');
+
+    .toggleVideoInner {
+      @include darkBackground-strong();
+    }
+
+    .toggleVideo {
+      bottom: $spacing-m;
+      left: $spacing-m;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .videoButton {
+      bottom: $spacing-m;
+      max-width: 60%;
+      position: absolute;
+      right: $spacing-m;
+      z-index: 1;
+    }
+
+    .videoButtonInner {
+      @include darkBackground-strong();
+
+      justify-items: space-between;
+      min-height: rem(40);
+      padding: $spacing-xs $spacing-s;
+      z-index: 1;
+
+      @include breakpoint-up($breakpoint-tablet) {
+        min-height: rem(48);
+        padding: $spacing-s $spacing-s;
+      }
+    }
+  }
+}

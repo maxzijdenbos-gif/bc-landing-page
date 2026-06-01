@@ -1,0 +1,266 @@
+@use 'styles/setup' as *;
+@use 'styles/variables/palette' as *;
+
+$transition-filled: $speed-medium $easing-easeOut;
+
+.component {
+  color: $palette-black;
+  position: relative;
+  width: 100%;
+
+  &[data-expanded] {
+    @include context('primary');
+
+    z-index: $zIndex-navigation;
+
+    @include breakpoint-down($breakpoint-tablet) {
+      background: $palette-white;
+      display: flex;
+      flex-direction: column;
+      inset: 0;
+      position: fixed;
+
+      .header {
+        background: $palette-white;
+        padding: $spacing-s;
+      }
+    }
+
+    &::before {
+      background: rgb(0, 0, 0, 50%);
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: fixed;
+      transition: opacity $speed-medium $easing-base;
+      z-index: -1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+
+  .header {
+    align-items: center;
+    display: flex;
+    gap: $spacing-xs;
+    justify-content: flex-end;
+    width: 100%;
+  }
+
+  .expandSurface {
+    align-self: flex-end;
+    border-radius: $borderRadius-round;
+    margin-left: auto;
+    max-width: rem(80);
+    min-width: 0;
+    transition: max-width $transition-filled;
+    width: 100%;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition-duration: 0.01s;
+    }
+
+    &.expandSurfaceWide {
+      max-width: 100%;
+    }
+  }
+
+  .toggleSolidButton {
+    transition:
+      background-color $speed-medium $easing-base,
+      color $speed-medium $easing-base;
+
+    &:hover {
+      background-color: $palette-grey10;
+    }
+  }
+
+  @include breakpoint-up($breakpoint-tablet) {
+    .toggleWrapMobile {
+      display: none;
+    }
+  }
+
+  @include breakpoint-down($breakpoint-tablet) {
+    .toggleWrapDesktop {
+      display: none;
+    }
+  }
+
+  .leadingWrap {
+    align-items: center;
+    display: flex;
+    left: $spacing-sm;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transform-origin: left top;
+    z-index: 1;
+
+    @include breakpoint-down($breakpoint-tablet) {
+      display: none;
+    }
+  }
+
+  .trailing {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    gap: 0;
+    justify-content: flex-end;
+    max-width: 0;
+    min-width: 0;
+    opacity: 0;
+    transform: translateX(rem(32)) scale(0.55);
+    transform-origin: right center;
+  }
+
+  .input {
+    @include typography-bodyLarge();
+
+    appearance: none;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    color: inherit;
+    flex: 1 1 auto;
+    margin: 0;
+    max-width: 100%;
+    min-width: 0;
+    outline: none;
+    padding: $spacing-s 0 $spacing-s rem(44);
+
+    @include breakpoint-down($breakpoint-tablet) {
+      padding-left: rem(20);
+    }
+
+    &::placeholder {
+      color: $context-contrastVariant;
+    }
+
+    /* stylelint-disable-next-line selector-no-qualifying-type */
+    &[type='search']::-webkit-search-decoration,
+    &[type='search']::-webkit-search-cancel-button,
+    &[type='search']::-webkit-search-results-button,
+    &[type='search']::-webkit-search-results-decoration {
+      appearance: none;
+    }
+  }
+
+  .form {
+    align-items: center;
+    background-color: $palette-grey05;
+    border-radius: $borderRadius-round;
+    box-sizing: border-box;
+    color: $context-contrast;
+    display: flex;
+    flex: 1 1 auto;
+    margin-left: auto;
+    min-height: rem(34);
+    outline: none;
+    padding: 0 $spacing-s 0 0;
+    position: relative;
+    transition:
+      background-color $speed-medium $easing-base,
+      box-shadow $speed-medium $easing-base,
+      color $speed-medium $easing-base,
+      width $transition-filled;
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      width: rem(336);
+    }
+
+    &.typedTransitions .leadingWrap {
+      transition:
+        opacity $transition-filled,
+        transform $transition-filled;
+    }
+
+    &[data-has-value] .leadingWrap {
+      opacity: 0;
+      transform: translate(-50%) scale(0);
+    }
+
+    &.typedTransitions .trailing {
+      transition:
+        gap $transition-filled,
+        max-width $transition-filled,
+        opacity $transition-filled,
+        transform $transition-filled;
+    }
+
+    &[data-has-value] .trailing {
+      gap: $spacing-xs;
+      max-width: rem(120);
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    &.typedTransitions .input {
+      transition: padding $transition-filled;
+    }
+
+    &[data-has-value] .input {
+      padding-left: rem(20);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .form.typedTransitions .leadingWrap,
+    .form.typedTransitions .trailing {
+      transition-duration: 0.01s;
+    }
+  }
+
+  .leadingIcon {
+    color: inherit;
+  }
+
+  .field {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    gap: $spacing-xxs;
+    min-width: 0;
+  }
+
+  .trailing .trailingBtnWrap {
+    flex-shrink: 0;
+  }
+
+  .trailing .trailingBtn {
+    backdrop-filter: none;
+    background-color: transparent;
+    border-radius: $borderRadius-round;
+    color: inherit;
+    transition:
+      background-color $speed-medium $easing-base,
+      color $speed-medium $easing-base;
+
+    &:hover,
+    &:focus-visible {
+      background-color: $palette-grey10;
+      color: $context-contrast;
+    }
+  }
+
+  .trailing .trailingBtnClear {
+    color: $context-contrastVariant;
+
+    &:hover,
+    &:focus-visible {
+      color: $context-contrast;
+    }
+  }
+
+  .divider {
+    align-self: stretch;
+    background-color: $context-tint;
+    flex-shrink: 0;
+    width: 1px;
+  }
+}

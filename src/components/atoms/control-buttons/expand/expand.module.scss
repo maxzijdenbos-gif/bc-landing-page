@@ -1,0 +1,41 @@
+@use 'styles/setup' as *;
+
+$offset: rem(14);
+
+.component {
+  @include background-blur-strong($context-tint);
+
+  border-radius: $borderRadius-round;
+  height: rem(64);
+  position: relative;
+  width: rem(64);
+
+  &:focus-visible::after {
+    border-radius: inherit; // Inherit rounded shape for focus ring
+  }
+
+  .arrow {
+    left: 50%;
+    min-height: rem(14);
+    min-width: rem(18);
+    position: absolute;
+    top: 50%;
+    transform-origin: top left;
+
+    &:nth-child(1) {
+      transform: rotate(0deg) translate(calc(-50% - $offset), -50%);
+    }
+
+    &:nth-child(2) {
+      transform: rotate(90deg) translate(calc(-50% - $offset), -50%);
+    }
+
+    &:nth-child(3) {
+      transform: rotate(180deg) translate(calc(-50% - $offset), -50%);
+    }
+
+    &:nth-child(4) {
+      transform: rotate(270deg) translate(calc(-50% - $offset), -50%);
+    }
+  }
+}

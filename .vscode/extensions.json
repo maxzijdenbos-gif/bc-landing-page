@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "clinyong.vscode-css-modules",
+    "dbaeumer.vscode-eslint",
+    "deque-systems.vscode-axe-linter",
+    "esbenp.prettier-vscode",
+    "mikestead.dotenv",
+    "vitest.explorer",
+    "streetsidesoftware.code-spell-checker",
+    "stylelint.vscode-stylelint"
+  ]
+}

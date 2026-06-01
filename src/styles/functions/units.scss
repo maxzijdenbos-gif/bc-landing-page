@@ -1,0 +1,13 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/variables/breakpoints' as *;
+
+@function rem($target) {
+  @return math.div($target, $scale) * 1rem;
+}
+
+@function vw($target, $breakpoint: 'mobile') {
+  $vw-context: (map.get($breakpoints, $breakpoint) * 0.01);
+
+  @return math.div($target, $vw-context) * 1vw;
+}

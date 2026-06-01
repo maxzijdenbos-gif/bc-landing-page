@@ -1,0 +1,156 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'styles/setup' as *;
+
+.component {
+  padding: $spacing-xl 0;
+
+  .videoButton {
+    @include context('secondary');
+    @include darkBackground-strong();
+
+    border: none;
+    bottom: $spacing-sm;
+    left: $spacing-sm;
+    position: absolute;
+    z-index: 10;
+  }
+
+  .contentContainer {
+    @include breakpoint-down($breakpoint-smallLaptop) {
+      padding-bottom: $spacing-l;
+    }
+  }
+
+  .statsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: $spacing-ml 0;
+    row-gap: $spacing-ml;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding: $spacing-l 0;
+    }
+  }
+
+  .outerRow {
+    padding-top: $spacing-ml;
+    position: relative;
+    z-index: 10;
+  }
+
+  .singleStatContainer {
+    box-sizing: border-box;
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    max-width: 50%;
+    padding-right: $spacing-sm;
+    row-gap: $spacing-sm;
+  }
+
+  .statDt,
+  .statDd {
+    margin: 0;
+  }
+
+  .statTitle,
+  .legalText {
+    color: $context-contrastVariant;
+  }
+
+  .statTitleLink {
+    color: $context-contrastVariant;
+    cursor: pointer;
+    outline: none;
+
+    .statTitle {
+      display: block;
+      outline: none;
+    }
+  }
+
+  .statTitle sup .statTitleLink {
+    display: inline;
+  }
+
+  .legalTextNote {
+    margin-bottom: $spacing-sm;
+    margin-left: rem(-6);
+    outline: none;
+    padding-left: rem(6);
+    position: relative;
+    z-index: 5;
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      margin-bottom: $spacing-m;
+    }
+  }
+
+  .legalText {
+    white-space: pre-line;
+  }
+
+  .media {
+    aspect-ratio: 1;
+  }
+
+  .mainMediaContainer {
+    bottom: 0;
+    height: calc(100% - #{$spacing-m});
+    position: absolute;
+    width: calc(100% - #{$spacing-m});
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: calc(100% - #{$spacing-l});
+      left: 0;
+      width: calc(100% - #{$spacing-l});
+    }
+  }
+
+  .mainMediaMotionSlide {
+    height: 100%;
+  }
+
+  .backgroundImageContainer {
+    /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
+    @extend .mainMediaContainer;
+
+    transform: translate3d(#{$spacing-m}, -#{$spacing-m}, 0);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      top: 0;
+      transform: translate3d(#{$spacing-l}, -#{$spacing-ml}, 0);
+    }
+
+    @include breakpoint-down($breakpoint-tablet) {
+      top: 0;
+      transform: translate3d(#{$spacing-ml}, -#{$spacing-ml}, 0);
+    }
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .videoContainer {
+    height: 100%;
+
+    .videoButton {
+      @include context('secondary');
+      @include darkBackground-strong();
+
+      border: none;
+      bottom: $spacing-sm;
+      left: $spacing-sm;
+      position: absolute;
+      z-index: 10;
+    }
+  }
+
+  .video {
+    height: 100%;
+    object-fit: cover;
+  }
+}

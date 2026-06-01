@@ -1,0 +1,164 @@
+@use 'styles/setup' as *;
+
+$svgAnimationDuration: 1.5s;
+
+.moduleWrapper.moduleWrapper {
+  // for specificity to overwrite ModuleWrapper padding
+  padding: 0;
+  width: 100%;
+}
+
+.component {
+  @include context('secondary');
+
+  color: $context-contrast;
+  display: flex;
+  height: 100%;
+  margin-top: -$height-mainNavigationMobile;
+  min-height: 100svh;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  @include breakpoint-up($breakpoint-tablet) {
+    margin-top: -$height-mainNavigationDesktop;
+  }
+
+  .parallax {
+    height: 100%;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    padding: 0 $spacing-sm $spacing-ml;
+    position: relative;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding: 0 $spacing-sm $spacing-ml;
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding: 0 $spacing-m $spacing-l;
+    }
+  }
+
+  .headlineMotion {
+    padding-top: calc($spacing-xxl + $height-mainNavigationMobile);
+    width: 100%;
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-top: calc($spacing-xxl + $height-mainNavigationDesktop);
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding-top: calc($spacing-xxl + $height-mainNavigationDesktop);
+    }
+
+    @include mobile-landscape-only() {
+      padding-top: calc($spacing-l + $height-mainNavigationDesktop);
+    }
+
+    @media screen and (min-height: 320px) and (max-height: 320px) {
+      padding-top: calc($spacing-m + $height-mainNavigationDesktop);
+    }
+  }
+
+  .title {
+    overflow-wrap: break-word;
+    padding-top: calc($spacing-xxl + $height-mainNavigationMobile);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      padding-top: calc($spacing-xxl + $height-mainNavigationDesktop);
+    }
+
+    @include breakpoint-up($breakpoint-smallLaptop) {
+      padding-top: calc($spacing-xxl + $height-mainNavigationDesktop);
+    }
+  }
+
+  .background {
+    inset: 0;
+    position: absolute;
+  }
+
+  .image {
+    object-fit: cover;
+  }
+
+  .video {
+    height: 100%;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
+
+  .backgroundOverlay {
+    @include darkBackground-medium();
+
+    inset: 0;
+    position: absolute;
+  }
+
+  .svgAnimationContainer {
+    height: rem(32);
+    overflow: hidden;
+    position: relative;
+    width: rem(32);
+  }
+
+  .svgAnimation {
+    animation: scrollAnimation;
+    animation-duration: $svgAnimationDuration;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .svg {
+    padding-bottom: $spacing-xs;
+  }
+
+  .scrollContainer {
+    position: relative;
+    width: 100%;
+
+    .videoButton {
+      bottom: 0;
+      position: absolute;
+      right: 0;
+
+      .videoButtonInner {
+        min-height: rem(48);
+        min-width: rem(48);
+
+        @include context('secondary');
+        @include darkBackground-strong();
+      }
+    }
+  }
+
+  .textTeaser {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@keyframes scrollAnimation {
+  0% {
+    transform: translate3d(0, -50%, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}

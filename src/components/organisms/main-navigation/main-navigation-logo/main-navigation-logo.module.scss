@@ -1,0 +1,18 @@
+@use 'styles/setup' as *;
+
+.component {
+  display: flex;
+
+  [fill='black'] {
+    fill: $context-contrast;
+    transition: fill $speed-medium $easing-base;
+  }
+
+  .logo {
+    height: rem(24);
+
+    @include breakpoint-up($breakpoint-tablet) {
+      height: rem(28);
+    }
+  }
+}
