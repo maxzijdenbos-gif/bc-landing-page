@@ -1,10 +1,15 @@
 import path from 'path';
 import type { NextConfig } from 'next';
 
+const isGithubPages = process.env.GITHUB_PAGES === 'true';
+
 const config: NextConfig = {
-  basePath: process.env.NEXT_PUBLIC_AMPLIENCE_BASE_PATH
-    ? `/${process.env.NEXT_PUBLIC_AMPLIENCE_BASE_PATH}`
-    : '',
+  basePath: isGithubPages
+    ? '/bc-landing-page'
+    : process.env.NEXT_PUBLIC_AMPLIENCE_BASE_PATH
+      ? `/${process.env.NEXT_PUBLIC_AMPLIENCE_BASE_PATH}`
+      : '',
+  trailingSlash: isGithubPages,
   devIndicators: false,
   async headers() {
     return [
@@ -39,6 +44,7 @@ const config: NextConfig = {
     ];
   },
   images: {
+    unoptimized: isGithubPages,
     qualities: [80],
     remotePatterns: [
       { hostname: 'localhost' },
@@ -57,7 +63,7 @@ const config: NextConfig = {
       { hostname: 'embed-ssl.wistia.com', protocol: 'https' },
     ],
   },
-  output: 'standalone',
+  output: isGithubPages ? 'export' : 'standalone',
   reactStrictMode: true,
   webpack(config) {
     config.resolve.alias = {

@@ -1,0 +1,64 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+
+      - name: Install dependencies
+        run: pnpm install --ignore-scripts
+
+      - name: Remove server-side pages
+        run: |
+          rm -rf src/pages/\[locale\]
+          rm -rf src/pages/amplience
+          rm -rf src/pages/api
+          rm -rf src/pages/debug
+          rm -f src/pages/sitemap.xml.ts
+          cat > src/pages/index.tsx << 'EOF'
+          import { useEffect } from 'react';
+          import { useRouter } from 'next/router';
+          export default function Index() {
+            const router = useRouter();
+            useEffect(() => { router.replace('/landing'); }, [router]);
+            return null;
+          }
+          EOF
+
+      - name: Build
+        env:
+          GITHUB_PAGES: 'true'
+          NEXT_PUBLIC_THEME_NAME: giant
+        run: pnpm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+      - uses: actions/deploy-pages@v4
+        id: deployment
