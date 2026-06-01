@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Image as ImageConstructor, ImageUrlBuilder } from 'dc-delivery-sdk-js';
 import NextImage, { ImageProps as NextImageProps } from 'next/image';
+import { useRouter } from 'next/router';
 import { forwardRef, Ref, useState } from 'react';
 import { ModuleWrapperProps } from 'components/utilities/content-modules/module-wrapper/module-wrapper';
 import { AmplienceImagePayload } from 'integrations/content/amplience/types/content-types';
@@ -48,6 +49,7 @@ const Image = forwardRef(
     }: ImageProps,
     ref: Ref<HTMLImageElement | null> | undefined,
   ) => {
+    const { basePath } = useRouter();
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
     const handleLoadingComplete = () => {
@@ -99,10 +101,16 @@ const Image = forwardRef(
     // Ensure proper sizes attribute for Safari
     const imageSizes =
       rest.sizes || (fill ? '(min-width: 1024px) 800px, 100vw' : undefined);
-    const finalSrc =
+    const withBasePath = (path: string) =>
+      path.startsWith('/') && !path.startsWith('//')
+        ? `${basePath}${path}`
+        : path;
+
+    const finalSrc = withBasePath(
       isError || !srcString
         ? fixSafariImage(fallbackSrc || srcString || '')
-        : srcString;
+        : srcString,
+    );
 
     return (
       <NextImage
