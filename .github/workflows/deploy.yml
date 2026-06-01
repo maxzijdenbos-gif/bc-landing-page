@@ -30,8 +30,14 @@ jobs:
         with:
           version: 9
 
+      - name: Override .npmrc for CI
+        run: |
+          cat > .npmrc << 'EOF'
+          fund=false
+          EOF
+
       - name: Install dependencies
-        run: pnpm install --config.min-release-age=0 --config.engine-strict=false
+        run: pnpm install
 
       - name: Remove server-side pages
         run: |
