@@ -26,15 +26,11 @@ jobs:
         with:
           node-version: '22.x'
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 11
+      - name: Install pnpm
+        run: npm install -g pnpm@11
 
       - name: Override .npmrc for CI
-        run: |
-          cat > .npmrc << 'EOF'
-          fund=false
-          EOF
+        run: echo "fund=false" > .npmrc
 
       - name: Install dependencies
         run: pnpm install
